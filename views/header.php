@@ -18,6 +18,7 @@
                     <label>Password</label><input type="password" name="password"/>
                     <label></label><input type="submit" />
                 </form>
+                <a href="<?php echo URL; ?>forget">Forget PassWord</a>
             <?php endif; ?>
         </div>
         <div id="content">
