@@ -40,9 +40,4 @@ class Index_Model extends Model {
         header('location: '.URL);
         exit;
     }
-    
-    public function signup()
-    {
-        echo 'sing up page <br />';
-    }
 }

@@ -1,5 +1,10 @@
-<?php if (Session::get('loggedIn') == true): ?>
-Main Page
-<?php else: include_once 'signup.php'; ?>
-
-<?php endif; ?>
+<?php 
+    if (Session::get('loggedIn') == true)
+    {
+        include_once 'main.php';
+    }
+    else
+    {
+        include_once 'signup.php'; 
+    }
+?>

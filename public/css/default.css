@@ -21,6 +21,7 @@ body {
     background: #fff;
     padding: 20px;
     height: 400px;
+    min-height: 400px;
 }
 
 #footer {

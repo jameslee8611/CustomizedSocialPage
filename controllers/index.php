@@ -1,9 +1,6 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Seungchul Lee
  */
 
 class Index extends Controller {
@@ -26,10 +23,5 @@ class Index extends Controller {
     public function logout()
     {
         $this->model->logout();
-    }
-    
-    public function signup()
-    {
-        $this->model->signup();
     }
 }
