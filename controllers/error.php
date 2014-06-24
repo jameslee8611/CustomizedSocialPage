@@ -16,4 +16,10 @@ class Error extends Controller {
         $this->view->msg = "This page doesn't exist";
         $this->view->render('error/index');
     }
+    
+    function signup_error($msg)
+    {
+        $this->view->msg = $msg;
+        $this->view->render('error/index');
+    }
 }
