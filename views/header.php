@@ -1,7 +1,7 @@
 <!doctype HTML>
 <html>
     <head>
-        <title>SecretBook</title>
+        <title>Customized Social</title>
         <link rel="stylesheet" href="<?php echo URL; ?>public/css/default.css" />
         <script type="text/javascript" src="<?php echo URL; ?>public/js/jquery-1.11.1.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>public/js/test.js"></script>
