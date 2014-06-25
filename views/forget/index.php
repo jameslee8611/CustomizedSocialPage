@@ -1,10 +1,7 @@
-Forget Page
-
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<div>
+	<form action="" method="post">
+		<label>Enter your username or email address associated with your account<br></label><input type="text"/>
+		<input type="submit" value="Submit" />
+	</form>
+</div>
 
