@@ -14,7 +14,14 @@ class Index_Model extends Model {
 
     public function login($login, $password)
     {
-        if(!$login)
+        if(empty($login) && empty($_POST['login']))
+        {
+            require 'controllers/error.php';
+            $controller = new Error();
+            $controller->index();
+            exit;
+        }
+        elseif(!empty($_POST['login']))
         {
             $login = $_POST['login'];
             $password = $_POST['password'];
