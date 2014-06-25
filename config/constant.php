@@ -6,4 +6,4 @@
  * and open the template in the editor.
  */
 
-define('URL', 'http://localhost:8888/CustomizedSocialPage/');
+define('URL', '/CustomizedSocialPage/');

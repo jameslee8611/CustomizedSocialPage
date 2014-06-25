@@ -15,9 +15,9 @@ class Index extends Controller {
         $this->view->render('index/index');
     }
     
-    public function login() 
+    public function login($login = false, $password = false) 
     {
-        $this->model->login();
+        $this->model->login($login, $password);
     }
     
     public function logout()

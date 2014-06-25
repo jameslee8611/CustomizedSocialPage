@@ -13,7 +13,7 @@
                 <a href="<?php echo URL; ?>index/logout">Logout</a>
             <?php else: ?>
                 <a href="<?php echo URL; ?>about">About</a>
-                <form action ="index/login" method="post">
+                <form action ="<?php echo URL; ?>index/login" method="post">
                     <label>Login</label><input type="text" name="login"/>
                     <label>Password</label><input type="password" name="password"/>
                     <label></label><input type="submit" />

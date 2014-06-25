@@ -12,12 +12,18 @@ class Index_Model extends Model {
         parent::__construct();
     }
 
-    public function login()
+    public function login($login, $password)
     {
+        if(!$login)
+        {
+            $login = $_POST['login'];
+            $password = $_POST['password'];
+        }
+        
         $state = $this->db->prepare("SELECT id FROM users WHERE login = :login AND password = MD5(:password)");
         $state->execute(array(
-            ':login' => $_POST['login'],
-            ':password' => $_POST['password']
+            ':login' => $login,
+            ':password' => $password
         ));
         
         $count = $state->rowCount();

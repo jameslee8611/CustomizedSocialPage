@@ -13,7 +13,7 @@
             <label>User Name</label><input type="text" name="username" /><br />
             <lable>Email</lable><input type="text" name="email"/><br />
             <label>Confirm Email</label><input type="text" name="confirmemail"/><br />
-            <label>Password</label><input type="text" name="password" /><br />
+            <label>Password</label><input type="password" name="password" /><br />
             <label></label><input type="submit" />
         </form>
     </div>

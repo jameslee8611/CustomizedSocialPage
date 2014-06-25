@@ -38,7 +38,20 @@ class Router {
         $controller = new $url[0];
         $controller->loadModule($url[0]);
 
-        if (isset($url[2])) 
+        if (isset($url[3]))
+        {
+            if (method_exists($controller, $url[1]))
+            {
+                $controller->{$url[1]}($url[2], $url[3]);
+            }
+            else
+            {
+                require 'controllers/error.php';
+                $controller = new Error();
+                $controller->index();
+            }
+        }
+        else if (isset($url[2])) 
         {
             if (method_exists($controller, $url[1]))
             {
