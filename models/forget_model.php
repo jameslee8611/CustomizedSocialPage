@@ -12,38 +12,50 @@ class Forget_Model extends Model {
 
     public function askPassword()
     {
-        $password = $this->randomPasswordGenetator(32);
-        $to  = $_POST['email'];
-        $subject = 'Password Reset';
-        $message = '<html>
-                    <head>
-                      <title>Password Reset</title>
-                    </head>
-                    <body>
-                      <p>Your new password: '.
-                      $password
-                     .'</p>
-                    <a href="https://github.com/sclee8611/CustomizedSocialPage">Go To Website</a>
-                    </body>
-                    </html>';
-        
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= 'Reply-To: Admin<' . ADMIN_EMAIL . ">\r\n";
+        if($this->email_checker($_POST['email']))
+        {
+            $password = $this->randomPasswordGenetator(32);
+            $to  = $_POST['email'];
+            $subject = 'Password Reset';
+            $message = '<html>
+                        <head>
+                          <title>Password Reset</title>
+                        </head>
+                        <body>
+                          <p>Your new password: '.
+                          $password
+                         .'</p>
+                        <a href="https://github.com/sclee8611/CustomizedSocialPage">Go To Website</a>
+                        </body>
+                        </html>';
 
-        $success = mail($to, $subject, $message, $headers);
-        
-        if($success){
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $headers .= 'Reply-To: Admin<' . ADMIN_EMAIL . ">\r\n";
+
+            $success = mail($to, $subject, $message, $headers);
             header('location: ../forget/success');
+            exit;
         }
-        else{
+        else
+        {
             header('location: ../forget/fail');
+            exit;
         }
     }
     
     private function email_checker($email = null)
     {
-        // db check
+        $state = $this->db->prepare("SELECT id FROM users WHERE email = :email");
+        $state->execute(array(
+            ':email' => $email
+        ));
+        
+        $count = $state->rowCount();
+        if($count > 0)
+        {
+            return true;
+        }
         
         return false;
     }
