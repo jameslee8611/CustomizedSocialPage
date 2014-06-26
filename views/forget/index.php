@@ -1,7 +1,21 @@
-<div>
-	<form action="" method="post">
-		<label>Enter your username or email address associated with your account<br></label><input type="text"/>
-		<input type="submit" value="Submit" />
-	</form>
-</div>
+<?php
+    switch ($this->page_setting)
+    {
+        case INIT:
+            include_once 'main.php';
+            break;
+            
+        case SUCCESS:
+            include_once 'success.php';
+            break;
+        
+        case FAIL:
+            include_once 'fail.php';
+            break;
+        
+        case ERROR:
+            include_once 'error.php';
+            break;
+    }
+?>
 
