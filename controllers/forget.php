@@ -23,17 +23,37 @@ class Forget extends Controller {
     
     public function success()
     {
-        $this->forget_render(SUCCESS);
+        if (Session::get('loggedIn'))
+        {
+            $this->forget_render(ERROR);
+        }
+        else
+        {
+            $this->forget_render(SUCCESS);
+        }
     }
     
     public function fail()
     {
-        $this->forget_render(FAIL);
+        if (Session::get('loggedIn'))
+        {
+            $this->forget_render(ERROR);
+        }
+        else
+        {
+            $this->forget_render(FAIL);
+        }
+        
     }
     
     public function askPassword()
     {
         $this->model->askPassword();
+    }
+    
+    public function resetPassword()
+    {
+        $this->model->resetPassword();
     }
     
     private function forget_render($page_setting = INIT)
