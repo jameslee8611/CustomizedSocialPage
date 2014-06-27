@@ -9,22 +9,23 @@ and open the template in the editor.
 */
 
 body {
-    background: silver;
+    background: black;
 }
 
-#header {
+.header {
     padding: 20px;
     background: gold;
 }
 
-#content {
-    background: #fff;
+.content {
+    background: white;
     padding: 20px;
-    height: 400px;
-    min-height: 400px;
+    height: 500px;
+    min-height: 500px;
+    min-width: 300px;
 }
 
-#footer {
+.footer {
     background: green;
     padding: 20px;
 }
