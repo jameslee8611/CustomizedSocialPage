@@ -22,13 +22,13 @@ class Forget_Model extends Model {
             $subject = 'Password Reset';
             $message = '<html>
                         <head>
-                          <title>Password Reset</title>
+                          <title>Password Reset From</title>
                         </head>
                         <body>
-                          <p>Your new password: '.
+                          <p>You\'ve sent passowrd request. If you did\'n request, please ignore this email</p>
+                          <p>Your Reset Code: <strong>'.
                           $reset_code
-                         .'</p>
-                        <a href="https://github.com/sclee8611/CustomizedSocialPage">Go To Website</a>
+                         .'</strong></p>
                         </body>
                         </html>';
 

@@ -14,6 +14,7 @@
                 </div>
             </div>
         </div>
+        <?php if (!Session::get('loggedIn')): ?>
         <div class="large-7 columns">
             <div class="row">
                 <form action ="<?php echo URL; ?>index/login" method="post">
@@ -38,5 +39,6 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </div>

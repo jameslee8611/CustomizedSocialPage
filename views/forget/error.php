@@ -6,6 +6,8 @@
 
 include_once 'forget_header.php' 
 ?>
-<div class="content">
-    <h2>Invalid Access, Don't mess it up</h2>
+<div class="conetnet-child">
+    <div class="row">
+        <h2 class="large-12 columns">Invalid Access, Don't mess it up</h2>
+    </div>
 </div>

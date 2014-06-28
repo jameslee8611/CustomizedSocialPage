@@ -6,6 +6,8 @@
 
 include_once 'forget_header.php' 
 ?>
-<div class="content">
-    <h3>Fail Page!</h3>
+<div class="conetnet-child">
+    <div class="row">
+        <h2 class="large-12 columns">Fail Your Request</h2>
+    </div>
 </div>

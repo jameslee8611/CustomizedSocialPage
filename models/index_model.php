@@ -14,9 +14,7 @@ class Index_Model extends Model {
     {
         if(empty($login) && empty($_POST['login']))
         {
-            require 'controllers/error.php';
-            $controller = new Error();
-            $controller->index();
+            header('location: '.URL);
             exit;
         }
         elseif(!empty($_POST['login']))
