@@ -5,12 +5,15 @@
  */
 ?>
 
-<div class="header-signup">
+<div class="<?php echo (Session::get('loggedIn') == true ? 'header' : 'header-signup'); ?>">
     <div class="row">
         <div class="large-1 columns">
             <div class="row">
                 <div class="large-2 columns">
                     <a href="<?php echo URL; ?>">Index</a>
+                </div>
+                <div class="large-2 columns">
+                    <a href="<?php echo URL; ?>index/logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -27,15 +30,21 @@
                     <div class="large-4 columns">
                         <div class="row collapse">
                             <div class="small-9 columns">
-                                <input class="custom-tiny radius button" type="submit" />
+                                <input class="custom-tiny radius button" type="submit" value="Login"/>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="row">
-                <div class="small-4 columns">
+                <div class="large-4 columns">
+                    <input id="keep_loggedIn" type="checkbox"><label for="keep_loggedIn">Keep me logged in</label>
+                </div>
+                <div class="large-4 columns">
                     <a href="<?php echo URL; ?>forget">Forget PassWord?</a>
+                </div>
+                <div class="large-4 columns">
+                    
                 </div>
             </div>
         </div>

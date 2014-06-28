@@ -44,7 +44,7 @@ class Router {
                 $controller->index();
             }
         }
-        else if (isset($url[2])) 
+        elseif (isset($url[2])) 
         {
             if (method_exists($controller, $url[1]))
             {
@@ -69,10 +69,6 @@ class Router {
                 $controller = new Error();
                 $controller->index();
             }
-        }
-        else
-        {
-            $controller->index();
         }
     }
 
