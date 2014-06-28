@@ -70,6 +70,10 @@ class Router {
                 $controller->index();
             }
         }
+        else
+        {
+            $controller->index();
+        }
     }
 
 }
