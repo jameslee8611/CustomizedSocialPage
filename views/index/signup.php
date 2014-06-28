@@ -47,7 +47,7 @@
             <div>
                 <form action="signup" method="post">
                     <label>User Name</label><input type="text" name="username" /><br />
-                    <lable>Email</lable><input type="text" name="email"/><br />
+                    <label>Email</label><input type="text" name="email"/><br />
                     <label>Confirm Email</label><input type="text" name="confirmemail"/><br />
                     <label>Password</label><input type="password" name="password" /><br />
                     <label></label><input class="custom-tiny radius button " type="submit" />
