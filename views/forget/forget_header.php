@@ -12,9 +12,11 @@
                 <div class="large-2 columns">
                     <a href="<?php echo URL; ?>">Index</a>
                 </div>
+                <?php if (Session::get('loggedIn')): ?>
                 <div class="large-2 columns">
                     <a href="<?php echo URL; ?>index/logout">Logout</a>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
         <?php if (!Session::get('loggedIn')): ?>
