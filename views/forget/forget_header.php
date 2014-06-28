@@ -26,7 +26,7 @@
                     <div class="large-4 columns">
                         <div class="row collapse">
                             <div class="small-9 columns">
-                                <input class="small button" type="submit" />
+                                <input class="tiny radius button" type="submit" />
                             </div>
                         </div>
                     </div>

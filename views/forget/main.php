@@ -7,9 +7,16 @@
 include_once 'forget_header.php' 
 ?>
 <div class="content">
-    <h2>Forget Page</h2>
-    <form action="<?php echo URL; ?>forget/askPassword" method="post">
-	<label>Enter your username or email address associated with your account<br/></label><input type="text" name="email"/><br />
-	<input class="small button" type="submit"/>
-    </form>
+	<div class="row">
+		<h2 class="large-12 columns">Forget Page</h2>
+	</div>
+	<div class="row">		
+		<div class="large-7 columns">
+		    <form action="<?php echo URL; ?>forget/askPassword" method="post">
+				<label>Enter your username or email address associated with your account<br/></label><input type="text" name="email"/><br />
+				<input class="tiny radius button" type="submit"/>
+		    </form>
+		</div>
+		<div class="large-5 columns"></div>
+	</div>
 </div>
