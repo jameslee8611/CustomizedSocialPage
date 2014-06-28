@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Seungchul Lee
+ * @author Seungchul Lee, Jae Yun Song
  * @Date   : June 27, 2014
  */
 ?>
@@ -26,7 +26,7 @@
                     <div class="large-4 columns">
                         <div class="row collapse">
                             <div class="small-9 columns">
-                                <input class="tiny radius button" type="submit" />
+                                <input class="custom-tiny radius button" type="submit" />
                             </div>
                         </div>
                     </div>

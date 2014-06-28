@@ -1,6 +1,6 @@
 <!--
-    @Author : Seungchul Lee
-    @Date   : June 24, 2014
+    @Author : Seungchul Lee, Jae Yun Song
+    @Date   : June 27, 2014
 -->
 <div class="header-signup">
     <div class="row">
@@ -23,7 +23,7 @@
                     <div class="large-4 columns">
                         <div class="row collapse">
                             <div class="small-9 columns">
-                                <input class="tiny radius button" type="submit" />
+                                <input class="custom-tiny radius button" type="submit" />
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                     <lable>Email</lable><input type="text" name="email"/><br />
                     <label>Confirm Email</label><input type="text" name="confirmemail"/><br />
                     <label>Password</label><input type="password" name="password" /><br />
-                    <label></label><input class="tiny radius button " type="submit" />
+                    <label></label><input class="custom-tiny radius button " type="submit" />
                 </form>
             </div>
         </div>
