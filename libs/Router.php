@@ -29,6 +29,10 @@ class Router {
         }
         else
         {
+//            require 'controllers/index.php';
+//            $controller = new Index();
+//            $controller->index();
+//            return false;
             require 'controllers/error.php';
             $controller = new Error();
             $controller->index();

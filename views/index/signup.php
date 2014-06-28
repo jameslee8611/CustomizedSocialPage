@@ -46,16 +46,36 @@
             <h2>Sign up</h2>
             <div>
                 <form action="signup" method="post">
-                    <label>User Name</label><input type="text" name="username" /><br />
-                    <label>Email</label><input type="text" name="email"/><br />
-                    <label>Confirm Email</label><input type="text" name="confirmemail"/><br />
-                    <label>Password</label><input type="password" name="password" /><br />
-                    <label></label><input class="custom-tiny radius button " type="submit" />
+                    <div class="row">
+                        <div class="large-12 column">
+                            <label>User Name<input type="text" name="username" /></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 column">
+                            <label>Email<input type="text" name="email"/></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 column">
+                            <label>Confirm Email<input type="text" name="confirmemail"/></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 column">
+                            <label>Password<input type="password" name="password" /></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 column">
+                            <label><input class="custom-tiny radius button " type="submit" /></label>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
         <div class="large-3 columns">
-             
+
         </div>
     </div>
 </div>
