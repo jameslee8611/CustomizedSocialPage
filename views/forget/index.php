@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Seungchul Lee
+ * @Date   : June 27, 2014
+ */
     switch ($this->page_setting)
     {
         case INIT:

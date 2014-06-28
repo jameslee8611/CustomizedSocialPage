@@ -1,4 +1,11 @@
-<?php include_once 'forget_header.php' ?>
+<?php 
+/**
+ * @author Seungchul Lee
+ * @Date   : June 27, 2014
+ */
+
+include_once 'forget_header.php' 
+?>
 <div class="content">
     <h2>Forget Page</h2>
     <form action="<?php echo URL; ?>forget/askPassword" method="post">
