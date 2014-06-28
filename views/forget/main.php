@@ -1,6 +1,6 @@
 <?php 
 /**
- * @author Seungchul Lee
+ * @author Seungchul Lee, Jae Yun Song
  * @Date   : June 27, 2014
  */
 
@@ -14,7 +14,7 @@ include_once 'forget_header.php'
 		<div class="large-7 columns">
 		    <form action="<?php echo URL; ?>forget/askPassword" method="post">
 				<label>Enter your username or email address associated with your account<br/></label><input type="text" name="email"/><br />
-				<input class="tiny radius button" type="submit"/>
+				<input class="custom-tiny radius button" type="submit"/>
 		    </form>
 		</div>
 		<div class="large-5 columns"></div>
