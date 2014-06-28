@@ -10,9 +10,37 @@ class Index extends Controller {
         parent::__construct();
     }
 
-    public function index() 
+    public function index($username=null) 
     {
-        $this->view->render('index/index');
+        if ($username == null)
+        {
+            if (Session::get('loggedIn') == true)
+            {
+                $this->view->render('index/main');
+            }
+            else
+            {
+                $this->view->render('index/signup');
+            }
+        }
+        elseif ($this->model->check_user($username))
+        {
+            if (Session::get('loggedIn') == true)
+            {
+                $this->view->render('index/profile');
+            }
+            else
+            {
+                $this->view->render('index/profile_public');
+            }
+        }
+        else
+        {
+            require 'controllers/error.php';
+            $controller = new Error();
+            $controller->index();
+            return false;
+        }
     }
     
     public function login($login = false, $password = false) 

@@ -14,14 +14,6 @@ class Router {
 //        echo '<br />';
         Session::init();
         
-        if (empty($url[0]))
-        {
-            require 'controllers/index.php';
-            $controller = new Index();
-            $controller->index();
-            return false;
-        }
-        
         $file = 'controllers/' . $url[0] . '.php';
         if(file_exists($file)) 
         {
@@ -29,13 +21,10 @@ class Router {
         }
         else
         {
-//            require 'controllers/index.php';
-//            $controller = new Index();
-//            $controller->index();
-//            return false;
-            require 'controllers/error.php';
-            $controller = new Error();
-            $controller->index();
+            require 'controllers/index.php';
+            $controller = new Index();
+            $controller->loadModule('index');
+            $controller->index($url[0]);
             return false;
         }
         

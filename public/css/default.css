@@ -14,7 +14,7 @@ body {
 
 .header {
     padding: 20px;
-    background: gold;
+    background: #a0d3e8;
     position: fixed;
     width:100%;
     z-index: 1;
@@ -23,7 +23,7 @@ body {
 .header-signup {
     padding-top: 15px;
     padding-bottom: 0px;
-    background: gold;
+    background: #a0d3e8;
 }
 
 .content {

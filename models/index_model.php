@@ -9,6 +9,21 @@ class Index_Model extends Model {
     {
         parent::__construct();
     }
+    
+    public function check_user($username)
+    {
+        $state = $this->db->prepare("SELECT id FROM users WHERE login = :login");
+        $state->execute(array(
+            ':login' => $username
+        ));
+        
+        if ($state->rowCount() > 0)
+        {
+            return true;
+        }
+        
+        return false;
+    }
 
     public function login($login, $password)
     {
@@ -32,13 +47,12 @@ class Index_Model extends Model {
         $count = $state->rowCount();
         if($count > 0)
         {
-            //login
             Session::set('loggedIn', true);
+            Session::set('username', $login);
             header('location: '.URL);
         }
         else
         {
-            //show error
             header('location: ../forget');
         }
     }
