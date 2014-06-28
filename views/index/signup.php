@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-<div class="conetnet-signup">
+<div class="conetnet-child">
     <div class="row">
         <div class="large-5 columns">
             Logo & Image would be here

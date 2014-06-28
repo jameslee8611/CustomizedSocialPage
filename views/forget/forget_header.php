@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="header">
+<div class="header-signup">
     <div class="row">
         <div class="large-1 columns">
             <div class="row">
