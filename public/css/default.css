@@ -15,9 +15,22 @@ body {
 .header {
     padding: 20px;
     background: gold;
+    position: fixed;
+    width:100%;
+    z-index: 1;
+}
+
+.header-signup {
+    padding: 20px;
+    background: gold;
 }
 
 .content {
+    padding-top: 70px;
+    position: relative;
+}
+
+.conetnet-signup {
     background: white;
     padding: 20px;
     height: 500px;

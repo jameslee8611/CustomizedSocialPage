@@ -18,13 +18,7 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="large-12 columns">
-        <div class="panel">
-            <h1>Feed Template</h1>
-        </div>
-    </div>
-</div>
+<div class="content">
 
 <div class="row">
     <div class="large-3 columns ">
@@ -129,4 +123,5 @@
         <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
     </aside>
 
+</div>
 </div>

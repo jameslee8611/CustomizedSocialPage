@@ -2,7 +2,7 @@
     @Author : Seungchul Lee
     @Date   : June 24, 2014
 -->
-<div class="header">
+<div class="header-signup">
     <div class="row">
         <div class="large-1 columns">
             <div class="row">
@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-<div class="content">
+<div class="conetnet-signup">
     <div class="row">
         <div class="large-5 columns">
             Logo & Image would be here
