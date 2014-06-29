@@ -10,8 +10,6 @@ class Router {
 
     function __construct() {
         $url = explode('/', rtrim(isset($_GET['url']) ? $_GET['url'] : null, '/'));
-//        print_r($url);
-//        echo '<br />';
         Session::init();
         
         $file = 'controllers/' . $url[0] . '.php';
@@ -21,17 +19,17 @@ class Router {
         }
         else
         {
-            require 'controllers/index.php';
-            $controller = new Index();
-            $controller->loadModule('index');
-            $controller->index($url[0]);
-            return false;
+            $this->usernameURL($url);
         }
         
         $controller = new $url[0];
         $controller->loadModule($url[0]);
-
-        if (isset($url[3]))
+        
+        if (count($url) > 4)
+        {
+            $this->redirect_to_error();
+        }
+        elseif (isset($url[3]))
         {
             if (method_exists($controller, $url[1]))
             {
@@ -39,9 +37,7 @@ class Router {
             }
             else
             {
-                require 'controllers/error.php';
-                $controller = new Error();
-                $controller->index();
+                $this->redirect_to_error();
             }
         }
         elseif (isset($url[2])) 
@@ -52,9 +48,7 @@ class Router {
             }
             else
             {
-                require 'controllers/error.php';
-                $controller = new Error();
-                $controller->index();
+                $this->redirect_to_error();
             }
         } 
         elseif (isset($url[1])) 
@@ -65,9 +59,7 @@ class Router {
             }
             else
             {
-                require 'controllers/error.php';
-                $controller = new Error();
-                $controller->index();
+                $this->redirect_to_error();
             }
         }
         else
@@ -76,4 +68,41 @@ class Router {
         }
     }
 
+    /**
+     * If the followed url after main address is not controller, guess that it's the ueser's profile page
+     * @param type $url
+     */
+    private function usernameURL($url)
+    {       
+        require 'controllers/index.php';   
+        $controller = new Index();
+        $controller->loadModule('index');
+        
+        if (count($url) > 2)
+        {
+            $this->redirect_to_error();
+        }
+        elseif (isset($url[1]))
+        {
+            $controller->index($url[0], $url[1]);
+        }
+        else
+        {
+            $controller->index($url[0]);
+        }
+            
+        exit;
+    }
+    
+    /**
+     * make error page
+     */
+    private function redirect_to_error()
+    {
+        require 'controllers/error.php';
+        $controller = new Error();
+        $controller->index();
+        
+        exit;
+    }
 }

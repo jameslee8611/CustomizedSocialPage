@@ -63,7 +63,7 @@
 <?php endif; ?>
     <div class="row">
         <div class="large-6">
-            About page
+            About Page
         </div>
         <div class="large-6">
             
