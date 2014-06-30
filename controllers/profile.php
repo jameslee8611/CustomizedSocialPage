@@ -27,7 +27,6 @@ class Profile extends Controller {
             switch ($action)
             {
                 case NULL:
-                    $this->view->render('profile/profile');
                     list($post, $comment) = $this->model->get_post();
                     $this->view->post = $post;
                     $this->view->comment = $comment;
