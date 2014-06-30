@@ -18,8 +18,6 @@
     <div class="row">
         <div class="large-12 columns">
 
-
-
             <div class="row">
                 <div class="large-12 hide-for-small">
 
@@ -36,6 +34,24 @@
 
                     <img src="http://placehold.it/1200x700&text=Mobile Header">
 
+                </div>
+            </div><br>
+            
+            <div class="row">
+                <div class="large-12 columns">
+
+                    <form target="" action="post">
+                        <label>Input Box<input type="text" name="content" /></label>
+                    </form>
+                    
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="large-6 columns">
+                    <?php echo $this->post; ?>
+                </div>
+                <div class="large-6 columns">
+                    <?php echo $this->comment; ?>
                 </div>
             </div><br>
 

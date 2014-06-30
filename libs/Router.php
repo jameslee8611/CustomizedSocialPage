@@ -12,18 +12,26 @@ class Router {
         $url = explode('/', rtrim(isset($_GET['url']) ? $_GET['url'] : null, '/'));
         Session::init();
         
-        $file = 'controllers/' . $url[0] . '.php';
-        if(file_exists($file)) 
+        if (empty($url[0]))
         {
-            require $file;
+            require 'controllers/index.php';   
+            $controller = new Index;
+            $controller->loadModule('index');
         }
         else
         {
-            $this->usernameURL($url);
+            $file = 'controllers/' . $url[0] . '.php';
+            if (file_exists($file)) 
+            {
+                require $file;
+                $controller = new $url[0];
+                $controller->loadModule($url[0]);
+            }
+            else
+            {
+                $this->usernameURL($url);
+            }
         }
-        
-        $controller = new $url[0];
-        $controller->loadModule($url[0]);
         
         if (count($url) > 4)
         {
@@ -74,9 +82,9 @@ class Router {
      */
     private function usernameURL($url)
     {       
-        require 'controllers/index.php';   
-        $controller = new Index();
-        $controller->loadModule('index');
+        require 'controllers/profile.php';   
+        $controller = new Profile();
+        $controller->loadModule('profile');
         
         if (count($url) > 2)
         {
