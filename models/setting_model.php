@@ -6,3 +6,14 @@
  * and open the template in the editor.
  */
 
+class Setting_Model extends Model {
+
+    function __construct() {
+        parent::__construct();
+    }
+
+    public function changePassword()
+    {
+        echo 'change Password';
+    }
+}

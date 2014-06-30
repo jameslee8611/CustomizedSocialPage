@@ -81,22 +81,33 @@ class Router {
      * @param type $url
      */
     private function usernameURL($url)
-    {       
-        require 'controllers/profile.php';   
-        $controller = new Profile();
-        $controller->loadModule('profile');
-        
+    {   
         if (count($url) > 2)
         {
             $this->redirect_to_error();
         }
-        elseif (isset($url[1]))
+        elseif (strcmp($url[0] ,SETTING) == 0)
         {
-            $controller->index($url[0], $url[1]);
+            require 'controllers/setting.php';   
+            $controller = new Setting();
+            $controller->loadModule('setting');
+            
+            $controller->index();
         }
         else
         {
-            $controller->index($url[0]);
+            require 'controllers/profile.php';   
+            $controller = new Profile();
+            $controller->loadModule('profile');
+        
+            if (isset($url[1]))
+            {
+                $controller->index($url[0], $url[1]);
+            }
+            else
+            {
+                $controller->index($url[0]);
+            }
         }
             
         exit;
