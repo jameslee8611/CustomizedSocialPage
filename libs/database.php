@@ -12,7 +12,7 @@ class Database extends PDO {
         parent::__construct("mysql:host=".Host.";dbname=".DBName, DBUser, DBPassword);
     }
 
-    public function update() {
+    public function update($dbname, $updateAttrNames, $updateAttrValues, $attrNames, $attrValues) {
         $query = "select "; 
 
         for ($x=0; $x<count($colNames); $x++) {
@@ -20,6 +20,8 @@ class Database extends PDO {
                 $query .= $colNames[$x] . ", ";
             else $query .= $colNames[$x] . " ";
         } 
+
+        //echo $query . "<br>";
 
         $statement = $db->prepare("select id from some_table where name = :name");
         $statement->execute(array(':name' => "Jimbo"));
@@ -30,10 +32,29 @@ class Database extends PDO {
 
     }
 
-    public function delete() {
-
+    public function delete($dbname, $attrNames, $attrValues) {
+        $query = "delete from $dbname"; 
+        $attrNum = count($attrNames);
+        if(($attrNum > 0) && ($attrNum == count($attrValues))){
+            $query .= " where ";
+            for ($x = 0; $x < $attrNum; $x++) {
+                $query .= "$attrNames[$x] = '$attrValues[$x]'";
+                if($x < $attrNum - 1){
+                    $query .= " and ";
+                }
+            } 
+        }
+                
+        $statement = $this->prepare($query);
+        $success = $statement->execute();
+        if($success)
+            return $statement;     
+        else return NULL;   
     }
 
+    /*
+     * Need to handle invalid parameters
+     */
     public function select($colNames, $dbname, $attrNames, $attrValues) {
         /*
         $statement = $this->prepare("select id, login, password, email, reset from users where login = :login");
@@ -59,12 +80,13 @@ class Database extends PDO {
                     $query .= " and ";
                 }
             } 
-        }
-        //echo $query . "<br>";
-        
+        }        
+
         $statement = $this->prepare($query);
-        $statement->execute();
-        return $statement;        
+        $success = $statement->execute();
+        if($success)
+            return $statement;     
+        else return NULL;   
     }
 
 }
