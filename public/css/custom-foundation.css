@@ -1,0 +1,71 @@
+button.custom-tiny, .button.custom-tiny {
+  margin: 0;
+  padding-top: 0.725rem;
+  padding-right: 1.25rem;
+  padding-bottom: 0.725rem;
+  padding-left: 1.25rem;
+  font-size: 0.6875rem; 
+}
+
+button.dropdown.custom-tiny, .button.dropdown.custom-tiny{
+  margin: 0;
+  padding-top: 0.725rem;
+  padding-right: 2.5rem;
+  padding-bottom: 0.725rem;
+  padding-left: 1.25rem;
+  font-size: 0.6875rem;
+}
+
+textarea{
+  resize: none;
+  overflow: hidden;
+  margin-bottom: 0.5rem !important;
+}
+
+.post-container{
+  width: 29.15rem; 
+  height: 7rem; 
+}
+
+.content.custom.active{
+  padding: 0.3rem;
+}
+
+.columns.custom{
+  padding: 0;
+}
+
+.post-button{
+  float: right;
+}
+
+.post-form{
+  margin: 0 auto;
+  width: 30rem; 
+  border: solid 2px #3F7FBF;
+  border-radius: 5px;
+  padding: 5px
+}
+
+.post-icon{
+  padding-top: 0px !important;
+  padding-bottom: 0px !important; 
+  padding-right: 6px !important;
+  padding-left: 6px !important;
+}
+
+.row .row.custom{
+  margin: 0 auto;
+  width: inherit;
+}
+
+.tabs-content.custom{
+  margin-bottom: 0;
+}
+
+
+
+ 
+
+
+
