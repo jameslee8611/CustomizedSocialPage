@@ -12,6 +12,9 @@ class Database extends PDO {
         parent::__construct("mysql:host=".Host.";dbname=".DBName, DBUser, DBPassword);
     }
 
+    /*
+     * Need to handle invalid parameters
+     */
     public function update($dbname, $updateAttrNames, $updateAttrValues, $attrNames, $attrValues) {
         $updateAttrNum = count($updateAttrNames);
         if($updateAttrNum < 1 || $updateAttrNum != count($updateAttrValues))
@@ -47,10 +50,40 @@ class Database extends PDO {
         
     }
 
-    public function insert() {
-        echo $query . "<br>";
+    /*
+     * Need to handle invalid parameters
+     */
+    public function insert($dbname, $attrNames, $attrValues) {
+        $attrNum = count($attrNames);
+        if($attrNum < 1 || $attrNum != count($attrValues))
+            return NULL;
+
+        $query = "insert into $dbname (";
+        for ($x = 0; $x < $attrNum; $x++) {
+            $query .= "$attrNames[$x]";
+            if($x < $attrNum - 1)
+                $query .= ", ";
+            else $query .= ")";
+        } 
+
+        $query .= " values (";
+        for ($x = 0; $x < $attrNum; $x++) {
+            $query .= "'$attrValues[$x]'";
+            if($x < $attrNum - 1)
+                $query .= ", ";
+            else $query .= ")";
+        } 
+
+        $statement = $this->prepare($query);
+        $success = $statement->execute();
+        if($success)
+            return $statement;     
+        else return NULL;   
     }
 
+    /*
+     * Need to handle invalid parameters
+     */
     public function delete($dbname, $attrNames, $attrValues) {
         $query = "delete from $dbname"; 
         $attrNum = count($attrNames);
