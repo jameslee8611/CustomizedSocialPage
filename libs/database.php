@@ -13,23 +13,42 @@ class Database extends PDO {
     }
 
     public function update($dbname, $updateAttrNames, $updateAttrValues, $attrNames, $attrValues) {
-        $query = "select "; 
+        $updateAttrNum = count($updateAttrNames);
+        if($updateAttrNum < 1 || $updateAttrNum != count($updateAttrValues))
+            return NULL;
 
-        for ($x=0; $x<count($colNames); $x++) {
-            if($x < count($colNames) - 1)
-                $query .= $colNames[$x] . ", ";
-            else $query .= $colNames[$x] . " ";
+        $attrNum = count($attrNames);
+        if($attrNum != count($attrValues))
+            return NULL;
+        
+        $query = "update $dbname set"; 
+
+        for ($x = 0; $x < $updateAttrNum; $x++) {
+            $query .= " $updateAttrNames[$x] = '$updateAttrValues[$x]'";
+            if($x < $updateAttrNum - 1)
+                $query .= ", ";
         } 
 
-        //echo $query . "<br>";
-
-        $statement = $db->prepare("select id from some_table where name = :name");
-        $statement->execute(array(':name' => "Jimbo"));
-        $row = $statement->fetch();
+        if($attrNum > 0){
+            $query .= " where ";
+            for ($x = 0; $x < $attrNum; $x++) {
+                $query .= "$attrNames[$x] = '$attrValues[$x]'";
+                if($x < $attrNum - 1){
+                    $query .= " and ";
+                }
+            } 
+        }            
+        
+        $statement = $this->prepare($query);
+        $success = $statement->execute();
+        if($success)
+            return $statement;     
+        else return NULL;   
+        
     }
 
     public function insert() {
-
+        echo $query . "<br>";
     }
 
     public function delete($dbname, $attrNames, $attrValues) {
