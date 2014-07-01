@@ -15,7 +15,7 @@ class Forget_Model extends Model {
     public function askPassword()
     {
         if($this->email_checker($_POST['email']))
-        {  
+        {   
             $this->email = $_POST['email'];
             $reset_code = $this->randomPasswordGenetator(32);
             $to  = $_POST['email'];
@@ -35,10 +35,19 @@ class Forget_Model extends Model {
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $headers .= 'Reply-To: Admin<' . ADMIN_EMAIL . ">\r\n";
-
-            $success = mail($to, $subject, $message, $headers);
+            mail($to, $subject, $message, $headers);
+            
             $this->resetCode($reset_code);
             header('location: ../forget/success');
+            //$success = mail($to, $subject, $message, $headers);
+//            if ($success) {
+//                $this->resetCode($reset_code);
+//                header('location: ../forget/success');
+//            }
+//            else
+//            {
+//                header('location: '. URL .'index');
+//            }
             exit;
         }
         else

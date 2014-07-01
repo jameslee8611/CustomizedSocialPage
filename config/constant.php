@@ -1,7 +1,7 @@
 <?php
 
 define('URL', 'http://localhost:8888/CustomizedSocialPage/');
-define('ADMIN_EMAIL', 'yjw9012@gmail.com');
+define('ADMIN_EMAIL', 'jameslee8611@gmail.com');
 
 //
 define('INIT', 0);
