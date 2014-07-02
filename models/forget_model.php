@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Seungchul Lee, Jiwwong Yoon
+ * @author Seungchul Lee, Jiwoong Yoon
  */
 
 class Forget_Model extends Model {
@@ -85,16 +85,23 @@ class Forget_Model extends Model {
             return false;
         }
         
+        $database = new Database();
+        $dbname = "users";
+        $statement = $database->select(array("id"), $dbname, array("email"), array($email));
+        if(!$statement)
+            return false;
+        
+        /*
         $state = $this->db->prepare("SELECT id FROM users WHERE email = :email");
         $state->execute(array(
             ':email' => $email
         ));
-        
-        $count = $state->rowCount();
+        */        
+
+        $count = $statement->rowCount();
         if($count > 0)
         {
-            // change password in db
-            
+            // change password in db            
             return true;
         }
         
