@@ -87,3 +87,7 @@
         <div class="large-3 columns"></div>
     </div>
 </div>
+
+<script>
+    $(document).foundation();
+</script>
