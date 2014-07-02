@@ -12,9 +12,6 @@ class Database extends PDO {
         parent::__construct("mysql:host=".Host.";dbname=".DBName, DBUser, DBPassword);
     }
 
-    /*
-     * Need to handle invalid parameters
-     */
     public function update($dbname, $updateAttrNames, $updateAttrValues, $attrNames, $attrValues) {
         $updateAttrNum = count($updateAttrNames);
         if($updateAttrNum < 1 || $updateAttrNum != count($updateAttrValues))
@@ -50,9 +47,6 @@ class Database extends PDO {
         
     }
 
-    /*
-     * Need to handle invalid parameters
-     */
     public function insert($dbname, $attrNames, $attrValues) {
         $attrNum = count($attrNames);
         if($attrNum < 1 || $attrNum != count($attrValues))
@@ -81,21 +75,19 @@ class Database extends PDO {
         else return NULL;   
     }
 
-    /*
-     * Need to handle invalid parameters
-     */
     public function delete($dbname, $attrNames, $attrValues) {
-        $query = "delete from $dbname"; 
         $attrNum = count($attrNames);
-        if(($attrNum > 0) && ($attrNum == count($attrValues))){
-            $query .= " where ";
-            for ($x = 0; $x < $attrNum; $x++) {
-                $query .= "$attrNames[$x] = '$attrValues[$x]'";
-                if($x < $attrNum - 1){
-                    $query .= " and ";
-                }
-            } 
-        }
+        if($attrNum < 1 && $attrNum != count($attrValues))
+            return NULL;
+
+        $query = "delete from $dbname"; 
+        $query .= " where ";
+        for ($x = 0; $x < $attrNum; $x++) {
+            $query .= "$attrNames[$x] = '$attrValues[$x]'";
+            if($x < $attrNum - 1){
+                $query .= " and ";
+            }
+        }        
                 
         $statement = $this->prepare($query);
         $success = $statement->execute();
@@ -104,27 +96,27 @@ class Database extends PDO {
         else return NULL;   
     }
 
-    /*
-     * Need to handle invalid parameters
-     */
     public function select($colNames, $dbname, $attrNames, $attrValues) {
-        /*
-        $statement = $this->prepare("select id, login, password, email, reset from users where login = :login");
-        $statement->execute(array(':login' => "yjw9012"));
-        return $statement;
-        */
+        $attrNum = count($attrNames);
+        if($attrNum != count($attrValues))
+            return NULL;
+
         $query = "select "; 
         $colNum = count($colNames);
-        for ($x = 0; $x < $colNum; $x++) {
-            $query .= "$colNames[$x]";
-            if($x < $colNum - 1){
-                $query .= ", ";
-            }
-        } 
+        if($colNum == 0){
+            $query .= "*";
+        }
+        else{
+            for ($x = 0; $x < $colNum; $x++) {
+                $query .= "$colNames[$x]";
+                if($x < $colNum - 1){
+                    $query .= ", ";
+                }
+            } 
+        }
         $query .= " from $dbname";
 
-        $attrNum = count($attrNames);
-        if(($attrNum > 0) && ($attrNum == count($attrValues))){
+        if($attrNum > 0){
             $query .= " where ";
             for ($x = 0; $x < $attrNum; $x++) {
                 $query .= "$attrNames[$x] = '$attrValues[$x]'";
