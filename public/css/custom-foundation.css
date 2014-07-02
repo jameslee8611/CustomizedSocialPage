@@ -22,6 +22,14 @@ textarea{
   margin-bottom: 0.5rem !important;
 }
 
+label.signup{
+  padding-top: 0.5rem;
+}
+
+.error.custom{
+  margin: 0 !important;
+}
+
 .post-container{
   width: 29.15rem; 
   height: 7rem; 

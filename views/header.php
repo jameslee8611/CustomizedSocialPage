@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!doctype HTML>
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8" />
@@ -12,5 +12,6 @@
         <script type="text/javascript" src="<?php echo URL; ?>public/js/test.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>public/js/vendor/modernizr.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>public/js/foundation.min.js"></script>
+        <script type="text/javascript" src="<?php echo URL; ?>public/js/foundation/foundation.abide.js"></script>
     </head>
     <body>
