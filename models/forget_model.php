@@ -59,23 +59,21 @@ class Forget_Model extends Model {
     
     public function resetPassword()
     {
-        $state = $this->db->prepare("UPDATE users SET password = :password, reset = :new WHERE reset = :reset");
-        $state->execute(array(
-            ':password' => md5($_POST['new_password']),
-            ':new' => null,
-            ':reset' => $_POST['reset']
-        ));
-        
+        $dbname = "users";
+        $statement = $this->db->update($dbname, array("password", "reset"), 
+            array(md5($_POST['new_password']), null), array("reset"), array($_POST['reset']));
+        if(!$statement)
+            return false;
+
         header('location: '. URL);
     }
     
     private function resetCode($reset_code = null)
     {
-        $state = $this->db->prepare("UPDATE users SET reset = :reset WHERE email = :email");
-        $state->execute(array(
-            ':reset' => $reset_code,
-            ':email' => $this->email
-        ));
+        $dbname = "users";
+        $statement = $this->db->update($dbname, array("reset"), array($reset_code), array("email"), array($this->email));
+        if(!$statement)
+            return false;
     }
     
     private function email_checker($email = null)
@@ -85,18 +83,10 @@ class Forget_Model extends Model {
             return false;
         }
         
-        $database = new Database();
         $dbname = "users";
-        $statement = $database->select(array("id"), $dbname, array("email"), array($email));
+        $statement = $this->db->select(array("id"), $dbname, array("email"), array($email));
         if(!$statement)
-            return false;
-        
-        /*
-        $state = $this->db->prepare("SELECT id FROM users WHERE email = :email");
-        $state->execute(array(
-            ':email' => $email
-        ));
-        */        
+            return false;    
 
         $count = $statement->rowCount();
         if($count > 0)
