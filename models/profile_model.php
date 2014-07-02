@@ -14,12 +14,13 @@ class Profile_Model extends Model {
     
     public function check_user($username)
     {
-        $state = $this->db->prepare("SELECT id FROM users WHERE login = :login");
-        $state->execute(array(
-            ':login' => $username
-        ));
+        $dbname = "users";
+        $statement = $this->db->select(array("id"), $dbname, array("login"), array($username));
+        if(!$statement){
+            throw new Exception('Query failed.');
+        }
         
-        if ($state->rowCount() > 0)
+        if ($statement->rowCount() > 0)
         {
             return true;
         }
