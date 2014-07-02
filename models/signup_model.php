@@ -12,16 +12,16 @@ class Signup_Model extends Model {
 
     public function signup() 
     {
-        if ($this->check_existance($_POST['username'], 'login') && $this->check_existance($_POST['email'], 'email')) 
+        if ($this->check_available(array('login', 'email'), array($_POST['username'], $_POST['email']))) 
         {
-            $state = $this->db->prepare("INSERT INTO users (login, password, email) VALUES(:login, :password, :email)");
-            $state->execute(array(
-                ':login' => $_POST['username'],
-                ':password' => md5($_POST['password']),
-                ':email' => $_POST['email'],
-            ));
+            $dbname = "users";
+            $statement = $this->db->insert($dbname, array('login', 'password', 'email'), 
+                array($_POST['username'], md5($_POST['password']), $_POST['email']));
+            if(!$statement){
+                throw new Exception('Query failed.');
+            }
 
-            if ($state->errorCode()) 
+            if ($statement->errorCode()) 
             {
                 Session::set('loggedIn', true);
                 header('location: ' . URL . 'index/login/' . $_POST['username'] . '/' . $_POST['password']);
@@ -33,14 +33,15 @@ class Signup_Model extends Model {
         }
     }
 
-    private function check_existance($param, $target) 
+    private function check_available($attrNames, $attrValues) 
     {
-        $state = $this->db->prepare("SELECT id FROM users WHERE " . $target . " = :" . $target);
-        $state->execute(array(
-            ':' . $target => $param
-        ));
+        $dbname = "users";
+        $statement = $this->db->select(array("id"), $dbname, $attrNames, $attrValues, "or");
+        if(!$statement){
+            throw new Exception('Query failed.');
+        }
 
-        $count = $state->rowCount();
+        $count = $statement->rowCount();
         if ($count == 0) 
         {
             return true;
@@ -50,7 +51,7 @@ class Signup_Model extends Model {
             // increment fail cnt
             require 'controllers/error.php';
             $controller = new Error();
-            $controller->signup_error($param . " already exists");
+            $controller->signup_error("This username or email already exists");
             exit;
         }
     }

@@ -96,7 +96,7 @@ class Database extends PDO {
         else return NULL;   
     }
 
-    public function select($colNames, $dbname, $attrNames, $attrValues) {
+    public function select($colNames, $dbname, $attrNames, $attrValues, $operator = "and") {
         $attrNum = count($attrNames);
         if($attrNum != count($attrValues))
             return NULL;
@@ -121,7 +121,7 @@ class Database extends PDO {
             for ($x = 0; $x < $attrNum; $x++) {
                 $query .= "$attrNames[$x] = '$attrValues[$x]'";
                 if($x < $attrNum - 1){
-                    $query .= " and ";
+                    $query .= " $operator ";
                 }
             } 
         }        
