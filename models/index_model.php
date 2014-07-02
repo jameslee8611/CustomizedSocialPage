@@ -22,14 +22,14 @@ class Index_Model extends Model {
             $login = $_POST['login'];
             $password = $_POST['password'];
         }
-        
-        $state = $this->db->prepare("SELECT id FROM users WHERE login = :login AND password = MD5(:password)");
-        $state->execute(array(
-            ':login' => $login,
-            ':password' => $password
-        ));
-        
-        $count = $state->rowCount();
+
+        $dbname = "users";
+        $statement = $this->db->select(array("id"), $dbname, array("login", "password"), array($login, MD5($password)));
+        if(!$statement){
+            throw new Exception('Query failed.');
+        }
+               
+        $count = $statement->rowCount();
         if($count > 0)
         {
             Session::set('loggedIn', true);

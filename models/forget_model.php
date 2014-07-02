@@ -62,8 +62,9 @@ class Forget_Model extends Model {
         $dbname = "users";
         $statement = $this->db->update($dbname, array("password", "reset"), 
             array(md5($_POST['new_password']), null), array("reset"), array($_POST['reset']));
-        if(!$statement)
-            return false;
+        if(!$statement){
+            throw new Exception('Query failed.');
+        }
 
         header('location: '. URL);
     }
@@ -72,8 +73,9 @@ class Forget_Model extends Model {
     {
         $dbname = "users";
         $statement = $this->db->update($dbname, array("reset"), array($reset_code), array("email"), array($this->email));
-        if(!$statement)
-            return false;
+        if(!$statement){
+            throw new Exception('Query failed.');
+        }
     }
     
     private function email_checker($email = null)
@@ -85,8 +87,9 @@ class Forget_Model extends Model {
         
         $dbname = "users";
         $statement = $this->db->select(array("id"), $dbname, array("email"), array($email));
-        if(!$statement)
-            return false;    
+        if(!$statement){
+            throw new Exception('Query failed.');
+        }
 
         $count = $statement->rowCount();
         if($count > 0)
