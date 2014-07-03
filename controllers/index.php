@@ -20,6 +20,7 @@ class Index extends Controller {
         {
             if(isset($_SESSION['loginFailed'])){
                 $this->view->login_failed = Session::get('loginFailed');
+                unset($_SESSION['loginFailed']);
             }
             $this->view->render('index/signup');
         }
