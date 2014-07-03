@@ -22,7 +22,7 @@ class Index extends Controller {
             $this->view->render('index/signup');
             if(isset($_SESSION['show_error']))
             {
-                echo Session::get('show_error');
+                Session::get('show_error');
             }
         }
     }

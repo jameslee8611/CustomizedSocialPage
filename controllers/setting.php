@@ -30,12 +30,17 @@ class Setting extends Controller {
     
     public function askChange()
     {
-        if (!$this->model->changePassword())
+        if ($this->model->changePassword() == false)
         {
             $this->view->error_msg_trigger = true;
             $this->view->render('setting/changePassword');
+            exit;
         }
-        $this->view->render('setting/changePasswordSuccess');
+        else
+        {
+            $this->view->render('setting/changePasswordSuccess');
+            exit;
+        }
     }
     
     public function changeSuccess()

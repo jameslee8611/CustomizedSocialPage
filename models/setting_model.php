@@ -21,8 +21,11 @@ class Setting_Model extends Model {
         }
         else
         {
-            $statement = $this->db->update("users", array("password"), 
-            array(md5($_POST['new_password'])), array("password"), array($_POST['old_password']));
+            $statement = $this->db->update("users", 
+                            array("password"), 
+                            array(md5($_POST['new_password'])), 
+                            array("login"), 
+                            array(Session::get('username')));
             
             return true;
         }

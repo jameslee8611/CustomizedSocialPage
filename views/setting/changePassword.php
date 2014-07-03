@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="large-6 column">
-                        <label class="signup">Confirm Password<input class="error" type="password" name="confirmPassword" required data-equalto="new_password"/></label>
+                        <label class="signup">Confirm Password<input class="error" type="password" name="confirm_password" required data-equalto="new_password"/></label>
                         <small id="confirm_error" class="error custom" hidden>Password Does Not Match!</small>
                     </div>
                 </div>
@@ -52,9 +52,9 @@
         <div class="large-3 pull-9 columns">
 
             <ul class="side-nav">
-                <li><a href="<?php echo URL; ?>setting/changePassword">Change Password</a></li>
-                <li><a href="#">Change Privacy</a></li>
-                <li><a href="#">DisJoin</a></li>
+                <li><a href="<?php echo URL; ?>setting/changePassword">Change password</a></li>
+                <li><a href="#">Change privacy</a></li>
+                <li><a href="#">Withdraw account</a></li>
             </ul>
 
         </div>
