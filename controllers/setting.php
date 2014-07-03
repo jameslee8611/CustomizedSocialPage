@@ -1,9 +1,7 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author  Seungchul
+ * @date    July 2, 2014
  */
 
 class Setting extends Controller {
@@ -38,13 +36,19 @@ class Setting extends Controller {
         }
         else
         {
-            $this->view->render('setting/changePasswordSuccess');
+            $this->view->render('setting/success/changePasswordSuccess');
             exit;
         }
     }
     
-    public function changeSuccess()
+    public function withdraw()
     {
-        $this->view->render('setting/changePasswordSuccess');
+        $this->view->render('setting/withdraw');
+    }
+    
+    public function askWithdraw()
+    {
+        $this->model->withdraw();
+        $this->view->render('setting/success/withdrawdSuccess');
     }
 }

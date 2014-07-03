@@ -1,9 +1,7 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author  Seungchul
+ * @Date    July 2, 2014
  */
 
 class Setting_Model extends Model {
@@ -29,5 +27,15 @@ class Setting_Model extends Model {
             
             return true;
         }
+    }
+    
+    public function withdraw()
+    {
+        $this->db->delete("users", 
+                            array("login"), 
+                            array(Session::get('username')));
+        // we need to delete more s.t. their posts, pictures, and moives
+        
+        Session::destroy();
     }
 }
