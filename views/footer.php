@@ -3,7 +3,7 @@
         <hr/>
         <div class="row">
             <div class="large-5 columns">
-                <p>© Copyright By Jiwoong, Seungchul, Jae Yun</p>
+                <p>© Copyright By Seungchul, Jae Yun, Jiwoong</p>
             </div>
             <div class="large-7 columns">
                 <ul class="inline-list right">
