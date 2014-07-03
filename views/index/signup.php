@@ -93,11 +93,15 @@
     </div>
 </div>
 <script>
+    var login_failed = "<?php echo $this->login_failed ?>";
     $(document).foundation();
-    function show_login_error(){
-        $("#login_error").show();
-    }
-    function hide_login_error(){
-        $("#login_error").hide();
+    display_login_error(login_failed);
+    function display_login_error(login_error){
+        if(login_error == true)        {
+            $("#login_error").show();    
+        }
+        else{
+            $("#login_error").hide();
+        }
     }
 </script>

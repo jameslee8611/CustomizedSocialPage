@@ -15,15 +15,13 @@ class Index extends Controller {
         if (Session::get('loggedIn') == true)
         {
             $this->view->render('index/main');
-            echo 'hide_login_error()';
         }
         else
         {
-            $this->view->render('index/signup');
-            if(isset($_SESSION['show_error']))
-            {
-                Session::get('show_error');
+            if(isset($_SESSION['loginFailed'])){
+                $this->view->login_failed = Session::get('loginFailed');
             }
+            $this->view->render('index/signup');
         }
     }
     
