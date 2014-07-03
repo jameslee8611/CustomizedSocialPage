@@ -29,6 +29,11 @@
                     </div>
                 </form>
             </div>
+            <div class="row" id="login_error" hidden>
+                <div class="large-8 columns">
+                    <small class="error" style="text-align: center">Username and Password Does not Match!</small>
+                </div>
+            </div>
             <div class="row">
                 <div class="large-4 columns">
                     <input id="keep_loggedIn" type="checkbox"><label for="keep_loggedIn">Keep me logged in</label>
@@ -66,7 +71,7 @@
                     </div>
                     <div class="row">
                         <div class="large-12 column">
-                            <label class="signup">Confirm Email<input class="error" type="text" name="confirmemail" required data-equalto="email"/></label>
+                            <label class="signup">Confirm Email<input class="error" type="text" name="confirmemail" autocomplete="off" required data-equalto="email"/></label>
                             <small id="confirm_error" class="error custom" hidden>Email Does Not Match!</small>
                         </div>
                     </div>
@@ -87,7 +92,12 @@
         <div class="large-3 columns"></div>
     </div>
 </div>
-
 <script>
     $(document).foundation();
+    function show_login_error(){
+        $("#login_error").show();
+    }
+    function hide_login_error(){
+        $("#login_error").hide();
+    }
 </script>

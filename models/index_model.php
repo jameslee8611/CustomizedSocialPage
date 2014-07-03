@@ -38,7 +38,9 @@ class Index_Model extends Model {
         }
         else
         {
-            header('location: ../forget');
+            Session::set('show_error', '<script> show_login_error(); </script>');
+            header('location: '.URL);
+            #header('location: ../forget');
         }
     }
     
