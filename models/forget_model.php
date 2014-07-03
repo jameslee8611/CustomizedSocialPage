@@ -39,28 +39,16 @@ class Forget_Model extends Model {
             
             $this->resetCode($reset_code);
             header('location: ../forget/success');
-            //$success = mail($to, $subject, $message, $headers);
-//            if ($success) {
-//                $this->resetCode($reset_code);
-//                header('location: ../forget/success');
-//            }
-//            else
-//            {
-//                header('location: '. URL .'index');
-//            }
-            exit;
         }
         else
         {
             header('location: ../forget/fail');
-            exit;
         }
     }
     
     public function resetPassword()
     {
-        $dbname = "users";
-        $statement = $this->db->update($dbname, array("password", "reset"), 
+        $statement = $this->db->update("users", array("password", "reset"), 
             array(md5($_POST['new_password']), null), array("reset"), array($_POST['reset']));
         if(!$statement){
             throw new Exception('Query failed.');
@@ -85,8 +73,7 @@ class Forget_Model extends Model {
             return false;
         }
         
-        $dbname = "users";
-        $statement = $this->db->select(array("id"), $dbname, array("email"), array($email));
+        $statement = $this->db->select(array("id"), "users", array("email"), array($email));
         if(!$statement){
             throw new Exception('Query failed.');
         }

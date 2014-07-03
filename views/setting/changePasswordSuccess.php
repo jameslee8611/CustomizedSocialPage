@@ -1,8 +1,3 @@
-<!--
-    @author Seungchul
-    @date July 2, 2014
--->
-
 <div class="header">
     <div class="row">
         <div class="large-1 columns">
@@ -22,23 +17,19 @@
 
     <div class="row">    
 
-
         <div class="large-9 push-3 columns">
-
-            <h3>Setting page <small>!Private page</small></h3>
-
-            <p>You can change your privacy or change your password</p>
-
+            <h2>Your Request is successively done!</h2>
         </div>
 
 
-        <!-- Side bar menu -->
+
+
         <div class="large-3 pull-9 columns">
 
             <ul class="side-nav">
-                <li><a href="<?php echo URL;?>setting/changePassword">Change Password</a></li>
+                <li><a href="<?php echo URL; ?>setting/changePassword">Change Password</a></li>
                 <li><a href="#">Change Privacy</a></li>
-                <li><a href="#">Withdraw account</a></li>
+                <li><a href="#">DisJoin</a></li>
             </ul>
 
         </div>
@@ -47,7 +38,3 @@
 
 
 </div>
-
-<script>
-    $(document).foundation();
-</script>

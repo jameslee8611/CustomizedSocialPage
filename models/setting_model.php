@@ -14,6 +14,17 @@ class Setting_Model extends Model {
 
     public function changePassword()
     {
-        echo 'change Password';
+        $statement = $this->db->select( array("id"), "users", array("password"), array(md5($_POST['old_password'])) );
+        if($statement->rowCount() < 1)
+        {
+            return false;
+        }
+        else
+        {
+            $statement = $this->db->update("users", array("password"), 
+            array(md5($_POST['new_password'])), array("password"), array($_POST['old_password']));
+            
+            return true;
+        }
     }
 }

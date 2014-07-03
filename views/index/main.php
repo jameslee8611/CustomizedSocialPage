@@ -27,10 +27,10 @@
                 <h4><a href="<?php echo URL.Session::get('username'); ?>"><?php echo Session::get('username'); ?></a></h5>
                 <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
                     <section class="section">
-                        <h6 class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
+                        <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
                     </section>
-                    <section class="section">
-                        <h6 class="title"><a href="#">Section 2</a></h6>
+                    <section class="title">
+                        <h6 style="font-size: 15px;" class="title"><a href="#">Section 2</a></h6>
                     </section>
                 </div>
 
