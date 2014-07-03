@@ -34,7 +34,7 @@
             <ul class="side-nav">
                 <li><a href="<?php echo URL;?>setting/changePassword">Change Password</a></li>
                 <li><a href="#">Change Privacy</a></li>
-                <li><a href="#">DisJoin</a></li>
+                <li><a href="#">Withdraw account</a></li>
             </ul>
 
         </div>
@@ -43,3 +43,7 @@
 
 
 </div>
+
+<script>
+    $(document).foundation();
+</script>

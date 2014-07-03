@@ -10,25 +10,21 @@ class Setting extends Controller {
 
     function __construct() {
         parent::__construct();
+        
+        if(Session::get('loggedIn') == null)
+        {
+            $this->view->render('error/index');
+            exit;
+        }
     }
 
     public function index()
     {
-        if(Session::get('loggedIn') == true)
-        {
-            $this->view->render('setting/index');
-        }
-        else
-        {
-            require 'controllers/error.php';
-            $controller = new Error();
-            $controller->index();
-            return false;
-        }
+        $this->view->render('setting/index');
     }
     
     public function changePassword()
     {
-        echo 'change Password';
+        $this->view->render('setting/changePassword');
     }
 }
