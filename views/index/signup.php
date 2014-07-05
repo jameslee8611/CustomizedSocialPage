@@ -93,7 +93,7 @@
     </div>
 </div>
 <script>
-    var login_failed = "<?php echo $this->login_failed ?>";
+    var login_failed = "<?php echo (empty($this->login_failed)==false)? $this->login_failed: false ?>";
     $(document).foundation();
     display_login_error(login_failed);
     function display_login_error(login_error){
