@@ -21,17 +21,9 @@
             <h3>Are you sure that you'd like to cancel your account?</h3>
             <br><br>
             <a href="<?php echo URL; ?>setting/askWithdraw" onclick="return confirm('This is last call that I please you')" class="radius button alert">Drop</a>
-<!--            <form action="askWithdraw">
-                <input class="radius button alert"type="submit" value="Drop"
-                  onclick="return confirm('Are you sure you want to search Google?')"
-                />
-            </form>-->
             <a href="<?php echo URL; ?>" class="radius button">Back</a>
             <br><br><br>
         </div>
-
-
-
 
         <div class="large-3 pull-9 columns">
 
@@ -44,6 +36,5 @@
         </div>
 
     </div>
-
 
 </div>
