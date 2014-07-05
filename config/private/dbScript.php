@@ -22,11 +22,12 @@ $db = new Database();
 $query = 
 "CREATE TABLE users
 (
-	id int NOT NULL,
+	id int NOT NULL AUTO_INCREMENT,
 	login varchar(25) NOT NULL,
 	email varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
-	reset varchar(32) default NULL
+	reset varchar(32) default NULL,
+	PRIMARY KEY (id)
 );";
 
 $statement = $db->prepare($query);
