@@ -23,7 +23,7 @@ $query =
 "CREATE TABLE users
 (
 	id int NOT NULL,
-	username varchar(25) NOT NULL,
+	login varchar(25) NOT NULL,
 	email varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
 	reset varchar(32) default NULL
