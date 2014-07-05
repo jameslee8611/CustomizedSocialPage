@@ -22,13 +22,13 @@
             <form action="askChange" method="post" data-abide>
                 <div class="row">
                     <div class="large-6 column" id="current-password-field">
-                        <label class="signup">Current Password<input class="error" type="password" name="old_password" required/></label>
+                        <label class="signup">Current Password<input class="error" type="password" id="old_password" name="old_password" required/></label>
                         <small id="password_error" class="error custom" hidden>Password is not correct!</small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="large-6 column">
-                        <label class="signup">New Password<input id="newPassword" class="error" type="password" name="new_password" required/></label>
+                        <label class="signup">New Password<input class="error" type="password" id="new_password" name="new_password" required/></label>
                         <small id="password_error" class="error custom" hidden>New password needed!</small>
                     </div>
                 </div>
@@ -65,8 +65,9 @@
 </div>
 
 <script type="text/javascript">
-    var error_msg_trigger = "<?php echo (empty($this->error_msg_trigger) == false) ? $this->error_msg_trigger : false; ?>"
     $(document).foundation();
+    
+    var error_msg_trigger = "<?php echo (empty($this->error_msg_trigger) == false) ? $this->error_msg_trigger : false; ?>"
     $(document).ready(changeClassName("current-password-field", "large-6 column", "error"));
     
     function changeClassName(id, newName, error)

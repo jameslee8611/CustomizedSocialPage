@@ -12,7 +12,7 @@ class Setting_Model extends Model {
 
     public function changePassword()
     {
-        $statement = $this->db->select( array("id"), "users", array("password"), array(md5($_POST['old_password'])) );
+        $statement = $this->checkPassword($_POST['old_password']);
         if($statement->rowCount() < 1)
         {
             return false;
@@ -27,6 +27,11 @@ class Setting_Model extends Model {
             
             return true;
         }
+    }
+    
+    public function checkPassword($password)
+    {
+        return $this->db->select( array("id"), "users", array("password"), array(md5($password)) );
     }
     
     public function withdraw()

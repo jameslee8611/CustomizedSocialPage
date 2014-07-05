@@ -41,6 +41,19 @@ class Setting extends Controller {
         }
     }
     
+    public function checkPassword($password = null)
+    {
+        $statement = $this->model->checkPassword($password);
+        if($statement->rowCount() < 1)
+        {
+            echo "false";
+        }
+        else
+        {
+            echo "true";
+        }
+    }
+    
     public function withdraw()
     {
         $this->view->render('setting/withdraw');
