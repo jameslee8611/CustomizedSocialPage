@@ -16,7 +16,6 @@ class Index_Model extends Model {
         $key = pack("H*", MYKEY);
         $rememberMe = new RememberMe($key);
 
-        // Check if remember me is present
         if ($data = $rememberMe->auth()) 
         {
             $rememberMe->remember($data['user']);
@@ -26,7 +25,6 @@ class Index_Model extends Model {
         } 
         else
         {
-            echo 'Not returned User</br>';
             return false;
         }
     }
