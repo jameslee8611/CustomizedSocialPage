@@ -7,7 +7,9 @@ require 'libs/Model.php';
 //Library
 require 'libs/Database.php';
 require 'libs/Session.php';
+require 'libs/Cookie.php';
 
+require 'config/private/key.php';
 require 'config/constant.php';
 require 'config/database.php';
 

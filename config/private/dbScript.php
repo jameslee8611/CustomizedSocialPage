@@ -27,6 +27,8 @@ $query =
 	email varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
 	reset varchar(32) default NULL,
+        session_id varchar(40) DEFAULT '0' NOT NULL,
+        
 	PRIMARY KEY (id)
 );";
 
@@ -35,6 +37,7 @@ $success = $statement->execute();
 
 if($success)
     echo 'DBs have been successfully created.';
-else echo 'DBs failed to be created.';  
+else 
+    echo 'DBs failed to be created.';  
 
 ?>

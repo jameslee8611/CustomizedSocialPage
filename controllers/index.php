@@ -1,6 +1,7 @@
 <?php
 /**
- * @author Seungchul Lee
+ * @author  Seungchul Lee
+ * @date    July 5, 2014
  */
 
 class Index extends Controller {
@@ -12,9 +13,10 @@ class Index extends Controller {
 
     public function index() 
     {
-        if (Session::get('loggedIn') == true)
+        if ($this->model->checkReturnUser() || Session::get('loggedIn') == true)
         {
             $this->view->render('index/main');
+            exit;
         }
         else
         {
@@ -23,10 +25,11 @@ class Index extends Controller {
                 unset($_SESSION['loginFailed']);
             }
             $this->view->render('index/signup');
+            exit;
         }
     }
     
-    public function login($login = false, $password = false) 
+    public function login($login = null, $password = null) 
     {
         $this->model->login($login, $password);
     }

@@ -12,8 +12,9 @@
             </div>
         </div>
         <div class="large-7 columns">
-            <div class="row">
-                <form action ="<?php echo URL; ?>index/login" method="post">
+
+            <form action ="<?php echo URL; ?>index/login" method="post">
+                <div class="row">
                     <div class="large-4 columns">
                         <input type="text" name="login" placeholder="Login" />
                     </div>
@@ -27,24 +28,26 @@
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="row" id="login_error" hidden>
-                <div class="large-8 columns">
-                    <small class="error" style="text-align: center">Username and Password Does not Match!</small>
                 </div>
-            </div>
-            <div class="row">
-                <div class="large-4 columns">
-                    <input id="keep_loggedIn" type="checkbox"><label for="keep_loggedIn">Keep me logged in</label>
+                <div class="row" id="login_error" hidden>
+                    <div class="large-8 columns">
+                        <small class="error" style="text-align: center">Username and Password Does not Match!</small>
+                    </div>
                 </div>
-                <div class="large-4 columns">
-                    <a href="<?php echo URL; ?>forget">Forget PassWord?</a>
+                <div class="row">
+                    <div class="large-4 columns">
+                        <input name="keep_loggedIn" id="keep_loggedIn" type="checkbox"><label for="keep_loggedIn">Keep me logged in</label>
+                    </div>
+                    <div class="large-4 columns">
+                        <a href="<?php echo URL; ?>forget">Forget PassWord?</a>
+                    </div>
+                    <div class="large-4 columns">
+
+                    </div>
                 </div>
-                <div class="large-4 columns">
-                    
-                </div>
-            </div>
+            </form>
+
+
         </div>
     </div>
 </div>
@@ -93,14 +96,14 @@
     </div>
 </div>
 <script>
-    var login_failed = "<?php echo (empty($this->login_failed)==false)? $this->login_failed: false ?>";
+    var login_failed = "<?php echo (empty($this->login_failed) == false) ? $this->login_failed : false ?>";
     $(document).foundation();
     display_login_error(login_failed);
-    function display_login_error(login_error){
-        if(login_error == true)        {
-            $("#login_error").show();    
+    function display_login_error(login_error) {
+        if (login_error == true) {
+            $("#login_error").show();
         }
-        else{
+        else {
             $("#login_error").hide();
         }
     }
