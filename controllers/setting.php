@@ -25,6 +25,11 @@ class Setting extends Controller {
     {
         $this->view->render('setting/changePassword');
     }
+
+    public function changePrivacy()
+    {
+        $this->view->render('setting/changePrivacy');
+    }
     
     public function askChange()
     {

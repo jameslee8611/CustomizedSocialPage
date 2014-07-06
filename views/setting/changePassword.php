@@ -53,7 +53,7 @@
 
             <ul class="side-nav">
                 <li><a href="<?php echo URL; ?>setting/changePassword">Change password</a></li>
-                <li><a href="#">Change privacy</a></li>
+                <li><a href="<?php echo URL;?>setting/changePrivacy">Change Privacy</a></li>
                 <li><a href="<?php echo URL;?>setting/withdraw">Withdraw account</a></li>
             </ul>
 
