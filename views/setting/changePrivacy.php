@@ -42,9 +42,9 @@
 
         <div class="large-3 pull-9 columns">
             <ul class="side-nav">
-                <li><a href="<?php echo URL;?>setting/changePassword">Change Password</a></li>
-                <li><a href="<?php echo URL;?>setting/changePrivacy">Change Privacy</a></li>
-                <li><a href="#">Withdraw Account</a></li>
+                <li><a href="<?php echo URL;?>setting/changePassword">Change password</a></li>
+                <li><a href="<?php echo URL;?>setting/changePrivacy">Change privacy</a></li>
+                <li><a href="<?php echo URL;?>setting/withdraw">Withdraw account</a></li>
             </ul>
         </div>
 
