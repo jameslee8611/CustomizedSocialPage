@@ -60,12 +60,13 @@ class Index_Model extends Model {
                 $rememberMe->remember($login);
             }
             
+            #$this->view->login_failed = false;
             header('location: '.URL);
         }
         else
         {
-            Session::set('loginFailed', true);
-            header('location: '.URL);
+            #header('location: '.URL);
+            return false;
         }
     }
     

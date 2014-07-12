@@ -18,7 +18,7 @@
     <div class="row">
         
         <div class="large-9 push-3 columns">
-            <h2>Privacy Settings</h2>
+            <h2 class="row">Privacy Settings</h2>
             <form action="" method="post">
                 <label class="row">Post Privacy</label>
                 <div id="post_privacy" class="row">

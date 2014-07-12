@@ -20,10 +20,6 @@ class Index extends Controller {
         }
         else
         {
-            if(isset($_SESSION['loginFailed'])){
-                $this->view->login_failed = Session::get('loginFailed');
-                unset($_SESSION['loginFailed']);
-            }
             $this->view->render('index/signup');
             exit;
         }
@@ -31,7 +27,12 @@ class Index extends Controller {
     
     public function login($login = null, $password = null) 
     {
-        $this->model->login($login, $password);
+        if($this->model->login($login, $password) == false)
+        {
+            $this->view->login_failed = true;
+            $this->view->render('index/signup');
+            exit;
+        }
     }
     
     public function logout()
