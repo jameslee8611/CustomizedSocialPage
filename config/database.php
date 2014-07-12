@@ -9,4 +9,4 @@
 define('Host', 'localhost');
 define('DBName', 'AllinOne');
 define('DBUser', 'root');
-define('DBPassword', 'root');
+define('DBPassword', '');
