@@ -27,4 +27,12 @@ class Controller {
             require 'models/helpers/rememberMe.php';
         }
     }
+    
+    protected function redirect_error()
+    {
+        require 'controllers/error.php';
+        $controller = new Error();
+        $controller->index();
+        return false;
+    }
 }

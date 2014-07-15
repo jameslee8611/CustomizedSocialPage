@@ -47,6 +47,13 @@ class Database extends PDO {
         
     }
 
+    /**
+     * 
+     * @param type $dbname      Database name
+     * @param type $attrNames   array type- attribute names
+     * @param type $attrValues  array type- attribute values
+     * @return null
+     */
     public function insert($dbname, $attrNames, $attrValues) {
         $attrNum = count($attrNames);
         if($attrNum < 1 || $attrNum != count($attrValues))
@@ -70,9 +77,11 @@ class Database extends PDO {
 
         $statement = $this->prepare($query);
         $success = $statement->execute();
+        
         if($success)
             return $statement;     
-        else return NULL;   
+        else 
+            return NULL;   
     }
 
     public function delete($dbname, $attrNames, $attrValues) {
@@ -96,6 +105,15 @@ class Database extends PDO {
         else return NULL;   
     }
 
+    /**
+     * 
+     * @param array $colNames    
+     * @param string $dbname      Database name
+     * @param array $attrNames   Attribute name
+     * @param array $attrValues  Attribute values
+     * @param string $operator
+     * @return null
+     */
     public function select($colNames, $dbname, $attrNames, $attrValues, $operator = "and") {
         $attrNum = count($attrNames);
         if($attrNum != count($attrValues))

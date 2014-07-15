@@ -27,24 +27,29 @@ class Profile extends Controller {
             switch ($action)
             {
                 case NULL:
-                    list($post, $comment) = $this->model->get_post();
-                    $this->view->post = $post;
-                    $this->view->comment = $comment;
+                    $result = $this->model->get_status();
+                    $this->view->data = $result;
                     $this->view->render('profile/profile');
                     break;
                     
-                case WALL:
+                case STATUS:
                     $this->view->render('profile/profile');
                     break;
                 
                 case IMAGE:
                     $this->view->render('profile/image');
                     break;
+                
+                case VIDEO:
+                    $this->view->render('profile/video');
+                    break;
 
                 default:
                     $this->redirect_error();
                     break;
             }
+            
+            exit;
         }
         else
         {
@@ -59,11 +64,15 @@ class Profile extends Controller {
         }
     }
     
-    private function redirect_error()
+    public function post($from = null)
     {
-        require 'controllers/error.php';
-        $controller = new Error();
-        $controller->index();
-        return false;
+        if (Session::get('loggedIn'))
+        {
+            $this->model->post($from);
+        }
+        else
+        {
+            $this->redirect_error();
+        }
     }
 }
