@@ -33,7 +33,7 @@
                             
                         </section>
                         <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . Session::get('username') . STATUS; ?>">Status</a></h6>
+                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . Session::get('username') . '/' . STATUS; ?>">Status</a></h6>
                         </section>
                         <section class="title">
                             <h6 style="font-size: 15px;" class="title"><a href="#">Pictures</a></h6>
@@ -78,6 +78,12 @@
                 </div>
             </div><br>
     <?php
+    if (!isset($this->data) || empty ($this->data))
+    {
+        echo '<div class="row"></div>';
+    }
+    else
+    {
     foreach ($this->data as $info)
     {
         echo '<div class="row">
@@ -101,11 +107,12 @@
                 echo        '</p>
                         </div>
                     </div>';
-                }
             }
-        echo '</div>
+        echo    '</div>
             </div>
             <hr/>';
+    }
+    }
     ?>
             
         </div>
