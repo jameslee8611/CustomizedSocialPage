@@ -22,7 +22,7 @@ $db = new Database();
 $query = 
 "CREATE TABLE users
 (
-	id int NOT NULL AUTO_INCREMENT,
+	id int(11) NOT NULL AUTO_INCREMENT,
 	login varchar(25) NOT NULL,
 	email varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
@@ -36,8 +36,60 @@ $statement = $db->prepare($query);
 $success = $statement->execute();
 
 if($success)
+{
     echo 'DBs have been successfully created.';
+}
 else 
-    echo 'DBs failed to be created.';  
+{
+    echo 'DBs failed to be created.';
+}
 
+
+$query = 
+"CREATE TABLE status
+(
+	Id int(32) NOT NULL AUTO_INCREMENT,
+	UId int(11) NOT NULL,
+	PId int(32) NOT NULL,
+	Status varchar(500) DEFAULT NULL,
+        
+	PRIMARY KEY (Id)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'DBs have been successfully created.';
+}
+else 
+{
+    echo 'DBs failed to be created.'; 
+}
+
+
+$query = 
+"CREATE TABLE wall
+(
+	Id int(32) NOT NULL AUTO_INCREMENT,
+	whereId int(25) NOT NULL,
+	Type varchar(10) NOT NULL,
+	StatusId int(32) DEFAULT NULL,
+        DataId int(32) DEFAULT NONE,
+        
+	PRIMARY KEY (Id)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'DBs have been successfully created.';
+}
+else 
+{
+    echo 'DBs failed to be created.'; 
+}
 ?>

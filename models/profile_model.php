@@ -31,16 +31,12 @@ class Profile_Model extends Model {
     {
         if(!isset($from) || empty($from))
         {
-            $query = $this->db->select(array("Id"), "users", array("login"), array(Session::get('username')));
-            $row =$query->fetchAll();
-            $statement = $this->db->insert("status", array("UId", "Status"), array($row[0]['Id'], $_POST['post-text']));
+            $statement = $this->db->insert("status", array("UId", "Status"), array(Session::get('userId'), $_POST['post-text']));
             
             if ($statement->rowCount() > 0)
             {
-                $whereId = $row[0]['Id'];
                 $statusId = $this->db->lastInsertId();
-                $data = '{"statusId": "'. $statusId . '", "dataId": ""}';
-                $statement = $this->db->insert("wall", array("whereId", "Data", "Type"), array($whereId, $data, $type));
+                $statement = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array(Session::get('userId'), $statusId, $type));
             }
             else
             {
@@ -68,20 +64,33 @@ class Profile_Model extends Model {
         $result = array();
         
         //////////// Db connection goes here ////////////
-        $query_whereId = $this->db->select(array("Id"), "users", array("login"), array(Session::get('username')));
-        $row =$query_whereId->fetchAll();
-        $whereId = $row[0]['Id'];
-        
-        $query = $this->db->select(array("Type", "Data"), "wall", array("whereId"), array($whereId));
-        foreach ($query as $row)
+        $statement = $this->db->prepare("Select users.login, table1.status
+                                        From (
+                                            Select status.status, status.UId
+                                                From wall
+                                                Inner join users
+                                                    On users.Id = wall.whereId
+                                                Inner join status
+                                                    On wall.StatusId = status.Id ) table1
+                                            Inner join users
+                                                On users.Id = table1.UId
+                                                ");
+        $success = $statement->execute();
+        if($success)
         {
-            if ($row['Type'] == STATUS)
+            $query = $statement->fetchAll();
+            
+            foreach ($query as $row)
             {
-                
+                array_push($result, $this->formatter($row['login'], $row['status']));
             }
         }
-        array_push($result, $this->formatter("Tester", "Hello, world", array("Tester2", "Tester3"), array("Hi", "Hello")));
-
+        else
+        {
+            echo 'error';
+            exit;
+        }
+        
 	return $result;
     }
     
@@ -92,7 +101,7 @@ class Profile_Model extends Model {
      * @param array $commentors List of commentors    
      * @param array $comments   List of comments
      */
-    private function formatter($writer, $post, $commentors, $comments)
+    private function formatter($writer, $post, $commentors = null, $comments = null)
     {
         if (count($commentors) != count($comments))
         {
