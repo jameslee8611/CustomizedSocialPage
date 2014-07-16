@@ -68,7 +68,10 @@ class Profile extends Controller {
     {
         if (Session::get('loggedIn'))
         {
-            $this->model->post($from);
+            ////// set the type //////
+            $type = STATUS; // now we only have status type
+            
+            $this->model->post($from, $type);
         }
         else
         {

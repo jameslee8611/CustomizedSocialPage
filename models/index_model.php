@@ -21,6 +21,10 @@ class Index_Model extends Model {
             $rememberMe->remember($data['user']);
             Session::set('loggedIn', true);
             Session::set('username', $data['user']);
+            $query_whereId = $this->db->select(array("Id"), "users", array("login"), array($data['user']));
+            $row =$query_whereId->fetchAll();
+            $whereId = $row[0]['Id'];
+            Session::set('userId', $whereId);
             return true;
         } 
         else
@@ -43,15 +47,18 @@ class Index_Model extends Model {
         }
 
         $statement = $this->db->select(array("id"), "users", array("login", "password"), array($login, MD5($password)));
+        
         if(!$statement){
             throw new Exception('Query failed.');
         }
-               
-        $count = $statement->rowCount();
-        if($count > 0)
+        
+        if($statement->rowCount() > 0)
         {
+            $row = $statement->fetchAll();
+            $whereId = $row[0]['id'];
             Session::set('loggedIn', true);
             Session::set('username', $login);
+            Session::set('userId', $whereId);
             
             if (!empty($_POST['keep_loggedIn']) || isset($_POST['keep_loggedIn']))
             {

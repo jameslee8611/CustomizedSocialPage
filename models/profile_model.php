@@ -34,6 +34,19 @@ class Profile_Model extends Model {
             $query = $this->db->select(array("Id"), "users", array("login"), array(Session::get('username')));
             $row =$query->fetchAll();
             $statement = $this->db->insert("status", array("UId", "Status"), array($row[0]['Id'], $_POST['post-text']));
+            
+            if ($statement->rowCount() > 0)
+            {
+                $whereId = $row[0]['Id'];
+                $statusId = $this->db->lastInsertId();
+                $data = '{"statusId": "'. $statusId . '", "dataId": ""}';
+                $statement = $this->db->insert("wall", array("whereId", "Data", "Type"), array($whereId, $data, $type));
+            }
+            else
+            {
+                echo "Network Connection fails";
+                exit;
+            }
         }
         
         
@@ -55,6 +68,18 @@ class Profile_Model extends Model {
         $result = array();
         
         //////////// Db connection goes here ////////////
+        $query_whereId = $this->db->select(array("Id"), "users", array("login"), array(Session::get('username')));
+        $row =$query_whereId->fetchAll();
+        $whereId = $row[0]['Id'];
+        
+        $query = $this->db->select(array("Type", "Data"), "wall", array("whereId"), array($whereId));
+        foreach ($query as $row)
+        {
+            if ($row['Type'] == STATUS)
+            {
+                
+            }
+        }
         array_push($result, $this->formatter("Tester", "Hello, world", array("Tester2", "Tester3"), array("Hi", "Hello")));
 
 	return $result;
@@ -69,8 +94,6 @@ class Profile_Model extends Model {
      */
     private function formatter($writer, $post, $commentors, $comments)
     {
-        $string = new ArrayObject();
-        
         if (count($commentors) != count($comments))
         {
             return NULL;
@@ -92,8 +115,6 @@ class Profile_Model extends Model {
         $result .=      ']
                     }';
         
-        $string->append($result);
-        
-        return json_decode($string[0], true);
+        return json_decode($result, true);
     }
 }
