@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Session class is static class for using any place
+ * 
+ * @author  Seungchul Lee
+ * @date    July 1, 2014
+ */
+
 class Session {
 
     public static function init()
@@ -24,6 +31,7 @@ class Session {
     {
         unset($_SESSION['loggedIn']);
         unset($_SESSION['username']);
+        unset($_SESSION['userId']);
         //session_destroy();
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Cookie class is static class
+ * 
  * @author  Seungchul
  * @date    July 5, 2014
  */

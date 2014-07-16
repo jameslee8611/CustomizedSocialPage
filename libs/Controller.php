@@ -1,9 +1,10 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Controller class is a neccessary part of MVC structure.
+ * 
+ * @author  Seungchul Lee
+ * @date    July 1, 2014
  */
 
 class Controller {
@@ -12,6 +13,10 @@ class Controller {
         $this->view = new View();
     }
 
+    /**
+     * load module classs will include controller's model and set in the model in MVC
+     * @param string $name model name
+     */
     public function loadModule($name) {
         $path = 'models/'. $name . '_model.php';
         
@@ -28,6 +33,9 @@ class Controller {
         }
     }
     
+    /**
+     * It will redirect to error page
+     */
     protected function redirect_error()
     {
         require 'controllers/error.php';

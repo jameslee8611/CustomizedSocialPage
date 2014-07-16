@@ -1,9 +1,11 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * View class will redner header and footer in each page.
+ * One neccessary part of MVC structure
+ * 
+ * @author  Seungchul Lee
+ * @date    July 1, 2014
  */
 
 class View {
