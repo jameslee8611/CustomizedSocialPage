@@ -1,9 +1,8 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author  Seungchul Lee
+ * @date    July 16, 2014
  */
 
 class Profile extends Controller {
@@ -12,6 +11,11 @@ class Profile extends Controller {
 
     function __construct() {
         parent::__construct();
+        
+        if (!Session::get('loggedIn'))
+        {
+            $this->redirect_error();
+        }
     }
 
     public function index($username=null, $action=null)
@@ -33,7 +37,7 @@ class Profile extends Controller {
                     break;
                     
                 case STATUS:
-                    $this->view->render('profile/profile');
+                    $this->view->render('profile/status');
                     break;
                 
                 case IMAGE:
@@ -64,18 +68,12 @@ class Profile extends Controller {
         }
     }
     
-    public function post($from = null)
+    public function post($from=null, $type=null)
     {
-        if (Session::get('loggedIn'))
-        {
-            ////// set the type //////
-            $type = STATUS; // now we only have status type
-            
-            $this->model->post($from, $type);
-        }
-        else
-        {
-            $this->redirect_error();
-        }
+        ////// set the type //////
+        $type = STATUS; // now we only have status type
+        
+        $this->model->post($from, $type);
+        
     }
 }

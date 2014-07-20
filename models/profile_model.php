@@ -1,9 +1,7 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author  Seungchul Lee
+ * @date    July 16, 2014
  */
 
 class Profile_Model extends Model {
