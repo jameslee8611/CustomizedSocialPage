@@ -56,9 +56,9 @@ class Profile_Model extends Model {
     {
         $result = array();
         
-        $statement = $this->db->prepare("Select users.login, table1.status, table1.date, table1.privacy
+        $statement = $this->db->prepare("Select users.login, table1.status, table1.date, table1.privacy, table1.id
                                         From (
-                                            Select status.status, status.UId, status.Date, status.Privacy
+                                            Select status.status, status.UId, status.Date, status.Privacy, wall.Id
                                                 From wall
                                                 Inner join users
                                                     On users.Id = wall.whereId
@@ -74,7 +74,7 @@ class Profile_Model extends Model {
             
             foreach ($query as $row)
             {
-                array_push($result, $this->formatter($row['login'], $row['status'], $row['date'], $row['privacy']));
+                array_push($result, $this->formatter($row['id'], $row['login'], $row['status'], $row['date'], $row['privacy']));
             }
         }
         else
@@ -93,7 +93,7 @@ class Profile_Model extends Model {
      * @param array $commentors List of commentors    
      * @param array $comments   List of comments
      */
-    private function formatter($writer, $post, $date, $privacy, $commentors = null, $comments = null)
+    private function formatter($id, $writer, $post, $date, $privacy, $commentors = null, $comments = null)
     {
         if (count($commentors) != count($comments))
         {
@@ -104,22 +104,28 @@ class Profile_Model extends Model {
         {
             case PUBLIC_POST:
                 $privacy_icon = 'fi-rss';
+                $description = 'Public post';
                 break;
             case FRIENDS_POST:
                 $privacy_icon = 'fi-torsos-all';
+                $description = 'Only for Friends';
                 break;
             case PRIVATE_POST:
                 $privacy_icon = 'fi-lock';
+                $description = 'Only for you';
                 break;
             default:
                 $privacy_icon = '';
+                $description = '';
         }
         
         $result = '{
+                        "id": "'. $id .'",
                         "Writer": "' . $writer. '",
                         "Post": "' . $post . '",
                         "Date": "' . $date . '",
                         "Privacy": "'. $privacy_icon .'",
+                        "Privacy_description": "'. $description .'",
                         "Comments": 
                         [';
                             for ($i=0; $i<count($commentors); $i++)

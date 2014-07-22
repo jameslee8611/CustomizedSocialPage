@@ -94,7 +94,10 @@
                   echo '<a href="'.URL.$info['Writer'].'"><strong>'. $info['Writer'] . '</strong> &nbsp</a>';
         echo        '
                         <p class="date">
-                            '.$info['Date'].' &nbsp<i class="'. $info['Privacy'] .'"></i>
+                            '.$info['Date'].' &nbsp<i class="'. $info['Privacy'] .'" data-dropdown="drop2-'. $info['id'] .'" data-options="is_hover: true"></i>
+                            <div class="f-dropdown content popover-box" id="drop2-'. $info['id'] .'" data-dropdown-content>
+                                '. $info['Privacy_description'] .'
+                            </div>
                         </p>
                     </div>
                 </div>
@@ -129,7 +132,6 @@
             <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
             <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
         </aside>
-
     </div>
 </div>
 

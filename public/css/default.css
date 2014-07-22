@@ -53,3 +53,7 @@ body {
 .post {
     padding-top: 5px;
 }
+
+.popover-box {
+    font-style: initial;
+}
