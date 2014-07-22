@@ -43,3 +43,13 @@ body {
     background: green;
     padding: 20px;
 }
+
+.date {
+    padding-top: 5px;
+    font-size: 13px;
+    color: lightgray;
+}
+
+.post {
+    padding-top: 5px;
+}

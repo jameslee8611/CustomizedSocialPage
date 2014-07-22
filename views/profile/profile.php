@@ -90,9 +90,16 @@
         echo '<div class="row">
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
-                    <p>';
-                  echo '<strong>'. $info['Writer'] . ':</strong> &nbsp' . $info['Post'];
-        echo        '</p>
+                    <div>';
+                  echo '<a href="'.URL.$info['Writer'].'"><strong>'. $info['Writer'] . '</strong> &nbsp</a>';
+        echo        '
+                        <p class="date">
+                            '.$info['Date'].' &nbsp<i class="'. $info['Privacy'] .'"></i>
+                        </p>
+                    </div>
+                </div>
+                <div class="large-10 columns">
+                    <p class="post">'. $info['Post'] .'</p>
                     <ul class="inline-list">
                         <li><a href="">Reply</a></li>
                         <li><a href="">Share</a></li>
@@ -110,6 +117,7 @@
                     </div>';
             }
         echo    '</div>
+                <div calss="large-2 columns"></div>
             </div>
             <hr/>';
     }

@@ -56,9 +56,9 @@ class Profile_Model extends Model {
     {
         $result = array();
         
-        $statement = $this->db->prepare("Select users.login, table1.status, table1.date
+        $statement = $this->db->prepare("Select users.login, table1.status, table1.date, table1.privacy
                                         From (
-                                            Select status.status, status.UId, status.Date
+                                            Select status.status, status.UId, status.Date, status.Privacy
                                                 From wall
                                                 Inner join users
                                                     On users.Id = wall.whereId
@@ -74,7 +74,7 @@ class Profile_Model extends Model {
             
             foreach ($query as $row)
             {
-                array_push($result, $this->formatter($row['login'], $row['status'], $row['date']));
+                array_push($result, $this->formatter($row['login'], $row['status'], $row['date'], $row['privacy']));
             }
         }
         else
@@ -93,17 +93,33 @@ class Profile_Model extends Model {
      * @param array $commentors List of commentors    
      * @param array $comments   List of comments
      */
-    private function formatter($writer, $post, $date, $commentors = null, $comments = null)
+    private function formatter($writer, $post, $date, $privacy, $commentors = null, $comments = null)
     {
         if (count($commentors) != count($comments))
         {
             return NULL;
         }
         
+        switch ((int)$privacy) 
+        {
+            case PUBLIC_POST:
+                $privacy_icon = 'fi-rss';
+                break;
+            case FRIENDS_POST:
+                $privacy_icon = 'fi-torsos-all';
+                break;
+            case PRIVATE_POST:
+                $privacy_icon = 'fi-lock';
+                break;
+            default:
+                $privacy_icon = '';
+        }
+        
         $result = '{
                         "Writer": "' . $writer. '",
                         "Post": "' . $post . '",
                         "Date": "' . $date . '",
+                        "Privacy": "'. $privacy_icon .'",
                         "Comments": 
                         [';
                             for ($i=0; $i<count($commentors); $i++)
