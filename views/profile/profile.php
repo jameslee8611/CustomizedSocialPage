@@ -25,7 +25,7 @@
         <div class="large-3 columns ">
             <div class="panel">
                 <a href="#"><img src="http://placehold.it/300x240&text=[img]"/></a>
-                <h4><a href="<?php echo URL . Session::get('username'); ?>"><?php echo Session::get('username'); ?></a></h5>
+                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
                         <section class="section">
                             <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
@@ -50,7 +50,7 @@
         <div class="large-6 columns">
             <div class="row">
                 <div class="large-12 columns">
-                    <form action ="<?php echo URL; ?>profile/post" method="post" class="post-form">
+                    <form action ="<?php echo URL; ?>profile/post/<?php echo $this->username; ?>" method="post" class="post-form">
                         <ul class="tabs" data-tab>
                             <li class="tab-title"><a class="post-icon" href="#image"><i class="fi-photo"></i></a></li>
                             <li class="tab-title"><a class="post-icon" href="#video"><i class="fi-video"></i></a></li>

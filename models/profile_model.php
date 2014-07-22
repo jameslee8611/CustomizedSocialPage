@@ -25,23 +25,25 @@ class Profile_Model extends Model {
         return false;
     }
     
-    public function post($from, $type)
+    public function post($username, $from, $type)
     {
         //echo $_POST['privacy'];
         
         if(!isset($from) || empty($from))
         {   
+            $query_whereId = $this->db->select(array("Id"), "users", array("login"), array($username));
+            $row =$query_whereId->fetchAll();
+            $whereId = $row[0]['Id'];
+            
             $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
-            $statement2 = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array(Session::get('userId'), $this->db->lastInsertId(), $type));
+            $statement2 = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
             
         }
-        
-        
         
         if ($statement2->rowCount() > 0)
         {
             // if from is from profile page
-            header('location: ' . '../' . Session::get('username'));
+            header('location: ' . '../../' . $username);
             // otherwise,
         }
         else
@@ -52,21 +54,24 @@ class Profile_Model extends Model {
         
     }
 
-    public function get_status()
+    public function get_status($username)
     {
         $result = array();
-        
-        $statement = $this->db->prepare("Select users.login, table1.status, table1.date, table1.privacy, table1.id
+        $statement = $this->db->prepare("Select users.login, table2.status, table2.date, table2.privacy, table2.id
                                         From (
-                                            Select status.status, status.UId, status.Date, status.Privacy, wall.Id
-                                                From wall
-                                                Inner join users
-                                                    On users.Id = wall.whereId
-                                                Inner join status
-                                                    On wall.StatusId = status.Id ) table1
-                                            Inner join users
-                                                On users.Id = table1.UId
+                                            Select status.status, status.UId, status.date, status.privacy, wall.id
+                                            From wall
+                                            Inner join (
+                                                    Select users.Id
+                                                    From users
+                                                    Where users.login = '$username') table1
+                                                On table1.Id = wall.whereId
+                                            Inner join status
+                                                On wall.StatusId = status.Id) table2
+                                        Inner join users
+                                            On users.Id = table2.UId
                                                 ");
+        
         $success = $statement->execute();
         if($success)
         {

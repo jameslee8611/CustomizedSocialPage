@@ -6,8 +6,6 @@
  */
 
 class Profile extends Controller {
-    
-    var $username;
 
     function __construct() {
         parent::__construct();
@@ -15,7 +13,7 @@ class Profile extends Controller {
 
     public function index($username=null, $action=null)
     {   
-        $this->username = $username;
+        Data::setUsername($username);
         
         if (!$this->model->check_user($username))
         {
@@ -26,7 +24,8 @@ class Profile extends Controller {
             switch ($action)
             {
                 case NULL:
-                    $result = $this->model->get_status();
+                    $result = $this->model->get_status($username);
+                    $this->view->username = $username;
                     $this->view->data = $result;
                     $this->view->render('profile/profile');
                     break;
@@ -63,12 +62,12 @@ class Profile extends Controller {
         }
     }
     
-    public function post($from=null, $type=null)
+    public function post($username, $from=null, $type=null)
     {
         ////// set the type //////
         $type = STATUS; // now we only have status type
         
-        $this->model->post($from, $type);
+        $this->model->post($username, $from, $type);
         
     }
 }

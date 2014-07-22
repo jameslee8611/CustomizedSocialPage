@@ -6,6 +6,7 @@ require 'libs/Model.php';
 
 //Library
 require 'libs/Database.php';
+require 'libs/Data.php';
 require 'libs/Session.php';
 require 'libs/Cookie.php';
 
