@@ -101,26 +101,28 @@
                         </p>
                     </div>
                 </div>
-                <div class="large-10 columns">
-                    <p class="post">'. $info['Post'] .'</p>
-                    <ul class="inline-list">
-                        <li><a href="">Reply</a></li>
-                        <li><a href="">Share</a></li>
-                    </ul>';
-
-        echo        '<h6>' . count($info['Comments']) . ' Comments</h6>';
+                <div class="large-12 columns">
+                    <p class="post">
+                        '. $info['Post'] .'
+                    </p>
+                    <div class="comment-head">';
+        echo            '<a href="#">comments</a>
+                        &nbsp&nbsp&nbsp&nbsp&nbsp
+                        <a href="#"><i class="fi-comment"></i> ' . count($info['Comments']) . '</a>
+                    </div>
+                    <div class="comment">';
             foreach ($info['Comments'] as $comment) {
-                echo'<div class="row">
-                        <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]"/></div>
-                        <div class="large-10 columns">
-                            <p>';
-                echo            '<strong>'. $comment['Writer'] . ':</strong> &nbsp' . $comment['Comment'];
-                echo        '</p>
-                        </div>
-                    </div>';
+                echo    '<div class="row">
+                            <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]"/></div>
+                            <div class="large-10 columns">
+                                <p>';
+                echo                '<strong>'. $comment['Writer'] . ':</strong> &nbsp' . $comment['Comment'];
+                echo            '</p>
+                            </div>
+                        </div>';
             }
-        echo    '</div>
-                <div calss="large-2 columns"></div>
+        echo    '   </div>
+                </div>
             </div>
             <hr/>';
     }

@@ -54,6 +54,13 @@ body {
     padding-top: 5px;
 }
 
-.popover-box {
-    font-style: initial;
+.comment-head {
+    background-color: #F5F5F5;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.comment {
+    background-color: #F5F5F5;
+    font-size: 16px;
 }
