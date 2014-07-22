@@ -27,24 +27,18 @@ class Profile_Model extends Model {
     
     public function post($from, $type)
     {
+        //echo $_POST['privacy'];
+        
         if(!isset($from) || empty($from))
-        {
-            $statement = $this->db->insert("status", array("UId", "Status"), array(Session::get('userId'), $_POST['post-text']));
+        {   
+            $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
+            $statement2 = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array(Session::get('userId'), $this->db->lastInsertId(), $type));
             
-            if ($statement->rowCount() > 0)
-            {
-                $statusId = $this->db->lastInsertId();
-                $statement = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array(Session::get('userId'), $statusId, $type));
-            }
-            else
-            {
-                echo "Network Connection fails";
-                exit;
-            }
         }
         
         
-        if ($statement->rowCount() > 0)
+        
+        if ($statement2->rowCount() > 0)
         {
             // if from is from profile page
             header('location: ' . '../' . Session::get('username'));
@@ -55,16 +49,16 @@ class Profile_Model extends Model {
             echo "Network Connection fails";
             exit;
         }
+        
     }
 
     public function get_status()
     {
         $result = array();
         
-        //////////// Db connection goes here ////////////
-        $statement = $this->db->prepare("Select users.login, table1.status
+        $statement = $this->db->prepare("Select users.login, table1.status, table1.date
                                         From (
-                                            Select status.status, status.UId
+                                            Select status.status, status.UId, status.Date
                                                 From wall
                                                 Inner join users
                                                     On users.Id = wall.whereId
@@ -80,7 +74,7 @@ class Profile_Model extends Model {
             
             foreach ($query as $row)
             {
-                array_push($result, $this->formatter($row['login'], $row['status']));
+                array_push($result, $this->formatter($row['login'], $row['status'], $row['date']));
             }
         }
         else
@@ -99,7 +93,7 @@ class Profile_Model extends Model {
      * @param array $commentors List of commentors    
      * @param array $comments   List of comments
      */
-    private function formatter($writer, $post, $commentors = null, $comments = null)
+    private function formatter($writer, $post, $date, $commentors = null, $comments = null)
     {
         if (count($commentors) != count($comments))
         {
@@ -109,6 +103,7 @@ class Profile_Model extends Model {
         $result = '{
                         "Writer": "' . $writer. '",
                         "Post": "' . $post . '",
+                        "Date": "' . $date . '",
                         "Comments": 
                         [';
                             for ($i=0; $i<count($commentors); $i++)

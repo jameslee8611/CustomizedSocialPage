@@ -51,6 +51,7 @@ $query =
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	UId int(11) NOT NULL,
 	PId int(32) NOT NULL,
+        Privacy int(1) NOT NULL,
 	Status varchar(500) DEFAULT NULL,
         
 	PRIMARY KEY (Id)

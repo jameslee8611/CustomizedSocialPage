@@ -11,11 +11,6 @@ class Profile extends Controller {
 
     function __construct() {
         parent::__construct();
-        
-        if (!Session::get('loggedIn'))
-        {
-            $this->redirect_error();
-        }
     }
 
     public function index($username=null, $action=null)

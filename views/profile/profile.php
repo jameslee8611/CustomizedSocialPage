@@ -61,13 +61,14 @@
                         <div class="post-container">
                             <textarea id="post-textarea" name="post-text" rows="3" placeholder="Type Content to Post"></textarea>
                             <div id="post-friends" class="row custom" hidden>
-                                <div class="large-6 columns custom">
-                                    <a href="#" data-dropdown="tag-friends" class="custom-tiny radius button dropdown"><i class="fi-torsos-all"></i></a>
-                                    <ul id="tag-friends" class="f-dropdown" data-dropdown-content>
-                                        <li>Lee</li>
-                                        <li>Yoon</li>
-                                        <li>Song</li>
+                                <div class="large-6 columns custom" name="privacy-range">
+                                    <a href="#" id="privacy-range-dropdown" data-options="align:right" data-dropdown="privacy-range" class="custom-tiny radius button">Privacy &raquo;</a>
+                                    <ul id="privacy-range" class="f-dropdown" data-dropdown-content>
+                                        <li><a class="privacy-menu" id="privacy-range-public" href="#"> <i class="fi-rss"></i>&nbsp; Public<i class="default" id="public-check"></i></a></li>
+                                        <li><a class="privacy-menu" id="privacy-range-friend" href="#"> <i class="fi-torsos-all"></i>&nbsp;Friends<i class="default" id="friend-check"></i></a></li>
+                                        <li><a class="privacy-menu" id="privacy-range-personal" href="#"> <i class="fi-lock"></i>&nbsp; Personal<i class="default" id="personal-check"></i></a></li>
                                     </ul>
+                                    <input type="hidden" id="privacy-menu-setting" name="privacy" value=""/>
                                 </div>
                                 <div class="large-6 columns custom">
                                     <input class="custom-tiny radius button post-button" type="submit" value="Post"/>
@@ -126,6 +127,61 @@
 
 
 <script>
+    /**
+     * @author  Seungchul Lee
+     * @date    July 21, 2014
+     */
+    
+    var privacyTracer = localStorage.getItem("privacyTracer");
+    var privacyValueTracer = localStorage.getItem("privacyValueTracer");
+    
+    if( privacyTracer === null)
+    {
+        localStorage.setItem("privacyTracer", 'public-check');
+        localStorage.setItem("privacyValueTracer", 'public_only');
+    }
+    
+    document.getElementById(privacyTracer.toString()).className = 'fi-check right';
+    document.getElementById('privacy-menu-setting').value = privacyValueTracer;
+    
+    /**
+     * privacy setting drop-down menu button's handler
+     */
+    $('.privacy-menu').click(function() {
+        //select Id
+        document.getElementById('privacy-range-dropdown').className = 'custom-tiny radius button';
+        document.getElementById('privacy-range').className = 'f-dropdown';
+        document.getElementById('privacy-range').style.left = "-99999px";
+        
+        switch ($(this).attr('id'))
+        {
+            case 'privacy-range-public':
+                localStorage.setItem("privacyTracer", 'public-check');
+                document.getElementById('public-check').className = 'fi-check right';
+                document.getElementById('friend-check').className = 'default';
+                document.getElementById('personal-check').className = 'default';
+                document.getElementById('privacy-menu-setting').value = 0;
+                localStorage.setItem("privacyValueTracer", 0);
+                break;
+            case 'privacy-range-friend':
+                localStorage.setItem("privacyTracer", 'friend-check');
+                document.getElementById('public-check').className = 'default';
+                document.getElementById('friend-check').className = 'fi-check right';
+                document.getElementById('personal-check').className = 'default';
+                document.getElementById('privacy-menu-setting').value = 1;
+                localStorage.setItem("privacyValueTracer", 1);
+                break;
+            case 'privacy-range-personal':
+                localStorage.setItem("privacyTracer", 'personal-check');
+                document.getElementById('public-check').className = 'default';
+                document.getElementById('friend-check').className = 'default';
+                document.getElementById('personal-check').className = 'fi-check right';
+                document.getElementById('privacy-menu-setting').value = 2;
+                localStorage.setItem("privacyValueTracer", 2);
+                break;
+        }
+    });
+    
     $(document).foundation();
     $('.tab-title').click(function() {
         if ($(this).hasClass('active')) {

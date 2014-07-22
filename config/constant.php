@@ -20,7 +20,3 @@ define('IMAGE', 'image');
 
 // setting menu
 define('SETTING', 'setting');
-
-// db table menu
-define ('USERDB', 'users');
-//...
