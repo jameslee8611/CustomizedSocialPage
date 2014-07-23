@@ -1,9 +1,8 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @author  Seungchul Lee, Jiwwong Yoon
+ * @Date    July 23, 2014
  */
 
 require '../../libs/Router.php';
@@ -53,7 +52,8 @@ $query =
 	PId int(32) NOT NULL,
         Privacy int(1) NOT NULL,
 	Status varchar(500) DEFAULT NULL,
-        
+        Date timestamp DEFAULT CURRENT_TIMESTAMP,
+
 	PRIMARY KEY (Id)
 );";
 

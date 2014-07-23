@@ -141,7 +141,6 @@
      * @date    July 22, 2014
      */
 
-
     /**
      * Post submit handler
      */
@@ -157,14 +156,19 @@
         var serializedData = $(this).serialize();
         $input.prop("disabled", true);
         
+        $('<br/><img id="waiting-wheel" src="<?php echo  URL . "public/images/wheel.gif"; ?>" alt="Processing..">').hide().fadeIn('slow').insertAfter( "#post-box" );
+        
         request = $.ajax({
             url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username); ?>,
             type: 'post',
             data: serializedData,
             success: function(html) {
+                //$('#waiting-wheel').delay(3000).queue(function(){$(this).remove();});
+                $('#waiting-wheel').remove();
                 var data = JSON.parse(html);
-                $('<div class="row" id="post-' + data.id + '"></div>').hide().fadeIn('slow').insertAfter( "#post-box" );
-                $('#post-' + data.id).html('<br><div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div><div class="large-10 columns"><div><a href="' + data.Writer + '"><strong>' + data.Writer + '</strong> &nbsp</a><p class="date">' + data.Date + '&nbsp<i class="data.Privacy" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i><div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>' + data.Privacy_description + '</div></p></div></div><div class="large-12 columns"><p class="post">' + data.Post + '</p><div class="comment-head"><a href="#">comments</a>&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#"><i class="fi-comment"></i> 0</a></div><hr class="comment-hr"/><div class="comment"></div></div><hr/>');
+                var url = <?php echo json_encode(URL);?>;
+                $('<br><div class="row" id="post-' + data.id + '"></div><hr/>').hide().fadeIn('slow').insertAfter( "#post-box" );
+                $('#post-' + data.id).html('<div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div><div class="large-10 columns"><div><a href="' + url + data.Writer + '"><strong>' + data.Writer + '</strong> &nbsp</a><p class="date">' + data.Date + '&nbsp<i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i><div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>' + data.Privacy_description + '</div></p></div></div><div class="large-12 columns"><p class="post">' + data.Post + '</p><div class="comment-head"><a href="#">comments</a>&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#"><i class="fi-comment"></i> 0</a></div><hr class="comment-hr"/><div class="comment"></div></div>');
             }
         });
         
@@ -175,6 +179,8 @@
         
         event.preventDefault();
     });
+    
+    
 
     /**
      * Initial privacy drop-down menu setting
@@ -186,6 +192,7 @@
     {
         localStorage.setItem("privacyTracer", 'public-check');
         localStorage.setItem("privacyValueTracer", 'public_only');
+        $(document).foundation();
     }
 
     document.getElementById(privacyTracer.toString()).className = 'fi-check right';

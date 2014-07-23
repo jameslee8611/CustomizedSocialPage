@@ -25,7 +25,7 @@ class Profile_Model extends Model {
         return false;
     }
     
-    public function post($username, $from, $type)
+    public function post_ajax($username, $from, $type)
     {   
         if(!isset($from) || empty($from))
         {   

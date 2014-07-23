@@ -73,7 +73,7 @@ class Profile extends Controller {
         ////// set the type //////
         $type = STATUS; // now we only have status type
         
-        $result = $this->model->post($username, $from, $type);
+        $result = $this->model->post_ajax($username, $from, $type);
         print_r($result);
     }
 }
