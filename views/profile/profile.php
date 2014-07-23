@@ -188,7 +188,7 @@
     var privacyTracer = localStorage.getItem("privacyTracer");
     var privacyValueTracer = localStorage.getItem("privacyValueTracer");
 
-    if (privacyTracer === null)
+    if (privacyTracer == null)
     {
         localStorage.setItem("privacyTracer", 'public-check');
         localStorage.setItem("privacyValueTracer", 'public_only');
