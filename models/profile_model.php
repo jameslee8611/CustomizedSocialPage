@@ -26,9 +26,7 @@ class Profile_Model extends Model {
     }
     
     public function post($username, $from, $type)
-    {
-        //echo $_POST['privacy'];
-        
+    {   
         if(!isset($from) || empty($from))
         {   
             $query_whereId = $this->db->select(array("Id"), "users", array("login"), array($username));
@@ -38,13 +36,12 @@ class Profile_Model extends Model {
             $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
             $statement2 = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
             
+            $wallId = $this->db->lastInsertId();
         }
         
         if ($statement2->rowCount() > 0)
         {
-            // if from is from profile page
-            header('location: ' . '../../' . $username);
-            // otherwise,
+            return json_encode( $this->formatter($wallId, Session::get('username'), $_POST['post-text'], date("Y-m-d h:i:s"), $_POST['privacy']) );
         }
         else
         {
@@ -70,6 +67,7 @@ class Profile_Model extends Model {
                                                 On wall.StatusId = status.Id) table2
                                         Inner join users
                                             On users.Id = table2.UId
+                                        ORDER BY table2.date DESC
                                                 ");
         
         $success = $statement->execute();
@@ -92,7 +90,7 @@ class Profile_Model extends Model {
     }
     
     /**
-     * 
+     * @param int $id           Wall Id
      * @param string $writer    Name of writer
      * @param string $post      Post context
      * @param array $commentors List of commentors    

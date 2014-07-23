@@ -62,12 +62,18 @@ class Profile extends Controller {
         }
     }
     
-    public function post($username, $from=null, $type=null)
+    /**
+     * Ajax-call
+     * @param type $username
+     * @param type $from
+     * @param string $type
+     */
+    public function post_ajax($username, $from=null, $type=null)
     {
         ////// set the type //////
         $type = STATUS; // now we only have status type
         
-        $this->model->post($username, $from, $type);
-        
+        $result = $this->model->post($username, $from, $type);
+        print_r($result);
     }
 }

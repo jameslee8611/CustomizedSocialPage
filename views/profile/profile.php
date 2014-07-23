@@ -31,7 +31,7 @@
                             <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
                         </section>
                         <section class="divider">
-                            
+
                         </section>
                         <section class="title">
                             <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . Session::get('username') . '/' . STATUS; ?>">Status</a></h6>
@@ -48,9 +48,9 @@
         </div>
 
         <div class="large-6 columns">
-            <div class="row">
+            <div class="row" id="post-box">
                 <div class="large-12 columns">
-                    <form action ="<?php echo URL; ?>profile/post/<?php echo $this->username; ?>" method="post" class="post-form">
+                    <form id="post-data" method="post" class="post-form">
                         <ul class="tabs" data-tab>
                             <li class="tab-title"><a class="post-icon" href="#image"><i class="fi-photo"></i></a></li>
                             <li class="tab-title"><a class="post-icon" href="#video"><i class="fi-video"></i></a></li>
@@ -72,64 +72,60 @@
                                     <input type="hidden" id="privacy-menu-setting" name="privacy" value=""/>
                                 </div>
                                 <div class="large-6 columns custom">
-                                    <input class="custom-tiny radius button post-button" type="submit" value="Post"/>
+                                    <input class="custom-tiny radius button post-button" id="post-submit" type="submit" value="Post"/>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div><br>
-    <?php
-    if (!isset($this->data) || empty ($this->data))
-    {
-        echo '<div class="row"></div>';
-    }
-    else
-    {
-    foreach ($this->data as $info)
-    {
-        echo '<div class="row">
+            <?php
+            if (!isset($this->data) || empty($this->data)) {
+       echo '<div class="row"></div>';
+            } else {
+                foreach ($this->data as $info) {
+       echo '<div class="row" id="post-'. $info['id'] .'">
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
                     <div>';
-                  echo '<a href="'.URL.$info['Writer'].'"><strong>'. $info['Writer'] . '</strong> &nbsp</a>';
-        echo        '
+                    echo '<a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>';
+                    echo '
                         <p class="date">
-                            '.$info['Date'].' &nbsp<i class="'. $info['Privacy'] .'" data-dropdown="drop2-'. $info['id'] .'" data-options="is_hover: true"></i>
-                            <div class="f-dropdown content popover-box" id="drop2-'. $info['id'] .'" data-dropdown-content>
-                                '. $info['Privacy_description'] .'
+                            ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
+                            <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
+                                ' . $info['Privacy_description'] . '
                             </div>
                         </p>
                     </div>
                 </div>
                 <div class="large-12 columns">
                     <p class="post">
-                        '. $info['Post'] .'
+                        ' . $info['Post'] . '
                     </p>
                     <div class="comment-head">';
-        echo            '<a href="#">comments</a>
+                    echo '<a href="#">comments</a>
                         &nbsp&nbsp&nbsp&nbsp&nbsp
                         <a href="#"><i class="fi-comment"></i> ' . count($info['Comments']) . '</a>
                     </div>
+                    <hr class="comment-hr"/>
                     <div class="comment">';
-            foreach ($info['Comments'] as $comment) {
-                echo    '<div class="row">
+                    foreach ($info['Comments'] as $comment) {
+                   echo '<div class="row">
                             <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]"/></div>
                             <div class="large-10 columns">
                                 <p>';
-                echo                '<strong>'. $comment['Writer'] . ':</strong> &nbsp' . $comment['Comment'];
-                echo            '</p>
+                               echo '<strong>' . $comment['Writer'] . ':</strong> &nbsp' . $comment['Comment'];
+                          echo '</p>
                             </div>
                         </div>';
-            }
-        echo    '   </div>
+                    }
+           echo '   </div>
                 </div>
             </div>
             <hr/>';
-    }
-    }
-    ?>
-            
+                }
+            }
+            ?>
         </div>
         <aside class="large-3 columns hide-for-small">
             <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
@@ -142,21 +138,59 @@
 <script>
     /**
      * @author  Seungchul Lee
-     * @date    July 21, 2014
+     * @date    July 22, 2014
      */
+
+
+    /**
+     * Post submit handler
+     */
+    var request;
     
+    $('#post-data').submit(function(event) {
+        if (request)
+        {
+            request.abort();
+        }
+        
+        var $input = $(this).find("input, select, button, textarea, div");
+        var serializedData = $(this).serialize();
+        $input.prop("disabled", true);
+        
+        request = $.ajax({
+            url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username); ?>,
+            type: 'post',
+            data: serializedData,
+            success: function(html) {
+                var data = JSON.parse(html);
+                $('<div class="row" id="post-' + data.id + '"></div>').hide().fadeIn('slow').insertAfter( "#post-box" );
+                $('#post-' + data.id).html('<br><div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div><div class="large-10 columns"><div><a href="' + data.Writer + '"><strong>' + data.Writer + '</strong> &nbsp</a><p class="date">' + data.Date + '&nbsp<i class="data.Privacy" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i><div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>' + data.Privacy_description + '</div></p></div></div><div class="large-12 columns"><p class="post">' + data.Post + '</p><div class="comment-head"><a href="#">comments</a>&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#"><i class="fi-comment"></i> 0</a></div><hr class="comment-hr"/><div class="comment"></div></div><hr/>');
+            }
+        });
+        
+        request.always(function() {
+            $input.prop("disabled", false);
+            $('#post-textarea').val('');
+        });
+        
+        event.preventDefault();
+    });
+
+    /**
+     * Initial privacy drop-down menu setting
+     */
     var privacyTracer = localStorage.getItem("privacyTracer");
     var privacyValueTracer = localStorage.getItem("privacyValueTracer");
-    
-    if( privacyTracer === null)
+
+    if (privacyTracer === null)
     {
         localStorage.setItem("privacyTracer", 'public-check');
         localStorage.setItem("privacyValueTracer", 'public_only');
     }
-    
+
     document.getElementById(privacyTracer.toString()).className = 'fi-check right';
     document.getElementById('privacy-menu-setting').value = privacyValueTracer;
-    
+
     /**
      * privacy setting drop-down menu button's handler
      */
@@ -165,7 +199,7 @@
         document.getElementById('privacy-range-dropdown').className = 'custom-tiny radius button';
         document.getElementById('privacy-range').className = 'f-dropdown';
         document.getElementById('privacy-range').style.left = "-99999px";
-        
+
         switch ($(this).attr('id'))
         {
             case 'privacy-range-public':
@@ -194,7 +228,7 @@
                 break;
         }
     });
-    
+
     $(document).foundation();
     $('.tab-title').click(function() {
         if ($(this).hasClass('active')) {
