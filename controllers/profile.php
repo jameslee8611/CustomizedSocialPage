@@ -21,16 +21,19 @@ class Profile extends Controller {
         }
         elseif (Session::get('loggedIn') == true)
         {
+            $this->view->username = $username;
+            
             switch ($action)
             {
                 case NULL:
                     $result = $this->model->get_status($username);
-                    $this->view->username = $username;
                     $this->view->data = $result;
                     $this->view->render('profile/profile');
                     break;
                     
                 case STATUS:
+                    $result = $this->model->get_status($username);
+                    $this->view->data = $result;
                     $this->view->render('profile/status');
                     break;
                 

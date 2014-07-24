@@ -29,27 +29,28 @@
                 <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
+                        <hr class="nav-divider">
                         <section class="section">
                             <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
                         </section>
-                        <section class="divider">
-
+                        <hr class="nav-divider">
+                        <section class="title">
+                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . $this->username; ?>">Wall</a></h6>
                         </section>
                         <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . Session::get('username') . '/' . STATUS; ?>">Status</a></h6>
+                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . $this->username . '/' . STATUS; ?>">Status</a></h6>
                         </section>
                         <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a href="#">Pictures</a></h6>
+                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . $this->username . '/' . IMAGE; ?>">Pictures</a></h6>
                         </section>
                         <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a href="#">Videos</a></h6>
+                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . $this->username . '/' . VIDEO; ?>">Videos</a></h6>
                         </section>
                     </div>
-
             </div>
         </div>
 
-        <div class="large-6 columns">
+        <div class="large-6 columns container" id="Container">
             <div class="row" id="post-box">
                 <div class="large-12 columns">
                     <form id="post-data" method="post" class="post-form">
@@ -83,13 +84,13 @@
             </div><br id="end-of-postbox">
             <?php
             if (!isset($this->data) || empty($this->data)) {
-       echo '<div class="row"></div>';
+       echo '<div class="row mix"></div>';
             } else {
                 foreach ($this->data as $info) {
                     if (Session::get('username') == $this->username) {
                         $info['Delete'] = 'fi-trash';
                     }
-       echo '<div class="row" id="post-'. $info['id'] .'">
+       echo '<div class="row mix" id="post-'. $info['id'] .'">
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
                     <div>
@@ -196,7 +197,7 @@
                 $('#waiting-wheel').remove();
                 var data = JSON.parse(html);
                 var url = <?php echo json_encode(URL);?>;
-                $('<div class="row" id="post-' + data.id + '">\n\
+                $('<div class="row mix" id="post-' + data.id + '">\n\
                         <div class="large-2 columns small-3">\n\
                             <img src="http://placehold.it/80x80&text=[img]"/>\n\
                         </div>\n\
@@ -303,8 +304,7 @@
                 break;
         }
     });
-
-    $(document).foundation();
+    
     $('.tab-title').click(function() {
         if ($(this).hasClass('active')) {
             var deact_target = $(this).children().attr('href')

@@ -22,6 +22,18 @@ class View {
         else
         {
             require 'views/header.php';
+            // include each css file
+            ?>
+            <style>
+            <?php
+                $file = 'public/css/' . $name . '.css';
+                if (file_exists($file)) 
+                {
+                    require $file;
+                }
+            ?>
+            </style>
+            <?php
             require 'views/' . $name . '.php';
             require 'views/footer.php';
         }
