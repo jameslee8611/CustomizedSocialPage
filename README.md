@@ -3,7 +3,7 @@ CustomizedSocialPage
 
 Customized Social Network Web Page Using php MVC structure
 
-In this project, we've mostly developed with our skills.  However, project deadline is not enough to apply awesome modern technology.  Therefore, we decide to use some external sources; open source(s) and/or commercial source(s).
+In this project, we've mostly developed with our skills.  However, the number of developers are limited and product deadline is also not plenty enough to apply all facinating modern technologies.  Therefore, we've decided to use some external sources; open source(s) and/or commercial source(s).
 The followings are the list of external sources we apply.
 
 1. Image Cropper: http://www.jqueryrain.com/?BEAlLLl9
