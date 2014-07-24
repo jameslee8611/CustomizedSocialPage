@@ -9,7 +9,7 @@
     <!-- Nav Side bar -->
     <div class="row">
         <div class="large-3 columns ">
-            <div class="panel">
+            <div class="panel-media">
                 <!-- Profile image -->
                 <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>

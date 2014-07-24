@@ -75,7 +75,7 @@
                     if (Session::get('username') == $this->username) {
                         $info['Delete'] = 'fi-trash';
                     }
-       echo '<div class=" mix"><div class="row" id="post-'. $info['id'] .'">
+       echo '<div class="mix" id="post-'. $info['id'] .'"><div class="row">
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
                     <div>
@@ -94,7 +94,7 @@
                         ' . $info['Post'] . '
                     </p>
                     <div class="comment-head">';
-                    echo '<a href="#">comments</a>
+                    echo '<a href="#comment-'. $info['id'] .'">comments</a>
                         &nbsp&nbsp&nbsp&nbsp&nbsp
                         <a href="#"><i class="fi-comment"></i> ' . count($info['Comments']) . '</a>
                     </div>
@@ -110,7 +110,17 @@
                             </div>
                         </div>';
                     }
-           echo '   </div>
+           echo '   
+                    <div class="row comment-box" id="comment-'. $info['id'] .'">
+                        <div class="large-2 columns small">
+                            <img src="http://placehold.it/40x40&text=[img]"/>
+                        </div>
+                        <div class="large-10 columns comment-type-area">
+                            <textarea id="comment-textarea" placeholder="Comment.."></textarea>
+                        </div>
+                    </div>
+                    </div>
+                    
                 </div>
             
             </div></div>';
@@ -182,7 +192,7 @@
                 $('#waiting-wheel').remove();
                 var data = JSON.parse(html);
                 var url = <?php echo json_encode(URL);?>;
-                $('<div class="row mix" id="post-' + data.id + '">\n\
+                $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
                         <div class="large-2 columns small-3">\n\
                             <img src="http://placehold.it/80x80&text=[img]"/>\n\
                         </div>\n\
@@ -213,7 +223,7 @@
                                 </div>\n\
                             </div>\n\
                         \n\
-                        </div>\n\
+                        </div></div>\n\
                         ').hide().fadeIn('slow').insertAfter( "#end-of-postbox" );
                 
                 $(document).foundation({

@@ -60,3 +60,28 @@
         width: 100%;
     }
 }
+
+#comment-textarea {
+    margin-top: 4px;
+    min-height: 30px;
+    display: block;
+    height: 30px;
+} 
+
+.comment-box {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 4px;
+}
+
+:target {
+    -webkit-animation: highlight 1s ease;  
+    -moz-animation: highlight 1s ease;   
+}
+
+section > div {
+    -webkit-transition: all 0.5s ease; 
+    -moz-transition: all 0.5s ease; 
+    -ms-transition: all 0.5s ease; 
+    -o-transition: all 0.5s ease;
+}
