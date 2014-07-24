@@ -4,21 +4,6 @@
     @Last Modification  : July 24, 2014
 -->
 
-<div class="header">
-    <div class="row">
-        <div class="large-1 columns">
-            <div class="row">
-                <div class="large-2 columns">
-                    <a href="<?php echo URL; ?>">Index</a>
-                </div>
-                <div class="large-2 columns">
-                    <a href="<?php echo URL; ?>index/logout">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="content">
 
     <!-- Nav Side bar -->
@@ -64,7 +49,7 @@
                                 <div class="large-4 small-6 columns mix category-1" data-myorder="1">
                                     <img src="http://placehold.it/1000x1000&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -73,7 +58,7 @@
                                 <div class="large-4 small-6 columns mix category-1" data-myorder="1">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -82,7 +67,7 @@
                                 <div class="large-4 small-6 columns mix category-1" data-myorder="1">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -91,7 +76,7 @@
                                 <div class="large-4 small-6 columns mix category-2" data-myorder="2">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Titlee</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -100,7 +85,7 @@
                                 <div class="large-4 small-6 columns mix category-1" data-myorder="1">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -109,7 +94,7 @@
                                 <div class="large-4 small-6 columns mix category-1" data-myorder="1">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -118,7 +103,7 @@
                                 <div class="large-4 small-6 columns mix category-2" data-myorder="2">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -127,7 +112,7 @@
                                 <div class="large-4 small-6 columns mix category-2" data-myorder="2">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
@@ -136,13 +121,11 @@
                                 <div class="large-4 small-6 columns mix category-2" data-myorder="2">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
-                                    <div class="panel">
+                                    <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
                                 </div>
-                                <div class="gap"></div>
-                                <div class="gap"></div>
                             </div>
                         </div>
                     </div>

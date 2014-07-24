@@ -1,10 +1,10 @@
-<?php
-/**
- * @author Seungchul Lee, Jae Yun Song
- * @Date   : June 27, 2014
- */
-include_once 'forget_header.php'
-?>
+<!--
+    @Author             : Seungchul Lee, Jae Yun Song
+    @Date               : June 27, 2014
+    @Last Modification  : July 24, 2014
+-->
+
+        
 <div class="conetnet-child">
     <div class="row">
         <h2 class="large-12 columns">Forget Page</h2>

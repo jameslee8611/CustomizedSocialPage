@@ -8,7 +8,6 @@
 }
 
 .container:after{
-    content: '';
     display: inline-block;
     width: 100%;
 }
@@ -25,15 +24,16 @@
 }
 
 .container .mix:after{
-    content: attr(data-myorder);
-    color: white;
     display: inline-block;
     vertical-align: top;
 }
 
 .container .mix:before{
-    content: '';
     display: inline-block;
+}
+
+.controls {
+    margin-bottom: 5px;
 }
 
 @media all and (min-width: 420px){

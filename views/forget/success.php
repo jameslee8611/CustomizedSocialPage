@@ -1,10 +1,10 @@
-<?php
-/**
- * @author Seungchul Lee
- * @Date   : June 27, 2014
- */
-include_once 'forget_header.php'
-?>
+<!--
+    @Author             : Seungchul Lee
+    @Date               : June 27, 2014
+    @Last Modification  : July 24, 2014
+-->
+
+
 <div class="conetnet-child">
     <div class="row">
         <h3>Your request has successively treated</h3>

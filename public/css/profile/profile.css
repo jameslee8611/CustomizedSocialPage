@@ -36,6 +36,17 @@
     display: inline-block;
 }
 
+.mix {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: black;
+    background: white;
+    border-width:0.1px;	
+    border-style:outset; 
+}
+
 @media all and (min-width: 420px){
     .container .mix,
     .container .gap{

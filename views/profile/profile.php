@@ -4,27 +4,12 @@
     @Last Modification  : July 22, 2014
 -->
 
-<div class="header">
-    <div class="row">
-        <div class="large-1 columns">
-            <div class="row">
-                <div class="large-2 columns">
-                    <a href="<?php echo URL; ?>">Index</a>
-                </div>
-                <div class="large-2 columns">
-                    <a href="<?php echo URL; ?>index/logout">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="content">
 
     <!-- Nav Side bar -->
     <div class="row">
         <div class="large-3 columns ">
-            <div class="panel">
+            <div class="panel-media">
                 <!-- Profile image -->
                 <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
@@ -90,7 +75,7 @@
                     if (Session::get('username') == $this->username) {
                         $info['Delete'] = 'fi-trash';
                     }
-       echo '<div class="row mix" id="post-'. $info['id'] .'">
+       echo '<div class=" mix"><div class="row" id="post-'. $info['id'] .'">
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
                     <div>
@@ -127,8 +112,8 @@
                     }
            echo '   </div>
                 </div>
-            <hr/>
-            </div>';
+            
+            </div></div>';
                 }
             }
             ?>
@@ -227,7 +212,7 @@
                                 <div class="comment">\n\
                                 </div>\n\
                             </div>\n\
-                        <hr/>\n\
+                        \n\
                         </div>\n\
                         ').hide().fadeIn('slow').insertAfter( "#end-of-postbox" );
                 

@@ -31,7 +31,7 @@ label.signup{
 }
 
 .post-container{
-  width: 29.15rem; 
+  width: 28.3rem; 
   height: 7rem; 
 }
 
@@ -49,8 +49,8 @@ label.signup{
 
 .post-form{
   margin: 0 auto;
-  width: 30rem; 
-  border: solid 2px #3F7FBF;
+  width: 29rem; 
+  border: solid 1px #8E8E8E;
   border-radius: 5px;
   padding: 5px
 }
@@ -72,8 +72,73 @@ label.signup{
 }
 
 
+.panel-media > :first-child 
+{
+    margin-top: 0; 
+}
 
- 
+.panel-media > :last-child 
+{
+    margin-bottom: 0; 
+}
 
+.panel-media h1, .panel-media h2, .panel-media h3, .panel-media h4, .panel-media h5, .panel-media h6, .panel-media p, .panel-media li, .panel-media dl 
+{
+    color: #333333; 
 
+}
+.panel-media h1, .panel-media h2, .panel-media h3, .panel-media h4, .panel-media h5, .panel-media h6 {
+    line-height: 1;
+    margin-bottom: 0.625rem; 
+}
 
+.panel-media h1.subheader, .panel-media h2.subheader, .panel-media h3.subheader, .panel-media h4.subheader, .panel-media h5.subheader, .panel-media h6.subheader 
+{
+    line-height: 1.4; 
+}
+
+.panel-media.callout 
+{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b6edff;
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    background: #ecfaff; 
+}
+
+.panel-media.callout > :first-child 
+{
+    margin-top: 0; 
+}
+
+.panel-media.callout > :last-child 
+{
+    margin-bottom: 0; 
+}
+
+.panel-media.callout h1, .panel-media.callout h2, .panel-media.callout h3, .panel-media.callout h4, .panel-media.callout h5, .panel-media.callout h6, .panel-media.callout p, .panel-media.callout li, .panel-media.callout dl 
+{
+    color: #333333; 
+}
+
+.panel-media.callout h1, .panel-media.callout h2, .panel-media.callout h3, .panel-media.callout h4, .panel-media.callout h5, .panel-media.callout h6 
+{
+    line-height: 1;
+    margin-bottom: 0.625rem; 
+}
+
+.panel-media.callout h1.subheader, .panel-media.callout h2.subheader, .panel-media.callout h3.subheader, .panel-media.callout h4.subheader, .panel-media.callout h5.subheader, .panel-media.callout h6.subheader 
+{
+    line-height: 1.4; 
+}
+
+.panel-media.callout a:not(.button) 
+{
+    color: #008cba; 
+}
+
+.panel-media.radius 
+{
+    border-radius: 3px; 
+}

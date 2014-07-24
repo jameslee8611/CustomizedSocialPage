@@ -1,11 +1,9 @@
-<?php 
-/**
- * @author Seungchul Lee
- * @Date   : June 27, 2014
- */
+<!--
+    @Author             : Seungchul Lee
+    @Date               : June 27, 2014
+    @Last Modification  : July 24, 2014
+-->
 
-include_once 'forget_header.php' 
-?>
 <div class="conetnet">
     <div class="row">
         <h2 class="large-12 columns">Fail Your Request</h2>

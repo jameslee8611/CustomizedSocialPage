@@ -22,18 +22,22 @@ class View {
         else
         {
             require 'views/header.php';
+            if (Session::get('loggedIn'))
+            {
+                require 'views/header/private.php';
+            }
+            else
+            {
+                require 'views/header/public.php';
+            }
             // include each css file
-            ?>
-            <style>
-            <?php
+            ?><style><?php
                 $file = 'public/css/' . $name . '.css';
                 if (file_exists($file)) 
                 {
                     require $file;
                 }
-            ?>
-            </style>
-            <?php
+            ?></style><?php
             require 'views/' . $name . '.php';
             require 'views/footer.php';
         }
