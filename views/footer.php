@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo URL; ?>public/js/commonJs.js"></script>
+
 <footer class="row">
     <div class="large-12 columns">
         <hr/>

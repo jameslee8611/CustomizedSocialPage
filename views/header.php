@@ -14,6 +14,5 @@
         <script type="text/javascript" src="<?php echo URL; ?>public/js/foundation.min.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>public/js/jquery.mixitup.js"></script>
         <script type="text/javascript" src="<?php echo URL; ?>public/js/foundation/foundation.abide.js"></script>
-        <script type="text/javascript" src="<?php echo URL; ?>public/js/commonJs.js"></script>
     </head>
     <body>
