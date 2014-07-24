@@ -3281,7 +3281,7 @@ dialog[open] {
 /* Tooltips */
 .has-tip {
   border-bottom: dotted 1px #cccccc;
-  cursor: help;
+/*  cursor: help;*/
   font-weight: bold;
   color: #333333; }
   .has-tip:hover, .has-tip:focus {

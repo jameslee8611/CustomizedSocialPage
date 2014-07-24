@@ -86,12 +86,15 @@
        echo '<div class="row"></div>';
             } else {
                 foreach ($this->data as $info) {
+                    if (Session::get('username') == $this->username) {
+                        $info['Delete'] = 'fi-trash';
+                    }
        echo '<div class="row" id="post-'. $info['id'] .'">
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
-                    <div>';
-                    echo '<a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>';
-                    echo '
+                    <div>
+                        <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
+                        <i id="tooltip-delete-box-'. $info['id'] .'" class="'. $info['Delete'] .' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\''. $info['Writer'] . '\',' . $info['id'] .')"></i>
                         <p class="date">
                             ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
                             <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
@@ -111,7 +114,7 @@
                     </div>
                     <hr class="comment-hr"/>
                     <div class="comment">';
-                    foreach ($info['Comments'] as $comment) {
+                   foreach ($info['Comments'] as $comment) {
                    echo '<div class="row">
                             <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]"/></div>
                             <div class="large-10 columns">
@@ -123,8 +126,8 @@
                     }
            echo '   </div>
                 </div>
-            </div>
-            <hr/>';
+            <hr/>
+            </div>';
                 }
             }
             ?>
@@ -140,17 +143,32 @@
 <script language="javascript" type="text/javascript">
     /**
      * @author  Seungchul Lee
-     * @date    July 22, 2014
+     * @date    July 24, 2014
      */
 
-//     $('#profile-pic')
-//            .mouseover(function() {
-//                //$('#profile-change-button').css({"color": "red", "left": "190px", "top": "140px"});
-//                $('#profile-change-button').fadeIn(200).css({"color": "red", "left": "190px", "top": "140px"});
-//            })
-//            .mouseout(function() {
-//                $('#profile-change-button').fadeIn(200).css({"color": "red", "left": "-9999px", "top": "-9999px"});
-//            });
+    var delete_request;
+    function delete_post(writer, id)
+    {
+        if (delete_request)
+        {
+            delete_request.abort();
+        }
+        
+        request = $.ajax({
+            url: <?php echo json_encode(URL . 'profile/delete_ajax/'); ?> + writer + '/' + id,
+            type: 'post',
+            success: function(html) {
+                var data = html;
+                if (data == <?php echo json_encode(SUCCESS);?>) {
+                    $("span[data-selector='tooltip-delete-box-" + id + "']").remove();
+                    $('#post-' + id).fadeOut(500);
+                }
+                else {
+                    alert("Sorry, we are having some network error.  Please try again later");
+                }
+            }
+        });
+    }
      
     /**
      * Post submit handler
@@ -187,6 +205,7 @@
                                 <a href="' + url + data.Writer + '">\n\
                                     <strong>' + data.Writer + '</strong> &nbsp\n\
                                 </a>\n\
+                                <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ')"></i>\n\
                                 <p class="date">' 
                                     + data.Date + ' &nbsp\n\
                                     <i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\n\
@@ -207,8 +226,9 @@
                                 <div class="comment">\n\
                                 </div>\n\
                             </div>\n\
+                        <hr/>\n\
                         </div>\n\
-                        <hr/>').hide().fadeIn('slow').insertAfter( "#end-of-postbox" );
+                        ').hide().fadeIn('slow').insertAfter( "#end-of-postbox" );
                 
                 $(document).foundation({
                     Dropdown : {

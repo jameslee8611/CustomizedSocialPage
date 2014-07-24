@@ -82,4 +82,16 @@ class Profile extends Controller {
         $result = $this->model->post_ajax($username, $from, $type);
         print_r($result);
     }
+    
+    public function delete_ajax($username, $wall_Id)
+    {
+        if(Session::get('loggedIn') && $username == Session::get('username'))
+        {
+            echo $this->model->delete_ajax($wall_Id);
+        }
+        else
+        {
+            $this->redirect_error();
+        }
+    }
 }

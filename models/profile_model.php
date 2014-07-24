@@ -25,6 +25,28 @@ class Profile_Model extends Model {
         return false;
     }
     
+    public function delete_ajax($wall_Id)
+    {
+        $statement = $this->db->prepare("Delete wall, status
+                            From status
+                            Inner Join wall
+                            Inner Join (
+                                    Select wall.StatusId
+                                    From wall
+                                    Where wall.Id = '$wall_Id') table1
+                            Where status.Id = table1.StatusId AND wall.Id = '$wall_Id'
+                            ");
+        $success = $statement->execute();
+        if($success)
+        {
+            return SUCCESS;
+        }
+        else
+        {
+            return FAIL;
+        }
+    }
+    
     public function post_ajax($username, $from, $type)
     {   
         if(!isset($from) || empty($from))
@@ -105,6 +127,13 @@ class Profile_Model extends Model {
         
         $post = preg_replace("/[\r\n]{2,}/", "\\n", $post);
         
+        if ($writer == Session::get('username')) {
+            $delete = 'fi-trash';
+        }
+        else {
+            $delete = '';
+        }
+        
         switch ((int)$privacy) 
         {
             case PUBLIC_POST:
@@ -131,6 +160,7 @@ class Profile_Model extends Model {
                         "Date": "' . $date . '",
                         "Privacy": "'. $privacy_icon .'",
                         "Privacy_description": "'. $description .'",
+                        "Delete": "' . $delete . '",
                         "Comments": 
                         [';
                             for ($i=0; $i<count($commentors); $i++)
