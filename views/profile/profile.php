@@ -21,10 +21,12 @@
 
 <div class="content">
 
+    <!-- Nav Side bar -->
     <div class="row">
         <div class="large-3 columns ">
             <div class="panel">
-                <a href="#"><img src="http://placehold.it/300x240&text=[img]"/></a>
+                <!-- Profile image -->
+                <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
                         <section class="section">
@@ -78,7 +80,7 @@
                         </div>
                     </form>
                 </div>
-            </div><br>
+            </div><br id="end-of-postbox">
             <?php
             if (!isset($this->data) || empty($this->data)) {
        echo '<div class="row"></div>';
@@ -135,12 +137,21 @@
 </div>
 
 
-<script>
+<script language="javascript" type="text/javascript">
     /**
      * @author  Seungchul Lee
      * @date    July 22, 2014
      */
 
+//     $('#profile-pic')
+//            .mouseover(function() {
+//                //$('#profile-change-button').css({"color": "red", "left": "190px", "top": "140px"});
+//                $('#profile-change-button').fadeIn(200).css({"color": "red", "left": "190px", "top": "140px"});
+//            })
+//            .mouseout(function() {
+//                $('#profile-change-button').fadeIn(200).css({"color": "red", "left": "-9999px", "top": "-9999px"});
+//            });
+     
     /**
      * Post submit handler
      */
@@ -156,7 +167,7 @@
         var serializedData = $(this).serialize();
         $input.prop("disabled", true);
         
-        $('<br/><img id="waiting-wheel" src="<?php echo  URL . "public/images/wheel.gif"; ?>" alt="Processing..">').hide().fadeIn('slow').insertAfter( "#post-box" );
+        $('<img id="waiting-wheel" src="<?php echo  URL . "public/images/wheel.gif"; ?>" alt="Processing..">').hide().fadeIn('slow').insertAfter( "#end-of-postbox" );
         
         request = $.ajax({
             url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username); ?>,
@@ -167,8 +178,43 @@
                 $('#waiting-wheel').remove();
                 var data = JSON.parse(html);
                 var url = <?php echo json_encode(URL);?>;
-                $('<br><div class="row" id="post-' + data.id + '"></div><hr/>').hide().fadeIn('slow').insertAfter( "#post-box" );
-                $('#post-' + data.id).html('<div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div><div class="large-10 columns"><div><a href="' + url + data.Writer + '"><strong>' + data.Writer + '</strong> &nbsp</a><p class="date">' + data.Date + '&nbsp<i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i><div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>' + data.Privacy_description + '</div></p></div></div><div class="large-12 columns"><p class="post">' + data.Post + '</p><div class="comment-head"><a href="#">comments</a>&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#"><i class="fi-comment"></i> 0</a></div><hr class="comment-hr"/><div class="comment"></div></div>');
+                $('<div class="row" id="post-' + data.id + '">\n\
+                        <div class="large-2 columns small-3">\n\
+                            <img src="http://placehold.it/80x80&text=[img]"/>\n\
+                        </div>\n\
+                        <div class="large-10 columns">\n\
+                            <div>\n\
+                                <a href="' + url + data.Writer + '">\n\
+                                    <strong>' + data.Writer + '</strong> &nbsp\n\
+                                </a>\n\
+                                <p class="date">' 
+                                    + data.Date + ' &nbsp\n\
+                                    <i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\n\
+                                    <div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>' 
+                                        + data.Privacy_description + 
+                                    '</div>\n\
+                                </p>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="large-12 columns">\n\
+                                <p class="post">' 
+                                    + data.Post + '\
+                                </p>\n\
+                                <div class="comment-head">\n\
+                                    <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\n\
+                                    <a href="#"><i class="fi-comment"></i> 0</a>\n\
+                                </div><hr class="comment-hr"/>\n\
+                                <div class="comment">\n\
+                                </div>\n\
+                            </div>\n\
+                        </div>\n\
+                        <hr/>').hide().fadeIn('slow').insertAfter( "#end-of-postbox" );
+                
+                $(document).foundation({
+                    Dropdown : {
+                        is_hover: true
+                    }
+                });
             }
         });
         
@@ -180,7 +226,9 @@
         event.preventDefault();
     });
     
-    
+    $('.date').hover(function() {
+        $(this).stop();
+    });
 
     /**
      * Initial privacy drop-down menu setting

@@ -68,10 +68,16 @@ class Profile extends Controller {
      * @param type $from
      * @param string $type
      */
-    public function post_ajax($username, $from=null, $type=null)
+    public function post_ajax($username=null, $from=null, $type=null)
     {
         ////// set the type //////
         $type = STATUS; // now we only have status type
+        
+        if (!isset($username) || empty($username))
+        {
+            $this->redirect_error();
+            exit;
+        }
         
         $result = $this->model->post_ajax($username, $from, $type);
         print_r($result);

@@ -103,6 +103,8 @@ class Profile_Model extends Model {
             return NULL;
         }
         
+        $post = preg_replace("/[\r\n]{2,}/", "\\n", $post);
+        
         switch ((int)$privacy) 
         {
             case PUBLIC_POST:
