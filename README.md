@@ -11,3 +11,5 @@ The followings are the list of external sources we apply.
 
 2. MixeditUp
     - This source is commercial/non-commercial open source.  Since our product is not commercial now,  we are considered non-commercial developers.  However, if it is running on the actual server and service to customers, we will buy its license.
+
+Of course this project is individual, all the copy rights are on our developers.
