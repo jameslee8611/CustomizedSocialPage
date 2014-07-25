@@ -9,11 +9,12 @@ and open the template in the editor.
 */
 
 .header {
-    padding: 20px;
+    padding: 10px;
     background: #a0d3e8;
     position: fixed;
     width:100%;
     z-index: 1;
+    vertical-align: baseline;
 }
 
 #footer {

@@ -11,7 +11,9 @@
         <div class="large-3 columns ">
             <div class="panel-media">
                 <!-- Profile image -->
-                <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
+                <a href="#" class="profile-large-box"><img id="profile-pic-large" id="profile-pic" src="http://placehold.it/300x300&text=[img]">
+                    <div class="change-profile-pic" style="border-style: solid; border-color: red;">Change Profile</div>
+                </a>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
                         <hr class="nav-divider">
@@ -111,14 +113,14 @@
                         </div>';
                     }
            echo '   
-                    <div class="row comment-box" id="comment-'. $info['id'] .'">
-                        <div class="large-2 columns small">
-                            <img src="http://placehold.it/40x40&text=[img]"/>
+                        <div class="row comment-box" id="comment-'. $info['id'] .'">
+                            <div class="large-2 columns small">
+                                <img src="http://placehold.it/40x40&text=[img]"/>
+                            </div>
+                            <div class="large-10 columns comment-type-area">
+                                <textarea id="comment-textarea" placeholder="Comment.."></textarea>
+                            </div>
                         </div>
-                        <div class="large-10 columns comment-type-area">
-                            <textarea id="comment-textarea" placeholder="Comment.."></textarea>
-                        </div>
-                    </div>
                     </div>
                     
                 </div>
@@ -220,6 +222,14 @@
                                     <a href="#"><i class="fi-comment"></i> 0</a>\n\
                                 </div><hr class="comment-hr"/>\n\
                                 <div class="comment">\n\
+                                    <div class="row comment-box" id="comment-' + data.id + '">\n\
+                                        <div class="large-2 columns small">\n\
+                                        <img src="http://placehold.it/40x40&text=[img]"/>\n\
+                                    </div>\n\
+                                    <div class="large-10 columns comment-type-area">\n\
+                                        <textarea id="comment-textarea" placeholder="Comment.."></textarea>\n\
+                                    </div>\n\
+                    </div>\n\
                                 </div>\n\
                             </div>\n\
                         \n\

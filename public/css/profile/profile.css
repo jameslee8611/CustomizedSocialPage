@@ -74,14 +74,17 @@
     padding-left: 4px;
 }
 
-:target {
-    -webkit-animation: highlight 1s ease;  
-    -moz-animation: highlight 1s ease;   
+.profile-large-box:after {
+    display: block;
+    clear: both;
+/*    visibility: hidden;*/
+    line-height: 0;
+    height: 0; 
 }
 
-section > div {
-    -webkit-transition: all 0.5s ease; 
-    -moz-transition: all 0.5s ease; 
-    -ms-transition: all 0.5s ease; 
-    -o-transition: all 0.5s ease;
+ .change-profile-pic {
+    opacity: 80%;
+    background: #A3A3A3;
+    margin: 0%;
+    top:-30px;
 }
