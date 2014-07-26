@@ -45,6 +45,10 @@ class Profile extends Controller {
                     $this->view->render('profile/video');
                     break;
 
+                case PIC:
+                    $this->view->render('profile/profile_image');
+                    break;
+
                 default:
                     $this->redirect_error();
                     break;
@@ -91,6 +95,18 @@ class Profile extends Controller {
         if(Session::get('loggedIn') && $username == Session::get('username'))
         {
             echo $this->model->delete_ajax($wall_Id);
+        }
+        else
+        {
+            $this->redirect_error();
+        }
+    }
+
+     public function picture_ajax($username)
+    {
+        if(Session::get('loggedIn') && $username == Session::get('username'))
+        {
+            echo $this->model->profile_image($username);
         }
         else
         {

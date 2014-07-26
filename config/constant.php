@@ -4,7 +4,7 @@
  * @date    July 17, 2014
  */
 
-define('URL', 'http://localhost/CustomizedSocialPage/');
+define('URL', 'http://localhost:8888/CustomizedSocialPage/');
 define('ADMIN_EMAIL', 'jameslee8611@gmail.com');
 
 //
@@ -17,6 +17,7 @@ define('ERROR', 3);
 define('STATUS', 'status');
 define('VIDEO', 'video');
 define('IMAGE', 'image');
+define('PIC', 'profile_image');
 
 // setting menu
 define('SETTING', 'setting');

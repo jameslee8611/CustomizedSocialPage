@@ -11,7 +11,7 @@
         <div class="large-3 columns ">
             <div class="panel-media">
                 <!-- Profile image -->
-                <a href="#" class="profile-large-box"><img id="profile-pic-large" id="profile-pic" src="http://placehold.it/300x300&text=[img]">
+                <a href="<?php echo URL . $this->username . '/' . PIC; ?>" class="profile-large-box"><img id="profile-pic-large" id="profile-pic" src="http://placehold.it/300x300&text=[img]">
                     <div class="change-profile-pic" style="border-style: solid; border-color: red;">Change Profile</div>
                 </a>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
