@@ -194,31 +194,16 @@ class Profile_Model extends Model {
 
             if($image_info[2] == IMAGETYPE_GIF || $image_info[2] == IMAGETYPE_JPEG || $image_info[2] == IMAGETYPE_PNG)
             {
-                if(file_exists("image/" . $_FILES["file"]["name"]))
-                {
-                    return array(false, "File Already Exists!");
-                }
-                else
-                {
-                    #if(!move_uploaded_file($_FILES["file"]["tmp_name"], "image/" . $_FILES["file"]["name"]))
-                    #{
-                    #    return array(false, "Upload Failed!");
-                    #}
-                    #else
-                    #{
-                        #$src = imagecreatefromjpeg("image/" . $_FILES["file"]["name"]);
-                        $img_path = "image/" . date("Ymdhisu") . "_" . $username . ".jpg";
-                        $src = imagecreatefromjpeg($_FILES["file"]["tmp_name"]);
-                        $des = imagecreatetruecolor($width_val, $height_val);
-                        imagecopyresampled($des, $src, 0, 0, $x_val, $y_val, $width_val, $height_val, $width_val, $height_val);
-                        imagejpeg($des, $img_path, 100);
+                $img_path = URL + "/public/images/image/" . date("Ymdhisu") . "_" . $username . ".jpg";
+                $src = imagecreatefromjpeg($_FILES["file"]["tmp_name"]);
+                $des = imagecreatetruecolor($width_val, $height_val);
+                imagecopyresampled($des, $src, 0, 0, $x_val, $y_val, $width_val, $height_val, $width_val, $height_val);
+                imagejpeg($des, $img_path, 100);
 
-                        imagedestroy($src);
-                        imagedestroy($des);
+                imagedestroy($src);
+                imagedestroy($des);
 
-                        return URL . $img_path;
-                    #}
-                }
+                return $img_path;
             }
             else
             {
