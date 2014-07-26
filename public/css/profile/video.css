@@ -14,7 +14,6 @@
 
 .container .mix,
 .container .gap{
-    width: 100%;
     display: inline-block;
 }
 
@@ -26,6 +25,7 @@
 .container .mix:after{
     display: inline-block;
     vertical-align: top;
+    align-content: space-around;
 }
 
 .container .mix:before{
@@ -34,6 +34,10 @@
 
 .controls {
     margin-bottom: 5px;
+}
+
+.mix {
+    display: inline-block;
 }
 
 @media all and (min-width: 420px){

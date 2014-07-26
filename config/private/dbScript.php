@@ -26,7 +26,7 @@ $query =
 	email varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
 	reset varchar(32) default NULL,
-        session_id varchar(40) DEFAULT '0' NOT NULL,
+    session_id varchar(40) DEFAULT '0' NOT NULL,
         
 	PRIMARY KEY (id)
 );";
@@ -36,11 +36,11 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'DBs have been successfully created.';
+    echo 'User table has been successfully created.<br />';
 }
 else 
 {
-    echo 'DBs failed to be created.';
+    echo 'Creating User table failed.<br />';
 }
 
 
@@ -50,9 +50,9 @@ $query =
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	UId int(11) NOT NULL,
 	PId int(32) NOT NULL,
-        Privacy int(1) NOT NULL,
+    Privacy int(1) NOT NULL,
 	Status varchar(500) DEFAULT NULL,
-        Date timestamp DEFAULT CURRENT_TIMESTAMP,
+    Date timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY (Id)
 );";
@@ -62,11 +62,11 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'DBs have been successfully created.';
+    echo 'Status table has been successfully created.<br />';
 }
 else 
 {
-    echo 'DBs failed to be created.'; 
+    echo 'Creating Status table failed.<br />'; 
 }
 
 
@@ -77,7 +77,7 @@ $query =
 	whereId int(25) NOT NULL,
 	Type varchar(10) NOT NULL,
 	StatusId int(32) DEFAULT NULL,
-        DataId int(32) DEFAULT NONE,
+    DataId int(32) DEFAULT NONE,
         
 	PRIMARY KEY (Id)
 );";
@@ -87,10 +87,10 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'DBs have been successfully created.';
+    echo 'Wall table has been successfully created.<br />';
 }
 else 
 {
-    echo 'DBs failed to be created.'; 
+    echo 'Creating Wall table failed.<br />'; 
 }
 ?>

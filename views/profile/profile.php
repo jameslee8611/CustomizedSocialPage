@@ -70,9 +70,7 @@
                 </div>
             </div><br id="end-of-postbox">
             <?php
-            if (!isset($this->data) || empty($this->data)) {
-       echo '<div class="row mix"></div>';
-            } else {
+            if (isset($this->data) || !empty($this->data)) {
                 foreach ($this->data as $info) {
                     if (Session::get('username') == $this->username) {
                         $info['Delete'] = 'fi-trash';
