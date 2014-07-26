@@ -139,12 +139,11 @@
     <h2>Change your profile picture.</h2>
     <form enctype="multipart/form-data">
         <input type="file" name="profile-pic" id="profile-pic" accept="image" hidden/>
-        <button type="button" id="profile-pic-select">Select Image</button>
+        <div class="button tiny radius" id="profile-pic-select">Select Image</div>
+        <div class="button tiny radius" id="profile-pic-upload">Upload Image</div>
     </form>
 
     <div id="crop-container"></div>
-
-    <button type="button" id="profile-pic-upload">Upload Image</button>
 </div>
 
 
@@ -333,6 +332,9 @@
     });
 
     // or directly on the modal
+    $('a.change-profile-pic').click(function() {
+        $("#profile-pic-upload").css("display", "none");
+    });
     $('a.change-profile-pic').trigger('click');
 
 
@@ -341,6 +343,7 @@
     });
 
     $("input[name='profile-pic']").on("change", function(evt){
+        $("#profile-pic-upload").css("display", "initial");
         $("#crop-container").empty();
         var files = evt.target.files[0];
         var reader = new FileReader();
