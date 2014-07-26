@@ -4,7 +4,7 @@
  * @date    July 17, 2014
  */
 
-define('URL', 'http://localhost/CustomizedSocialPage/');
+define('URL', 'http://localhost:8888/CustomizedSocialPage/');
 define('ADMIN_EMAIL', 'jameslee8611@gmail.com');
 
 //
