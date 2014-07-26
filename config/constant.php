@@ -17,6 +17,7 @@ define('ERROR', 3);
 define('STATUS', 'status');
 define('VIDEO', 'video');
 define('IMAGE', 'image');
+define('PIC', 'profile_image');
 
 // setting menu
 define('SETTING', 'setting');
