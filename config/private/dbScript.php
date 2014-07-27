@@ -78,7 +78,7 @@ $query =
 	whereId int(25) NOT NULL,
 	Type varchar(10) NOT NULL,
 	StatusId int(32) DEFAULT NULL,
-    DataId int(32) DEFAULT NONE,
+    DataId int(32) DEFAULT NULL,
         
 	PRIMARY KEY (Id)
 );";
