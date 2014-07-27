@@ -12,6 +12,15 @@ class Database extends PDO {
         parent::__construct("mysql:host=".Host.";dbname=".DBName, DBUser, DBPassword);
     }
 
+    /**
+     * update simple db attributes
+     * @param string $dbname
+     * @param array $updateAttrNames
+     * @param array $updateAttrValues
+     * @param array $attrNames
+     * @param array $attrValues
+     * @return result
+     */
     public function update($dbname, $updateAttrNames, $updateAttrValues, $attrNames, $attrValues) {
         $updateAttrNum = count($updateAttrNames);
         if($updateAttrNum < 1 || $updateAttrNum != count($updateAttrValues))

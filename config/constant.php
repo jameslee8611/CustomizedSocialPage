@@ -17,7 +17,10 @@ define('ERROR', 3);
 define('STATUS', 'status');
 define('VIDEO', 'video');
 define('IMAGE', 'image');
-define('PIC', 'profile_image');
+
+define('DEFAULT_PROFILE_PIC_LARGE', URL . 'public/images/profile_large.jpg');
+define('DEFAULT_PROFILE_PIC_MEDIUM', URL . 'public/images/profile_medium.jpg');
+define('DEFAULT_PROFILE_PIC_SMALL', URL . 'public/images/profile_small.jpg');
 
 // setting menu
 define('SETTING', 'setting');

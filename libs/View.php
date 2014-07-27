@@ -39,6 +39,12 @@ class View {
                 }
             ?></style><?php
             require 'views/' . $name . '.php';
+            
+            $php_js_file = 'public/js/php/' . $name . '.php';
+            if (file_exists($php_js_file))
+            {
+                require $php_js_file;
+            }
             require 'views/footer.php';
         }
     }

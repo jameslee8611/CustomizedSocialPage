@@ -14,6 +14,8 @@ class Profile extends Controller {
     public function index($username=null, $action=null)
     {   
         Data::setUsername($username);
+        $this->view->username = $username;
+        $this->view->profile_pic = $this->model->get_profile_url($username);
         
         if (!$this->model->check_user($username))
         {
@@ -21,8 +23,6 @@ class Profile extends Controller {
         }
         elseif (Session::get('loggedIn') == true)
         {
-            $this->view->username = $username;
-            
             switch ($action)
             {
                 case NULL:
@@ -43,10 +43,6 @@ class Profile extends Controller {
                 
                 case VIDEO:
                     $this->view->render('profile/video');
-                    break;
-
-                case PIC:
-                    $this->view->render('profile/profile_image');
                     break;
 
                 default:
