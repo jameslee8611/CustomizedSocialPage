@@ -26,7 +26,8 @@ $query =
 	email varchar(32) NOT NULL,
 	password varchar(32) NOT NULL,
 	reset varchar(32) default NULL,
-    session_id varchar(40) DEFAULT '0' NOT NULL,
+        session_id varchar(40) DEFAULT '0' NOT NULL,
+        Profile_pic varchar(100) DEFAULT NULL,
         
 	PRIMARY KEY (id)
 );";
@@ -50,9 +51,9 @@ $query =
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	UId int(11) NOT NULL,
 	PId int(32) NOT NULL,
-    Privacy int(1) NOT NULL,
+        Privacy int(1) NOT NULL,
 	Status varchar(500) DEFAULT NULL,
-    Date timestamp DEFAULT CURRENT_TIMESTAMP,
+        Date timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY (Id)
 );";
