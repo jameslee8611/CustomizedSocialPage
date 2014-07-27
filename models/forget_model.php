@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Seungchul Lee, Jiwoong Yoon
+ * @author Seungchul Lee
  */
 
 class Forget_Model extends Model {
