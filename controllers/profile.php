@@ -86,11 +86,11 @@ class Profile extends Controller {
         print_r($result);
     }
     
-    public function delete_ajax($username, $wall_Id)
+    public function delete_ajax($username, $wall_Id, $type)
     {
         if(Session::get('loggedIn') && $username == Session::get('username'))
         {
-            echo $this->model->delete_ajax($wall_Id);
+            echo $this->model->delete_ajax($wall_Id, $type);
         }
         else
         {

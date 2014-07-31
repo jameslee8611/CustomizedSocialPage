@@ -34,9 +34,20 @@ class Router {
             }
         }
         
-        if (count($url) > 4)
+        if (count($url) > 5)
         {
             $this->redirect_to_error();
+        }
+        elseif (isset ($url[4]))
+        {
+            if (method_exists($controller, $url[1]))
+            {
+                $controller->{$url[1]}($url[2], $url[3], $url[4]);
+            }
+            else
+            {
+                $this->redirect_to_error();
+            }
         }
         elseif (isset($url[3]))
         {

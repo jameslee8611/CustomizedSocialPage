@@ -50,7 +50,6 @@ $query =
 (
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	UId int(11) NOT NULL,
-	PId int(32) NOT NULL,
         Privacy int(1) NOT NULL,
 	Status varchar(500) DEFAULT NULL,
         Date timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -77,8 +76,8 @@ $query =
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	whereId int(25) NOT NULL,
 	Type varchar(10) NOT NULL,
-	StatusId int(32) DEFAULT NULL,
-    DataId int(32) DEFAULT NULL,
+	ContentId int(32) DEFAULT NULL,
+        DataId int(32) DEFAULT NULL,
         
 	PRIMARY KEY (Id)
 );";

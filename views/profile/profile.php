@@ -79,7 +79,7 @@
                 <div class="large-10 columns">
                     <div>
                         <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
-                        <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ')"></i>
+                        <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
                         <p class="date">
                             ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
                             <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>

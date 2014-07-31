@@ -5,7 +5,7 @@
      */
 
     var delete_request;
-    function delete_post(writer, id)
+    function delete_post(writer, id, type)
     {
         if (delete_request)
         {
@@ -13,7 +13,7 @@
         }
 
         request = $.ajax({
-            url: <?php echo json_encode(URL . 'profile/delete_ajax/'); ?> + writer + '/' + id,
+            url: <?php echo json_encode(URL . 'profile/delete_ajax/'); ?> + writer + '/' + id + '/' + type,
             type: 'post',
             success: function(html) {
                 var data = html;
@@ -50,8 +50,8 @@
             type: 'post',
             data: serializedData,
             success: function(html) {
-                //$('#waiting-wheel').delay(3000).queue(function(){$(this).remove();});
                 $('#waiting-wheel').remove();
+                console.log(html);
                 var data = JSON.parse(html);
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
@@ -135,7 +135,6 @@
             type: 'post',
             data: serializedData,
             success: function(html) {
-                //$('#waiting-wheel').delay(3000).queue(function(){$(this).remove();});
                 $('#waiting-wheel').remove();
                 var data = JSON.parse(html);
                 var url = <?php echo json_encode(URL); ?>;
@@ -180,7 +179,7 @@
                         \n\
                         </div></div>\n\
                         ').hide().fadeIn('slow').insertAfter("#end-of-postbox");
-
+                                                        
                 $(document).foundation({
                     Dropdown: {
                         is_hover: true

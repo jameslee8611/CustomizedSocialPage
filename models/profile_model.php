@@ -23,7 +23,7 @@ class Profile_Model extends Model {
         return false;
     }
 
-    public function delete_ajax($wall_Id) {
+    public function delete_ajax($wall_Id, $type) {        
         $statement = $this->db->prepare("Delete wall, status
                             From status
                             Inner Join wall
@@ -31,7 +31,7 @@ class Profile_Model extends Model {
                                     Select wall.ContentId
                                     From wall
                                     Where wall.Id = '$wall_Id') table1
-                            Where status.Id = table1.ContentId AND wall.Id = '$wall_Id'
+                            Where ". $type .".Id = table1.ContentId AND wall.Id = '$wall_Id'
                             ");
         $success = $statement->execute();
         if ($success) {
@@ -54,7 +54,7 @@ class Profile_Model extends Model {
         }
 
         if ($statement2->rowCount() > 0) {
-            return json_encode($this->formatter($wallId, Session::get('username'), Session::get('profile_pic'), $_POST['post-text'], date("Y-m-d h:i:s"), $_POST['privacy']));
+            return json_encode($this->formatter($wallId, Session::get('username'), Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy']));
         } else {
             echo "Network Connection fails";
             exit;
@@ -105,7 +105,9 @@ class Profile_Model extends Model {
             $query = $statement->fetchAll();
 
             foreach ($query as $row) {
-                array_push($result, $this->formatter($row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy']));
+                array_push($result, $this->formatter(
+                        $row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy']
+                        ));
             }
         } else {
             echo 'error';
