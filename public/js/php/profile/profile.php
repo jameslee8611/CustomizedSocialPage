@@ -56,7 +56,7 @@
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
                         <div class="large-2 columns small-3">\n\
-                            <img src="' + data.profile_pic_medium + '"/>\n\
+                            <img class="post-pic" src="' + data.profile_pic_medium + '"/>\n\
                         </div>\n\
                         <div class="large-10 columns">\n\
                             <div>\n\
@@ -84,7 +84,7 @@
                                 <div class="comment">\n\
                                     <div class="row comment-box" id="comment-' + data.id + '">\n\
                                         <div class="large-2 columns small">\n\
-                                        <img src="<?php echo DEFAULT_PROFILE_PIC_SMALL; ?>"/>\n\
+                                        <img class="comment-pic" src="' + data.profile_pic_small + '"/>\n\
                                     </div>\n\
                                     <div class="large-10 columns comment-type-area">\n\
                                         <textarea id="comment-textarea" placeholder="Comment.."></textarea>\n\
@@ -269,10 +269,12 @@
 
     // or directly on the modal
     $('a.change-profile-pic').click(function() {
-        $("#profile-pic-upload").css("display", "none");
+        if($("#crop-container").children().length == 0)
+        {
+            $("#profile-pic-upload").css("display", "none");
+        }
     });
     $('a.change-profile-pic').trigger('click');
-
 
     $("#profile-pic-select").click(function(){
         $("input[name='profile-pic-uploading']").click();
@@ -280,22 +282,28 @@
 
     $("input[name='profile-pic-uploading']").on("change", function(evt){
         $("#profile-pic-upload").css("display", "initial");
-        $("#crop-container").empty();
         var files = evt.target.files[0];
-        var reader = new FileReader();
-        reader.onload = function(files){
-            var crop_pic = document.createElement("img");
-            crop_pic.setAttribute("id", "crop-pic");
-            crop_pic.setAttribute("src", files.target.result);
-            var container_width = crop_pic.width;
-            var container_height = crop_pic.height;
-            var crop_container = document.getElementById("crop-container");
-            crop_container.setAttribute("width", container_width);
-            crop_container.setAttribute("height", container_height);
-            crop_container.appendChild(crop_pic);
-            $("#crop-pic").cropper({aspectRatio: 1});
+        if(files != null){
+            var reader = new FileReader();
+            reader.onload = function(files){
+                var crop_pic = document.createElement("img");
+                crop_pic.setAttribute("id", "crop-pic");
+                crop_pic.setAttribute("src", files.target.result);
+                var container_width = crop_pic.width;
+                var container_height = crop_pic.height;
+                var crop_container = document.getElementById("crop-container");
+                crop_container.setAttribute("width", container_width);
+                crop_container.setAttribute("height", container_height);
+                crop_container.appendChild(crop_pic);
+                $("#crop-pic").cropper({aspectRatio: 1});
+            }
+            reader.readAsDataURL(files);
+            $("#crop-container").empty();
         }
-        reader.readAsDataURL(files);
+        else
+        {
+            $("#profile-pic-upload").css("display", "none");
+        }
     });
 
     $("#profile-pic-upload").click(function(){
@@ -322,8 +330,8 @@
                 contentType: false,
                 success: function(data){
                     $("#crop-container").empty();
-                    console.log(data);
-                    set_image(data);
+                    var pic_paths = data.split(',');
+                    set_image(pic_paths[0], pic_paths[1], pic_paths[2]);
                     $('#myModal').foundation('reveal', 'close');
                 },
                 error: function(){
@@ -336,10 +344,21 @@
         }
     });
 
-    function set_image(image_path){
-        console.log("I am here!");
-        var img = document.getElementById("profile-pic");
-        img.setAttribute("src", image_path);
+    function set_image(large, medium, small){
+        var profile = document.getElementById("profile-pic");
+        profile.setAttribute("src", large);
+
+        var post = document.getElementsByClassName("post-pic");
+        for(i=0; i<post.length; i++)
+        {
+            post[i].setAttribute("src", medium);
+        }
+
+        var comment = document.getElementsByClassName("comment-pic");
+        for(j=0; j<post.length; j++)
+        {
+            comment[j].setAttribute("src", small);
+        }
     }
     
 </script>
