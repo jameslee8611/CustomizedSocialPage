@@ -75,7 +75,7 @@
                         $info['Delete'] = 'fi-trash';
                     }
                     echo '<div class="mix" id="post-' . $info['id'] . '"><div class="row">
-                <div class="large-2 columns small-3"><img src="'. $info['profile_pic_medium'] .'"/></div>
+                <div class="large-2 columns small-3"><img class="post-pic" src="'. $info['profile_pic_medium'] .'"/></div>
                 <div class="large-10 columns">
                     <div>
                         <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
@@ -112,7 +112,7 @@
                     echo '   
                         <div class="row comment-box" id="comment-' . $info['id'] . '">
                             <div class="large-2 columns small">
-                                <img src="'. DEFAULT_PROFILE_PIC_SMALL .'"/>
+                                <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
                             </div>
                             <div class="large-10 columns comment-type-area">
                                 <textarea id="comment-textarea" placeholder="Comment.."></textarea>

@@ -67,11 +67,12 @@ class Profile_Model extends Model {
             $row =$query->fetchAll();
             $result = $row[0]['Profile_pic'];
             
-            if (!isset($result) || empty($result) || !file_exists($result . '_large.jpg')) {
+            if (!isset($result) || empty($result) || !file_exists(substr($result, 43) . '_large.jpg')) {
                 return DEFAULT_PROFILE_PIC_LARGE;
             }
             else {
                 $result .= '_large.jpg';
+                return $result;
             }
         }
         else{
@@ -104,7 +105,7 @@ class Profile_Model extends Model {
             $query = $statement->fetchAll();
 
             foreach ($query as $row) {
-                array_push($result, $this->formatter($row['id'], $row['login'], null, $row['status'], $row['date'], $row['privacy']));
+                array_push($result, $this->formatter($row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['date'], $row['privacy']));
             }
         } else {
             echo 'error';
@@ -135,7 +136,8 @@ class Profile_Model extends Model {
             $delete = '';
         }
         
-        if (isset($profile_pic) && !empty($profile_pic) && file_exists($profile_pic . "_medium.jpg") != null) {
+        if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr($profile_pic, 43) . "_original.jpg") == true) {
+            $profile_pic_large = $profile_pic . "_large.jpg";
             $profile_pic_medium = $profile_pic . "_medium.jpg";
             $profile_pic_small = $profile_pic . "_small.jpg";
         }
@@ -195,25 +197,37 @@ class Profile_Model extends Model {
         $image_info = getimagesize($_FILES["file"]["tmp_name"]);
 
         if ($image_info[2] == IMAGETYPE_GIF || $image_info[2] == IMAGETYPE_JPEG || $image_info[2] == IMAGETYPE_PNG) {
-            $img_path = "public/images/image/" . date("Ymdhisu") . "_" . $username . ".jpg";
+            $date = date("Ymdhisu");
+            $img_path = "public/images/image/" . $date . "_" . $username;
             $src = imagecreatefromjpeg($_FILES["file"]["tmp_name"]);
-            $des = imagecreatetruecolor($width_val, $height_val);
-            imagecopyresampled($des, $src, 0, 0, $x_val, $y_val, $width_val, $height_val, $width_val, $height_val);
-            imagejpeg($des, $img_path, 100);
+            $large = imagecreatetruecolor(300, 300);
+            $medium = imagecreatetruecolor(80, 80);
+            $small = imagecreatetruecolor(50, 50);
+
+            imagecopyresampled($large, $src, 0, 0, $x_val, $y_val, 300, 300, $width_val, $height_val);
+            imagecopyresampled($medium, $src, 0, 0, $x_val, $y_val, 80, 80, $width_val, $height_val);
+            imagecopyresampled($small, $src, 0, 0, $x_val, $y_val, 50, 50, $width_val, $height_val);
+            imagejpeg($src, $img_path . "_original.jpg", 100);
+            imagejpeg($large, $img_path . "_large.jpg", 100);
+            imagejpeg($medium, $img_path . "_medium.jpg", 100);
+            imagejpeg($small, $img_path . "_small.jpg", 100);
 
             imagedestroy($src);
-            imagedestroy($des);
+            imagedestroy($large);
+            imagedestroy($medium);
+            imagedestroy($small);
 
             Session::set('profile_pic', URL . $img_path);
 
-            $statement = $this->db->update('users', array('Profile_pic'), array(URL . "public/images/image/" . date("Ymdhisu") . "_" . $username), array('login'), array($username));
+            $statement = $this->db->update('users', array('Profile_pic'), array(URL . "public/images/image/" . $date . "_" . $username), array('login'), array($username));
             $success = $statement->execute();
             
             if ($success) {
-                return URL . $img_path;
+                $full_path = URL . $img_path;
+                return $full_path . "_large.jpg" . "," . $full_path . "_medium.jpg" . "," . $full_path . "_small.jpg";
             }
         } else {
-            return array(false, "Invalid File Type!");
+            return "Invalid File Type!";
         }
     }
 
