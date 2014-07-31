@@ -14,6 +14,7 @@ define('FAIL', 2);
 define('ERROR', 3);
 
 // profile menu
+define('COMMENT', 'comment');
 define('STATUS', 'status');
 define('VIDEO', 'video');
 define('IMAGE', 'image');

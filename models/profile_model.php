@@ -28,10 +28,10 @@ class Profile_Model extends Model {
                             From status
                             Inner Join wall
                             Inner Join (
-                                    Select wall.StatusId
+                                    Select wall.ContentId
                                     From wall
                                     Where wall.Id = '$wall_Id') table1
-                            Where status.Id = table1.StatusId AND wall.Id = '$wall_Id'
+                            Where status.Id = table1.ContentId AND wall.Id = '$wall_Id'
                             ");
         $success = $statement->execute();
         if ($success) {
@@ -48,7 +48,7 @@ class Profile_Model extends Model {
             $whereId = $row[0]['Id'];
 
             $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
-            $statement2 = $this->db->insert("wall", array("whereId", "StatusId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
+            $statement2 = $this->db->insert("wall", array("whereId", "ContentId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
 
             $wallId = $this->db->lastInsertId();
         }
@@ -82,9 +82,9 @@ class Profile_Model extends Model {
 
     public function get_status($username) {
         $result = array();
-        $statement = $this->db->prepare("Select users.login, table2.status, table2.date, table2.privacy, table2.id, users.Profile_pic
+        $statement = $this->db->prepare("Select users.login, table2.status, table2.date, table2.privacy, table2.id, users.Profile_pic, table2.type
                                         From (
-                                            Select status.status, status.UId, status.date, status.privacy, wall.id
+                                            Select status.status, status.UId, status.date, status.privacy, wall.id, wall.type
                                             From wall
                                             Inner join (
                                                     Select users.Id
@@ -92,7 +92,7 @@ class Profile_Model extends Model {
                                                     Where users.login = '$username') table1
                                                 On table1.Id = wall.whereId
                                             Inner join status
-                                                On wall.StatusId = status.Id) table2
+                                                On wall.ContentId = status.Id) table2
                                         Inner join users
                                             On users.Id = table2.UId
                                         ORDER BY table2.date DESC
@@ -104,7 +104,7 @@ class Profile_Model extends Model {
             $query = $statement->fetchAll();
 
             foreach ($query as $row) {
-                array_push($result, $this->formatter($row['id'], $row['login'], null, $row['status'], $row['date'], $row['privacy']));
+                array_push($result, $this->formatter($row['id'], $row['login'], null, $row['status'], $row['type'], $row['date'], $row['privacy']));
             }
         } else {
             echo 'error';
@@ -121,7 +121,7 @@ class Profile_Model extends Model {
      * @param array $commentors List of commentors    
      * @param array $comments   List of comments
      */
-    private function formatter($id, $writer, $profile_pic, $post, $date, $privacy, $commentors = null, $commentor_url = null, $comments = null) {
+    private function formatter($id, $writer, $profile_pic, $post, $type, $date, $privacy, $commentors = null, $commentor_url = null, $comments = null) {
         if (count($commentors) != count($comments)) {
             return NULL;
         }
@@ -168,6 +168,7 @@ class Profile_Model extends Model {
                         "profile_pic_small": "'. $profile_pic_small . '",
                         "Writer": "' . $writer . '",
                         "Post": "' . $post . '",
+                        "Type": "' . $type . '",
                         "Date": "' . $date . '",
                         "Privacy": "' . $privacy_icon . '",
                         "Privacy_description": "' . $description . '",

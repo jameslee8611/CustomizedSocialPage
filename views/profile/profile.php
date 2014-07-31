@@ -100,23 +100,43 @@
                     <hr class="comment-hr"/>
                     <div class="comment">';
                     foreach ($info['Comments'] as $comment) {
-                        echo '<div class="row">
+                   echo '<div class="row" id="'. $info['id'] .'">
                             <div class="large-2 columns small-3"><img src="'. $info['profile_pic_small'] .'"/></div>
                             <div class="large-10 columns">
                                 <p>';
-                        echo '<strong>' . $comment['Writer'] . ':</strong> &nbsp' . $comment['Comment'];
-                        echo '</p>
+                                echo '<strong>' . $comment['Writer'] . '</strong> &nbsp' . $comment['Comment'];
+                           echo '</p>
                             </div>
                         </div>';
                     }
+                    ///////////////////// Test purpose
+                    echo '<div class="row">
+                            <div class="large-2 columns small-3"><img src="'. $info['profile_pic_small'] .'"/></div>
+                            <div class="large-10 columns">
+                                <p>';
+                                echo '<strong>jameslee</strong> &nbsp' . 'Comment Test!';
+                           echo '</p>
+                            </div>
+                        </div>';
+                    echo '<div class="row">
+                            <div class="large-2 columns small-3"><img src="'. $info['profile_pic_small'] .'"/></div>
+                            <div class="large-10 columns">
+                                <p>';
+                                echo '<strong>jameslee</strong> &nbsp' . 'Comment Test!';
+                           echo '</p>
+                            </div>
+                        </div>';
+                    /////////////////////
                     echo '   
                         <div class="row comment-box" id="comment-' . $info['id'] . '">
                             <div class="large-2 columns small">
                                 <img src="'. DEFAULT_PROFILE_PIC_SMALL .'"/>
                             </div>
-                            <div class="large-10 columns comment-type-area">
+                            <form class="large-10 columns comment-type-area" id="post-comment" method="post">
                                 <textarea id="comment-textarea" placeholder="Comment.."></textarea>
-                            </div>
+                                <input id="commnet-submit" type="submit" value="Post"/>
+                                <input value="$"
+                            </form>
                         </div>
                     </div>
                     

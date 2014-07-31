@@ -111,6 +111,91 @@
 
         event.preventDefault();
     });
+    
+    /*
+     * 
+     * @param {type} param
+     */
+    var comment_request;
+
+    $('#post-comment').submit(function(event) {
+        if (comment_request)
+        {
+            comment_request.abort();
+        }
+
+        var $input = $(this).find("input, button, textarea");
+        var serializedData = $(this).serialize();
+        $input.prop("disabled", true);
+
+        $('<img id="waiting-wheel" src="<?php echo URL . "public/images/wheel.gif"; ?>" alt="Processing..">').hide().fadeIn('slow').insertAfter("#end-of-postbox");
+
+        request = $.ajax({
+            url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username); ?>,
+            type: 'post',
+            data: serializedData,
+            success: function(html) {
+                //$('#waiting-wheel').delay(3000).queue(function(){$(this).remove();});
+                $('#waiting-wheel').remove();
+                var data = JSON.parse(html);
+                var url = <?php echo json_encode(URL); ?>;
+                $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
+                        <div class="large-2 columns small-3">\n\
+                            <img src="' + data.profile_pic_medium + '"/>\n\
+                        </div>\n\
+                        <div class="large-10 columns">\n\
+                            <div>\n\
+                                <a href="' + url + data.Writer + '">\n\
+                                    <strong>' + data.Writer + '</strong> &nbsp\n\
+                                </a>\n\
+                                <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ')"></i>\n\
+                                <p class="date">'
+                        + data.Date + ' &nbsp\n\
+                                    <i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\n\
+                                    <div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>'
+                        + data.Privacy_description +
+                        '</div>\n\
+                                </p>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="large-12 columns">\n\
+                                <p class="post">'
+                        + data.Post + '\
+                                </p>\n\
+                                <div class="comment-head">\n\
+                                    <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\n\
+                                    <a href="#"><i class="fi-comment"></i> 0</a>\n\
+                                </div><hr class="comment-hr"/>\n\
+                                <div class="comment">\n\
+                                    <div class="row comment-box" id="comment-' + data.id + '">\n\
+                                        <div class="large-2 columns small">\n\
+                                        <img src="<?php echo DEFAULT_PROFILE_PIC_SMALL; ?>"/>\n\
+                                    </div>\n\
+                                    <div class="large-10 columns comment-type-area">\n\
+                                        <textarea id="comment-textarea" placeholder="Comment.."></textarea>\n\
+                                    </div>\n\
+                    </div>\n\
+                                </div>\n\
+                            </div>\n\
+                        \n\
+                        </div></div>\n\
+                        ').hide().fadeIn('slow').insertAfter("#end-of-postbox");
+
+                $(document).foundation({
+                    Dropdown: {
+                        is_hover: true
+                    }
+                });
+            }
+        });
+
+        request.always(function() {
+            $input.prop("disabled", false);
+            $('#post-textarea').val('');
+        });
+
+        event.preventDefault();
+    });
 
     $('.date').hover(function() {
         $(this).stop();
