@@ -207,6 +207,7 @@ class Profile_Model extends Model {
             imagecopyresampled($large, $src, 0, 0, $x_val, $y_val, 300, 300, $width_val, $height_val);
             imagecopyresampled($medium, $src, 0, 0, $x_val, $y_val, 80, 80, $width_val, $height_val);
             imagecopyresampled($small, $src, 0, 0, $x_val, $y_val, 50, 50, $width_val, $height_val);
+            
             imagejpeg($src, $img_path . "_original.jpg", 100);
             imagejpeg($large, $img_path . "_large.jpg", 100);
             imagejpeg($medium, $img_path . "_medium.jpg", 100);

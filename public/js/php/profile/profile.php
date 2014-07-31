@@ -184,10 +184,12 @@
 
     // or directly on the modal
     $('a.change-profile-pic').click(function() {
-        $("#profile-pic-upload").css("display", "none");
+        if($("#crop-container").children().length == 0)
+        {
+            $("#profile-pic-upload").css("display", "none");
+        }
     });
     $('a.change-profile-pic').trigger('click');
-
 
     $("#profile-pic-select").click(function(){
         $("input[name='profile-pic-uploading']").click();
@@ -195,22 +197,28 @@
 
     $("input[name='profile-pic-uploading']").on("change", function(evt){
         $("#profile-pic-upload").css("display", "initial");
-        $("#crop-container").empty();
         var files = evt.target.files[0];
-        var reader = new FileReader();
-        reader.onload = function(files){
-            var crop_pic = document.createElement("img");
-            crop_pic.setAttribute("id", "crop-pic");
-            crop_pic.setAttribute("src", files.target.result);
-            var container_width = crop_pic.width;
-            var container_height = crop_pic.height;
-            var crop_container = document.getElementById("crop-container");
-            crop_container.setAttribute("width", container_width);
-            crop_container.setAttribute("height", container_height);
-            crop_container.appendChild(crop_pic);
-            $("#crop-pic").cropper({aspectRatio: 1});
+        if(files != null){
+            var reader = new FileReader();
+            reader.onload = function(files){
+                var crop_pic = document.createElement("img");
+                crop_pic.setAttribute("id", "crop-pic");
+                crop_pic.setAttribute("src", files.target.result);
+                var container_width = crop_pic.width;
+                var container_height = crop_pic.height;
+                var crop_container = document.getElementById("crop-container");
+                crop_container.setAttribute("width", container_width);
+                crop_container.setAttribute("height", container_height);
+                crop_container.appendChild(crop_pic);
+                $("#crop-pic").cropper({aspectRatio: 1});
+            }
+            reader.readAsDataURL(files);
+            $("#crop-container").empty();
         }
-        reader.readAsDataURL(files);
+        else
+        {
+            $("#profile-pic-upload").css("display", "none");
+        }
     });
 
     $("#profile-pic-upload").click(function(){
