@@ -100,7 +100,7 @@
                     <hr class="comment-hr"/>
                     <div class="comment">';
                     foreach ($info['Comments'] as $comment) {
-                   echo '<div class="row" id="'. $info['id'] .'">
+                   echo '<div class="row">
                             <div class="large-2 columns small-3"><img src="'. $comment['Profile_pic'] .'"/></div>
                             <div class="large-10 columns">
                                 <p>';
@@ -115,13 +115,12 @@
                                 <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
                             </div>
                             <form class="large-10 columns comment-type-area" id="post-comment" method="post">
-                                <textarea id="comment-textarea" placeholder="Comment.."></textarea>
-                                <input id="commnet-submit" type="submit" value="Post"/>
-                                <input value="$"
+                                <textarea id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
+                                <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
+                                <input class="" type="submit" id="commnet-submit" value="post" />
                             </form>
                         </div>
                     </div>
-                    
                 </div>
             
             </div></div>';

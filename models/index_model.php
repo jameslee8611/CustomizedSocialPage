@@ -25,6 +25,7 @@ class Index_Model extends Model {
             $row =$query_whereId->fetchAll();
             $whereId = $row[0]['Id'];
             Session::set('userId', $whereId);
+            Session::set('profile_pic', null);
             return true;
         } 
         else
@@ -59,6 +60,7 @@ class Index_Model extends Model {
             Session::set('loggedIn', true);
             Session::set('username', $login);
             Session::set('userId', $whereId);
+            Session::set('profile_pic', null);
             
             if (!empty($_POST['keep_loggedIn']) || isset($_POST['keep_loggedIn']))
             {

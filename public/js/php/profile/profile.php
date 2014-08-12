@@ -46,13 +46,12 @@
         $('<img id="waiting-wheel" src="<?php echo URL . "public/images/wheel.gif"; ?>" alt="Processing..">').hide().fadeIn('slow').insertAfter("#end-of-postbox");
 
         request = $.ajax({
-            url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username); ?>,
+            url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username . '/' . STATUS); ?>,
             type: 'post',
             data: serializedData,
-            success: function(html) {
+            success: function(jsonData) {
                 $('#waiting-wheel').remove();
-                console.log(html);
-                var data = JSON.parse(html);
+                var data = JSON.parse(jsonData);
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
                         <div class="large-2 columns small-3">\n\
@@ -63,7 +62,7 @@
                                 <a href="' + url + data.Writer + '">\n\
                                     <strong>' + data.Writer + '</strong> &nbsp\n\
                                 </a>\n\
-                                <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ')"></i>\n\
+                                <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ',\'' + data.Type + '\')"></i>\n\
                                 <p class="date">'
                         + data.Date + ' &nbsp\n\
                                     <i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\n\
@@ -124,61 +123,27 @@
             comment_request.abort();
         }
 
-        var $input = $(this).find("input, button, textarea");
+        var $input = $(this).find("input, select, button, textarea, div");
         var serializedData = $(this).serialize();
         $input.prop("disabled", true);
 
-        $('<img id="waiting-wheel" src="<?php echo URL . "public/images/wheel.gif"; ?>" alt="Processing..">').hide().fadeIn('slow').insertAfter("#end-of-postbox");
-
         request = $.ajax({
-            url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username); ?>,
+            url: <?php echo json_encode(URL . 'profile/post_ajax/' . $this->username . '/' . COMMENT); ?>,
             type: 'post',
             data: serializedData,
             success: function(html) {
-                $('#waiting-wheel').remove();
+                console.log("html: " + html + "<br/>");
                 var data = JSON.parse(html);
+                console.log("pared data: " + data + "<br/>");
                 var url = <?php echo json_encode(URL); ?>;
-                $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
-                        <div class="large-2 columns small-3">\n\
-                            <img src="' + data.profile_pic_medium + '"/>\n\
-                        </div>\n\
-                        <div class="large-10 columns">\n\
-                            <div>\n\
-                                <a href="' + url + data.Writer + '">\n\
-                                    <strong>' + data.Writer + '</strong> &nbsp\n\
-                                </a>\n\
-                                <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ')"></i>\n\
-                                <p class="date">'
-                        + data.Date + ' &nbsp\n\
-                                    <i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\n\
-                                    <div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>'
-                        + data.Privacy_description +
-                        '</div>\n\
-                                </p>\n\
-                                </div>\n\
-                            </div>\n\
-                            <div class="large-12 columns">\n\
-                                <p class="post">'
-                        + data.Post + '\
-                                </p>\n\
-                                <div class="comment-head">\n\
-                                    <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\n\
-                                    <a href="#"><i class="fi-comment"></i> 0</a>\n\
-                                </div><hr class="comment-hr"/>\n\
-                                <div class="comment">\n\
-                                    <div class="row comment-box" id="comment-' + data.id + '">\n\
-                                        <div class="large-2 columns small">\n\
-                                        <img src="<?php echo DEFAULT_PROFILE_PIC_SMALL; ?>"/>\n\
-                                    </div>\n\
-                                    <div class="large-10 columns comment-type-area">\n\
-                                        <textarea id="comment-textarea" placeholder="Comment.."></textarea>\n\
-                                    </div>\n\
-                    </div>\n\
-                                </div>\n\
-                            </div>\n\
-                        \n\
-                        </div></div>\n\
-                        ').hide().fadeIn('slow').insertAfter("#end-of-postbox");
+                $('<div class="row">\
+                        <div class="large-2 columns small-3"><img src="' + data.Profile_pic + '"/></div>\
+                        <div class="large-10 columns">\
+                            <p>\
+                                <strong>' + data.Commentor + '</strong> &nbsp' + data.Comment + '\
+                            </p>\
+                        </div>\
+                    </div>').hide().fadeIn('slow').insertBefore($(".comment-box"));
                                                         
                 $(document).foundation({
                     Dropdown: {
@@ -190,7 +155,7 @@
 
         request.always(function() {
             $input.prop("disabled", false);
-            $('#post-textarea').val('');
+            $('#comment-textarea').val('');
         });
 
         event.preventDefault();

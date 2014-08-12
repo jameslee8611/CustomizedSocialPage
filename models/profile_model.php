@@ -41,23 +41,26 @@ class Profile_Model extends Model {
         }
     }
 
-    public function post_ajax($username, $from, $type) {
-        if (!isset($from) || empty($from)) {
-            $query_whereId = $this->db->select(array("Id"), "users", array("login"), array($username));
-            $row = $query_whereId->fetchAll();
-            $whereId = $row[0]['Id'];
+    public function post_ajax($username, $type) {
+        $query_whereId = $this->db->select(array("Id"), "users", array("login"), array($username));
+        $row = $query_whereId->fetchAll();
+        $whereId = $row[0]['Id'];
 
+        if($type == STATUS)
+        {
             $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
             $statement2 = $this->db->insert("wall", array("whereId", "ContentId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
-
             $wallId = $this->db->lastInsertId();
+            return json_encode($this->formatter($wallId, Session::get('username'), Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy'], '[]'));
         }
-
-        if ($statement2->rowCount() > 0) {
-            return json_encode($this->formatter($wallId, Session::get('username'), Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy']));
-        } else {
-            echo "Network Connection fails";
-            exit;
+        elseif($type == COMMENT)
+        {
+            $this->db->insert("comment", array("UId", "Comment"), array(Session::get('userId'), $_POST['comment-post']));
+            $statement2 = $this->db->insert("wall", array("ContentId", "Type", "PId"), array($this->db->lastInsertId(), $type, $_POST['contentId']));
+            $wallId = $this->db->lastInsertId();
+            
+            return json_encode(json_decode($this->commentFormatter(Session::get('username'), $_POST['comment-post'], $wallId, date("Y-m-d h:i:s"), Session::get('profile_pic')), true));
+            //return json_encode('{"Comment": ' . $this->get_comment($_POST['contentId']) . '}');
         }
     }
     
@@ -132,7 +135,7 @@ class Profile_Model extends Model {
                                             ) table1
                                         Inner join users
                                             On users.Id = table1.UId
-                                        ORDER BY table1.date DESC
+                                        ORDER BY table1.date ASC
                                                 ");
         $success = $statement->execute();
         
@@ -144,26 +147,36 @@ class Profile_Model extends Model {
         $result = '[';
         $query = $statement->fetchAll();
 
+        $numItems = count($query);
+        $i = 0;
         foreach ($query as $row) {
-            if (isset($row['Profile_pic']) && !empty($row['Profile_pic']) && file_exists(substr($row['Profile_pic'], 43) . "_original.jpg") == true) {
-                $row['Profile_pic'] .= "_small.jpg";
-            }
-            else {
-                $row['Profile_pic'] = DEFAULT_PROFILE_PIC_SMALL;
-            }
+            $result .= $this->commentFormatter($row['login'], $row['Comment'], $row['Id'], $row['Date'], $row['Profile_pic']);
             
-            $result .= '{
-                            "Commentor": "' . $row['login'] . '",
-                            "Comment": "' . $row['Comment'] . '",
-                            "CommentId": "' . $row['Id'] . '",
-                            "Date": "' . $row['Date'] . '",
-                            "Profile_pic": "' . $row['Profile_pic'] . '"
-                        }';
+            if(++$i !== $numItems) {
+                $result .= ', ';
+            }
         }
         $result .= ']';
         
         return $result;
-        
+    }
+    
+    private function commentFormatter($commentor, $comment, $commentId, $Date, $profile_pic)
+    {
+        if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr($profile_pic, 43) . "_original.jpg") == true) {
+            $profile_pic .= "_small.jpg";
+        }
+        else {
+            $profile_pic = DEFAULT_PROFILE_PIC_SMALL;
+        }
+            
+        return '{
+                    "Commentor": "' . $commentor . '",
+                    "Comment": "' . $comment . '",
+                    "CommentId": "' . $commentId . '",
+                    "Date": "' . $Date . '",
+                    "Profile_pic": "' . $profile_pic . '"
+                }';
     }
 
     /**
@@ -222,9 +235,14 @@ class Profile_Model extends Model {
                         "Date": "' . $date . '",
                         "Privacy": "' . $privacy_icon . '",
                         "Privacy_description": "' . $description . '",
-                        "Delete": "' . $delete . '",
-                        "Comments": ';
-        $result = $result . $comments . '}';
+                        "Delete": "' . $delete . '"';
+        if($comments != null || $comments != '[]')
+        {
+            $result .= ', "Comments": ';
+            $result .= $comments;
+        }
+        
+        $result .=  ' }';
         
         /*
         echo 'Comments: ' . $comments . '<br /><br /><br />';
