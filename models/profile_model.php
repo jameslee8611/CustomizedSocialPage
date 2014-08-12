@@ -85,15 +85,17 @@ class Profile_Model extends Model {
         $result = array();
         $statement = $this->db->prepare("Select users.login, table2.status, table2.date, table2.privacy, table2.id, users.Profile_pic, table2.type
                                         From (
-                                            Select status.status, status.UId, status.date, status.privacy, wall.id, wall.type
-                                            From wall
-                                            Inner join (
-                                                    Select users.Id
-                                                    From users
-                                                    Where users.login = '$username') table1
-                                                On table1.Id = wall.whereId
-                                            Inner join status
-                                                On wall.ContentId = status.Id) table2
+                                                Select status.status, status.UId, status.date, status.privacy, wall.id, wall.type
+                                                From wall
+                                                Inner join (
+                                                                Select users.Id
+                                                                From users
+                                                                Where users.login = '$username'
+                                                            ) table1
+                                                    On table1.Id = wall.whereId
+                                                Inner join status
+                                                    On wall.ContentId = status.Id
+                                            ) table2
                                         Inner join users
                                             On users.Id = table2.UId
                                         ORDER BY table2.date DESC
@@ -105,8 +107,9 @@ class Profile_Model extends Model {
             $query = $statement->fetchAll();
 
             foreach ($query as $row) {
+                $comments = $this->get_comment($row['id']);
                 array_push($result, $this->formatter(
-                        $row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy']
+                        $row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy'], $comments
                         ));
             }
         } else {
@@ -116,6 +119,52 @@ class Profile_Model extends Model {
 
         return $result;
     }
+    
+    public function get_comment($PId) 
+    {
+        $statement = $this->db->prepare("Select users.login, table1.Comment, table1.Date, table1.Id, users.Profile_pic
+                                        From (
+                                                Select wall.Id, comment.Comment, comment.UId, comment.Date
+                                                From wall
+                                                Inner join comment
+                                                    On wall.ContentId = comment.Id
+                                                Where wall.PId = $PId
+                                            ) table1
+                                        Inner join users
+                                            On users.Id = table1.UId
+                                        ORDER BY table1.date DESC
+                                                ");
+        $success = $statement->execute();
+        
+        if (!$success) {
+            echo "Get Comment Error!  (code:1123)";
+            exit;
+        }
+        
+        $result = '[';
+        $query = $statement->fetchAll();
+
+        foreach ($query as $row) {
+            if (isset($row['Profile_pic']) && !empty($row['Profile_pic']) && file_exists(substr($row['Profile_pic'], 43) . "_original.jpg") == true) {
+                $row['Profile_pic'] .= "_small.jpg";
+            }
+            else {
+                $row['Profile_pic'] = DEFAULT_PROFILE_PIC_SMALL;
+            }
+            
+            $result .= '{
+                            "Commentor": "' . $row['login'] . '",
+                            "Comment": "' . $row['Comment'] . '",
+                            "CommentId": "' . $row['Id'] . '",
+                            "Date": "' . $row['Date'] . '",
+                            "Profile_pic": "' . $row['Profile_pic'] . '"
+                        }';
+        }
+        $result .= ']';
+        
+        return $result;
+        
+    }
 
     /**
      * @param int $id           Wall Id
@@ -124,11 +173,8 @@ class Profile_Model extends Model {
      * @param array $commentors List of commentors    
      * @param array $comments   List of comments
      */
-    private function formatter($id, $writer, $profile_pic, $post, $type, $date, $privacy, $commentors = null, $commentor_url = null, $comments = null) {
-        if (count($commentors) != count($comments)) {
-            return NULL;
-        }
-
+    private function formatter($id, $writer, $profile_pic, $post, $type, $date, $privacy, $comments = null) 
+    {
         $post = preg_replace("/[\r\n]{2,}/", "\\n", $post);
 
         if ($writer == Session::get('username')) {
@@ -177,17 +223,16 @@ class Profile_Model extends Model {
                         "Privacy": "' . $privacy_icon . '",
                         "Privacy_description": "' . $description . '",
                         "Delete": "' . $delete . '",
-                        "Comments": 
-                        [';
-        for ($i = 0; $i < count($commentors); $i++) {
-            $result .= '{"Writer": "' . $commentors[$i] . '", "Comment": "' . $comments[$i] . '"}';
-            if ($i + 1 != count($commentors)) {
-                $result .= ', ';
-            }
-        }
-        $result .= ']
-                    }';
+                        "Comments": ';
+        $result = $result . $comments . '}';
         
+        /*
+        echo 'Comments: ' . $comments . '<br /><br /><br />';
+        echo 'Raw Result: ' . $result . '<br /><br /><br />';
+        echo 'Dedoed Result: ';
+        print_r(json_decode($result, true));
+        exit;
+        */
         return json_decode($result, true);
     }
 

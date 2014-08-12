@@ -101,32 +101,14 @@
                     <div class="comment">';
                     foreach ($info['Comments'] as $comment) {
                    echo '<div class="row" id="'. $info['id'] .'">
-                            <div class="large-2 columns small-3"><img src="'. $info['profile_pic_small'] .'"/></div>
+                            <div class="large-2 columns small-3"><img src="'. $comment['Profile_pic'] .'"/></div>
                             <div class="large-10 columns">
                                 <p>';
-                                echo '<strong>' . $comment['Writer'] . '</strong> &nbsp' . $comment['Comment'];
+                                echo '<strong>' . $comment['Commentor'] . '</strong> &nbsp' . $comment['Comment'];
                            echo '</p>
                             </div>
                         </div>';
                     }
-                    ///////////////////// Test purpose
-                    echo '<div class="row">
-                            <div class="large-2 columns small-3"><img src="'. $info['profile_pic_small'] .'"/></div>
-                            <div class="large-10 columns">
-                                <p>';
-                                echo '<strong>jameslee</strong> &nbsp' . 'Comment Test!';
-                           echo '</p>
-                            </div>
-                        </div>';
-                    echo '<div class="row">
-                            <div class="large-2 columns small-3"><img src="'. $info['profile_pic_small'] .'"/></div>
-                            <div class="large-10 columns">
-                                <p>';
-                                echo '<strong>jameslee</strong> &nbsp' . 'Comment Test!';
-                           echo '</p>
-                            </div>
-                        </div>';
-                    /////////////////////
                     echo '   
                         <div class="row comment-box" id="comment-' . $info['id'] . '">
                             <div class="large-2 columns small">
