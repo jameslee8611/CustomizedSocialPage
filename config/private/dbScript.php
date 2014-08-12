@@ -37,7 +37,7 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'User table has been successfully created.<br />';
+    echo 'User table has been successfully created or it\'s been already made.<br />';
 }
 else 
 {
@@ -62,7 +62,7 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'Status table has been successfully created.<br />';
+    echo 'Status table has been successfully created or it\'s been already made.<br />';
 }
 else 
 {
@@ -91,6 +91,29 @@ if($success)
 }
 else 
 {
-    echo 'Creating Wall table failed.<br />'; 
+    echo 'Creating Wall table failed or it\'s been already made.<br />'; 
+}
+
+$query = 
+"CREATE TABLE comment
+(
+	Id int(32) NOT NULL AUTO_INCREMENT,
+	UId int(11) NOT NULL,
+	Status varchar(500) DEFAULT NULL,
+        Date timestamp DEFAULT CURRENT_TIMESTAMP,
+
+	PRIMARY KEY (Id)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'Comment table has been successfully created or it\'s been already made.<br />';
+}
+else 
+{
+    echo 'Creating Comment table failed.<br />'; 
 }
 ?>
