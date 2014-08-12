@@ -11,9 +11,12 @@
         <div class="large-3 columns ">
             <div class="panel-media">
                 <!-- Profile image -->
-                <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo $this->profile_pic; ?>"></a>
-                <a class="change-profile-pic" data-reveal-id="myModal" style="border-style: solid; border-color: red;">Change Profile</a>
-                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
+                <div id="profile-pic-container">
+                    <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo $this->profile_pic; ?>"></a>
+                    <div id="change-profile-pic-background"></div>
+                    <a class="change-profile-pic" data-reveal-id="myModal">Change Profile</a>
+                </div>
+                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h4>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
                         <hr class="nav-divider">
                         <section class="section">

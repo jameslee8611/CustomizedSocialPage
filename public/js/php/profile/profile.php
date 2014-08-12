@@ -4,6 +4,14 @@
      * @date    July 24, 2014
      */
 
+    $('.change-profile-pic, #change-profile-pic-background').hide();
+
+    $('#profile-pic-container').mouseenter(function(){
+        $('.change-profile-pic, #change-profile-pic-background').show();
+    }).mouseleave(function(){
+        $('.change-profile-pic, #change-profile-pic-background').hide();
+    });
+
     var delete_request;
     function delete_post(writer, id, type)
     {

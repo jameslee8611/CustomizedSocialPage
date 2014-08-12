@@ -83,8 +83,25 @@
 }
 
  .change-profile-pic {
-    opacity: 80%;
+    /*opacity: 80%;
     background: #A3A3A3;
     margin: 0%;
-    top:-30px;
+    top:-30px;*/
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+}
+
+#profile-pic-container{
+    position: relative;
+    display: inline-block;
+}
+
+#change-profile-pic-background{
+    position: absolute;
+    bottom: 0px;
+    height: 20px;
+    width: 100%;
+    background-color: #454545;
+    opacity: 0.5;
 }
