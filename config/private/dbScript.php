@@ -74,10 +74,10 @@ $query =
 "CREATE TABLE wall
 (
 	Id int(32) NOT NULL AUTO_INCREMENT,
-	whereId int(25) DEFAULT NULL,
+	whereId int(25) DEFAULT 0,
 	Type varchar(10) NOT NULL,
-	ContentId int(32) DEFAULT NULL,
-        DataId int(32) DEFAULT NULL,
+	ContentId int(32) DEFAULT 0,
+        DataId int(32) DEFAULT 0,
         
 	PRIMARY KEY (Id)
 );";
