@@ -11,8 +11,12 @@
         <div class="large-3 columns ">
             <div class="panel-media">
                 <!-- Profile image -->
-                <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
-                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
+                <div id="profile-pic-container">
+                    <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo $this->profile_pic; ?>"></a>
+                    <div id="change-profile-pic-background"></div>
+                    <a class="change-profile-pic" data-reveal-id="myModal">Change Profile</a>
+                </div>
+                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h4>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
                         <hr class="nav-divider">
                         <section class="section">
@@ -68,19 +72,17 @@
                 </div>
             </div><br id="end-of-postbox">
             <?php
-            if (!isset($this->data) || empty($this->data)) {
-       echo '<div class="row mix"></div>';
-            } else {
+            if (isset($this->data) || !empty($this->data)) {
                 foreach ($this->data as $info) {
                     if (Session::get('username') == $this->username) {
                         $info['Delete'] = 'fi-trash';
                     }
-       echo '<div class=" mix"><div class="row" id="post-'. $info['id'] .'">
-                <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
+                    echo '<div class="mix" id="post-' . $info['id'] . '"><div class="row">
+                <div class="large-2 columns small-3"><img class="post-pic" src="'. $info['profile_pic_medium'] .'"/></div>
                 <div class="large-10 columns">
                     <div>
                         <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
-                        <i id="tooltip-delete-box-'. $info['id'] .'" class="'. $info['Delete'] .' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\''. $info['Writer'] . '\',' . $info['id'] .')"></i>
+                        <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
                         <p class="date">
                             ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
                             <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
@@ -94,23 +96,39 @@
                         ' . $info['Post'] . '
                     </p>
                     <div class="comment-head">';
-                    echo '<a href="#">comments</a>
+                    echo '<a href="#comment-' . $info['id'] . '">comments</a>
                         &nbsp&nbsp&nbsp&nbsp&nbsp
-                        <a href="#"><i class="fi-comment"></i> ' . count($info['Comments']) . '</a>
+                        <a href="#"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
                     </div>
                     <hr class="comment-hr"/>
                     <div class="comment">';
-                   foreach ($info['Comments'] as $comment) {
-                   echo '<div class="row">
-                            <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]"/></div>
+                    foreach ($info['Comments'] as $comment) {
+                        if (Session::get('username') == $this->username) {
+                            $comment['Delete'] = 'fi-trash';
+                        }
+                   echo '<div class="row" id="post-' . $comment['CommentId'] . '">
+                            <div class="large-2 columns small-3"><img src="'. $comment['Profile_pic'] .'"/></div>
                             <div class="large-10 columns">
+                                <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
                                 <p>';
-                               echo '<strong>' . $comment['Writer'] . ':</strong> &nbsp' . $comment['Comment'];
-                          echo '</p>
+                                echo '<a href="'. URL . $comment['Commentor'] .'"><strong>' . $comment['Commentor'] . '</strong></a> &nbsp' . $comment['Comment'] . '
+                                     <div class="date comment-date">' . $comment['Date'] . '</div>
+                                </p>
                             </div>
                         </div>';
                     }
-           echo '   </div>
+                    echo '   
+                        <div class="row comment-box">
+                            <div class="large-2 columns small">
+                                <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
+                            </div>
+                            <form class="large-10 columns comment-type-area" id="post-comment" method="post">
+                                <textarea onkeydown="if (event.keyCode == 13) document.getElementById(\'commnet-submit\').click()" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
+                                <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
+                                <input class="hide" type="submit" id="commnet-submit" value="post" />
+                            </form>
+                        </div>
+                    </div>
                 </div>
             
             </div></div>';
@@ -123,4 +141,15 @@
             <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
         </aside>
     </div>
+</div>
+
+<div id="myModal" class="reveal-modal" data-reveal>
+    <h2>Change your profile picture.</h2>
+    <form enctype="multipart/form-data">
+        <input type="file" name="profile-pic-uploading" id="profile-pic-uploading" accept="image" hidden/>
+        <div class="button tiny radius" id="profile-pic-select">Select Image</div>
+        <div class="button tiny radius" id="profile-pic-upload">Upload Image</div>
+    </form>
+
+    <div id="crop-container"></div>
 </div>

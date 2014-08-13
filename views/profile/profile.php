@@ -111,8 +111,8 @@
                             <div class="large-10 columns">
                                 <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
                                 <p>';
-                                echo '<strong>' . $comment['Commentor'] . '</strong> &nbsp' . $comment['Comment'] . 
-                                     '<div class="date comment-date">' . $comment['Date'] . '</div>
+                                echo '<a href="'. URL . $comment['Commentor'] .'"><strong>' . $comment['Commentor'] . '</strong></a> &nbsp' . $comment['Comment'] . '
+                                     <div class="date comment-date">' . $comment['Date'] . '</div>
                                 </p>
                             </div>
                         </div>';

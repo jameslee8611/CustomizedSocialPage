@@ -153,7 +153,7 @@
                         <div class="large-10 columns">\
                             <i id="tooltip-delete-box-' + data.CommentId + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Commentor + '\',' + data.CommentId + ',\'' + <?php echo json_encode(COMMENT); ?>+ '\')"></i>\
                             <p>\
-                                <strong>' + data.Commentor + '</strong> &nbsp' + data.Comment + '\
+                                <a href="' + <?php echo json_encode(URL); ?> + data.Commentor + '"><strong>' + data.Commentor + '</strong></a> &nbsp' + data.Comment + '\
                                 <div class="date comment-date">' + data.Date + '</div>\
                             </p>\
                         </div>\
