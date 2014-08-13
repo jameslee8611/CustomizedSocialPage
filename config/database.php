@@ -8,7 +8,7 @@
 define('Host', 'localhost');
 define('DBName', 'AllinOne');
 define('DBUser', 'root');
-define('DBPassword', 'root');
+define('DBPassword', '');
 
 // db table menu
 define('USERDB', 'users');

@@ -98,29 +98,34 @@
                     <div class="comment-head">';
                     echo '<a href="#comment-' . $info['id'] . '">comments</a>
                         &nbsp&nbsp&nbsp&nbsp&nbsp
-                        <a href="#"><i class="fi-comment"></i> ' . count($info['Comments']) . '</a>
+                        <a href="#"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
                     </div>
                     <hr class="comment-hr"/>
                     <div class="comment">';
                     foreach ($info['Comments'] as $comment) {
-                   echo '<div class="row">
+                        if (Session::get('username') == $this->username) {
+                            $comment['Delete'] = 'fi-trash';
+                        }
+                   echo '<div class="row" id="post-' . $comment['CommentId'] . '">
                             <div class="large-2 columns small-3"><img src="'. $comment['Profile_pic'] .'"/></div>
                             <div class="large-10 columns">
+                                <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
                                 <p>';
-                                echo '<strong>' . $comment['Commentor'] . '</strong> &nbsp' . $comment['Comment'];
-                           echo '</p>
+                                echo '<strong>' . $comment['Commentor'] . '</strong> &nbsp' . $comment['Comment'] . 
+                                     '<div class="date comment-date">' . $comment['Date'] . '</div>
+                                </p>
                             </div>
                         </div>';
                     }
                     echo '   
-                        <div class="row comment-box" id="comment-' . $info['id'] . '">
+                        <div class="row comment-box">
                             <div class="large-2 columns small">
                                 <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
                             </div>
                             <form class="large-10 columns comment-type-area" id="post-comment" method="post">
-                                <textarea id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
+                                <textarea onkeydown="if (event.keyCode == 13) document.getElementById(\'commnet-submit\').click()" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
                                 <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
-                                <input class="" type="submit" id="commnet-submit" value="post" />
+                                <input class="hide" type="submit" id="commnet-submit" value="post" />
                             </form>
                         </div>
                     </div>

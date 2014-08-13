@@ -23,17 +23,18 @@ class Profile_Model extends Model {
         return false;
     }
 
-    public function delete_ajax($wall_Id, $type) {        
-        $statement = $this->db->prepare("Delete wall, status
-                            From status
-                            Inner Join wall
-                            Inner Join (
-                                    Select wall.ContentId
-                                    From wall
-                                    Where wall.Id = '$wall_Id') table1
-                            Where ". $type .".Id = table1.ContentId AND wall.Id = '$wall_Id'
-                            ");
+    public function delete_ajax($wall_Id, $type) {
+        $statement = $this->db->prepare("Delete wall, $type
+                                        From $type
+                                        Inner Join wall
+                                        Inner Join (
+                                                Select wall.ContentId
+                                                From wall
+                                                Where wall.Id = '$wall_Id') table1
+                                        Where ". $type .".Id = table1.ContentId AND wall.Id = '$wall_Id'
+                                        ");
         $success = $statement->execute();
+        
         if ($success) {
             return SUCCESS;
         } else {
@@ -140,7 +141,7 @@ class Profile_Model extends Model {
         $success = $statement->execute();
         
         if (!$success) {
-            echo "Get Comment Error!  (code:1123)";
+            echo "Get Comment Error in model!  (code:1123)";
             exit;
         }
         
@@ -169,13 +170,20 @@ class Profile_Model extends Model {
         else {
             $profile_pic = DEFAULT_PROFILE_PIC_SMALL;
         }
+        
+        $delete = null;
+        if($commentor == Session::get('username'))
+        {
+            $delete = 'fi-trash';
+        }
             
         return '{
                     "Commentor": "' . $commentor . '",
                     "Comment": "' . $comment . '",
                     "CommentId": "' . $commentId . '",
                     "Date": "' . $Date . '",
-                    "Profile_pic": "' . $profile_pic . '"
+                    "Profile_pic": "' . $profile_pic . '",
+                    "Delete": "' . $delete . '"
                 }';
     }
 

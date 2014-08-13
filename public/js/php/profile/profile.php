@@ -28,6 +28,12 @@
                 if (data == <?php echo json_encode(SUCCESS); ?>) {
                     $("span[data-selector='tooltip-delete-box-" + id + "']").remove();
                     $('#post-' + id).fadeOut(500);
+                    if(type == <?php echo json_encode(COMMENT); ?>)
+                    {
+                        var count = parseInt($('#comment-count').text())
+                        count--
+                        $('#comment-count').text(' ' + count.toString())
+                    }
                 }
                 else {
                     alert("Sorry, we are having some network error.  Please try again later");
@@ -140,18 +146,22 @@
             type: 'post',
             data: serializedData,
             success: function(html) {
-                console.log("html: " + html + "<br/>");
                 var data = JSON.parse(html);
-                console.log("pared data: " + data + "<br/>");
                 var url = <?php echo json_encode(URL); ?>;
-                $('<div class="row">\
+                $('<div class="row" id="post-' + data.CommentId + '">\
                         <div class="large-2 columns small-3"><img src="' + data.Profile_pic + '"/></div>\
                         <div class="large-10 columns">\
+                            <i id="tooltip-delete-box-' + data.CommentId + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Commentor + '\',' + data.CommentId + ',\'' + <?php echo json_encode(COMMENT); ?>+ '\')"></i>\
                             <p>\
                                 <strong>' + data.Commentor + '</strong> &nbsp' + data.Comment + '\
+                                <div class="date comment-date">' + data.Date + '</div>\
                             </p>\
                         </div>\
                     </div>').hide().fadeIn('slow').insertBefore($(".comment-box"));
+                
+                var count = parseInt($('#comment-count').text())
+                count++
+                $('#comment-count').text(' ' + count.toString())
                                                         
                 $(document).foundation({
                     Dropdown: {
@@ -163,7 +173,7 @@
 
         request.always(function() {
             $input.prop("disabled", false);
-            $('#comment-textarea').val('');
+            $('#comment-post').val('');
         });
 
         event.preventDefault();
