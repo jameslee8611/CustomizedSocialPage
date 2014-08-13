@@ -107,7 +107,7 @@
                             $comment['Delete'] = 'fi-trash';
                         }
                    echo '<div class="row" id="post-' . $comment['CommentId'] . '">
-                            <div class="large-2 columns small-3"><img src="'. $comment['Profile_pic'] .'"/></div>
+                            <div class="large-2 columns small-3"><img class="post-pic" src="'. $comment['Profile_pic'] .'"/></div>
                             <div class="large-10 columns">
                                 <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
                                 <p>';
