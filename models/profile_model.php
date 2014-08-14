@@ -84,6 +84,68 @@ class Profile_Model extends Model {
             exit;
         }
     }
+    
+    public function get_wall($username)
+    {
+        $result = array();
+        $statement = $this->db->prepare("Select users.login, users.Profile_pic, table2.UId, table2.Date, table2.Id, table2.Content, table2.Type, table2.Privacy
+                                        From (
+                                                Select 
+                                                    wall.Type, wall.Id,
+                                                    case wall.Type
+                                                        when 'status' then status.UId
+                                                        when 'image' then image.UId
+                                                    end as UId,
+                                                    case wall.Type
+                                                        when 'status' then status.Date
+                                                        when 'image' then image.Date
+                                                    end as Date,
+                                                    case wall.Type
+                                                        when 'status' then status.Status
+                                                        when 'image' then image.URL
+                                                    end as Content,
+                                                    case wall.Type
+                                                        when 'status' then status.Privacy
+                                                        when 'image' then image.Privacy
+                                                    end as Privacy
+                                                From wall
+                                                Inner join (
+                                                                Select users.Id
+                                                                From users
+                                                                Where users.login = '$username'
+                                                            ) table1
+                                                    On table1.Id = wall.whereId
+
+                                                left outer join status
+                                                    On  wall.ContentId = status.Id
+                                                left outer join  image
+                                                    On  wall.ContentId = image.Id
+                                            ) table2
+                                        Inner join users
+                                            On users.Id = table2.UId
+                                        
+                                        ORDER BY table2.Date DESC
+                                                ");
+
+        $success = $statement->execute();
+        
+        if ($success) {
+            $query = $statement->fetchAll();
+
+            foreach ($query as $row) {
+                $comments = $this->get_comment($row['Id']);
+                array_push($result, $this->formatter(
+                        $row['Id'], $row['login'], $row['Profile_pic'], $row['Content'], $row['Type'], $row['Date'], $row['Privacy'], $comments
+                        ));
+            }
+        } else {
+            echo 'Error occurred while getting Wall!<br /><br />';
+            print_r($statement);
+            exit;
+        }
+
+        return $result;
+    }
 
     public function get_status($username) {
         $result = array();
@@ -117,7 +179,7 @@ class Profile_Model extends Model {
                         ));
             }
         } else {
-            echo 'error';
+            echo 'Error occurred while getting status from db';
             exit;
         }
 
@@ -141,7 +203,9 @@ class Profile_Model extends Model {
         $success = $statement->execute();
         
         if (!$success) {
-            echo "Get Comment Error in model!  (code:1123)";
+            echo "PID: $PId <br /><br />";
+            echo "Get Comment Error in model!  (code:1123)<br /><br />";
+            echo print_r($statement);
             exit;
         }
         
@@ -158,6 +222,12 @@ class Profile_Model extends Model {
             }
         }
         $result .= ']';
+        
+        /*
+        echo 'PID:  ' . $PId . '<br/><br/>';
+        echo '# of query:  ' . count($query) . '<br/><br/>';
+        echo $result;
+        */
         
         return $result;
     }
@@ -203,6 +273,11 @@ class Profile_Model extends Model {
         } 
         else {
             $delete = '';
+        }
+        
+        if ($type == IMAGE)
+        {
+            $post .= "_large.jpg";
         }
         
         if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr($profile_pic, 43) . "_original.jpg") == true) {
@@ -294,15 +369,20 @@ class Profile_Model extends Model {
 
             Session::set('profile_pic', URL . $img_path);
 
-            $statement = $this->db->update('users', array('Profile_pic'), array(URL . "public/images/image/" . $date . "_" . $username), array('login'), array($username));
-            $success = $statement->execute();
+            $statement1 = $this->db->update('users', array('Profile_pic'), array(URL . "public/images/image/" . $date . "_" . $username), array('login'), array($username));
+            $success1 = $statement1->execute();
+            $statement2 = $this->db->insert('image', array('UId', 'URL', 'Privacy'), array(Session::get('userId'), URL . "public/images/image/" . $date . "_" . $username, PUBLIC_POST));
+            $success2 = $statement2->execute();
+            $contentId = $this->db->lastInsertId();
+            $statement3 = $this->db->insert('wall', array('WhereId', 'Type', 'ContentId'), array(Session::get('userId'), IMAGE, $contentId));
+            $success3 = $statement3->execute();
             
-            if ($success) {
+            if ($success1 && $success2 && $success3) {
                 $full_path = URL . $img_path;
                 return $full_path . "_large.jpg" . "," . $full_path . "_medium.jpg" . "," . $full_path . "_small.jpg";
             }
         } else {
-            return "Invalid File Type!";
+            return "Error occurred while inserting image URL into the db!";
         }
     }
 

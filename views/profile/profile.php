@@ -93,7 +93,10 @@
                 </div>
                 <div class="large-12 columns">
                     <p class="post">
-                        ' . $info['Post'] . '
+                        <div class="row">';
+                       if ($info['Type'] == STATUS) echo '<div class="large-12 columns">' . $info['Post'] . '</div>';
+                       else if($info['Type'] == IMAGE) echo '<div class="large-12 columns"><img src="' . $info['Post'] . '" alt="picture"></div>';
+                echo '  </div>
                     </p>
                     <div class="comment-head">';
                     echo '<a href="#comment-' . $info['id'] . '">comments</a>
@@ -107,7 +110,7 @@
                             $comment['Delete'] = 'fi-trash';
                         }
                    echo '<div class="row" id="post-' . $comment['CommentId'] . '">
-                            <div class="large-2 columns small-3"><img class="post-pic" src="'. $comment['Profile_pic'] .'"/></div>
+                            <div class="large-2 columns small-3"><img class="comment-pic" src="'. $comment['Profile_pic'] .'"/></div>
                             <div class="large-10 columns">
                                 <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
                                 <p>';
@@ -118,14 +121,14 @@
                         </div>';
                     }
                     echo '   
-                        <div class="row comment-box">
+                        <div class="row comment-box" id="'. $info['id'] .'">
                             <div class="large-2 columns small">
                                 <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
                             </div>
-                            <form class="large-10 columns comment-type-area" id="post-comment" method="post">
-                                <textarea onkeydown="if (event.keyCode == 13) document.getElementById(\'commnet-submit\').click()" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
+                            <form class="large-10 columns comment-type-area" id="post-comment-'.$info['id'].'" method="post">
+                                <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-'.$info['id'].'\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
                                 <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
-                                <input class="hide" type="submit" id="commnet-submit" value="post" />
+                                <input class="hide" type="submit" id="commnet-submit-'. $info['id'] .'" value="post" onclick=postComment('. $info['id'] .') />
                             </form>
                         </div>
                     </div>

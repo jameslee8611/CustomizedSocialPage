@@ -37,11 +37,11 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'User table has been successfully created or it\'s been already made.<br />';
+    echo 'User table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating User table failed.<br />';
+    echo 'Creating User table failed or it\'s been already made.<br />';
 }
 
 
@@ -62,11 +62,11 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'Status table has been successfully created or it\'s been already made.<br />';
+    echo 'Status table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating Status table failed.<br />'; 
+    echo 'Creating Status table failed or it\'s been already made.<br />'; 
 }
 
 
@@ -99,7 +99,7 @@ $query =
 (
 	Id int(32) NOT NULL AUTO_INCREMENT,
 	UId int(11) NOT NULL,
-	Status varchar(500) DEFAULT NULL,
+	Comment varchar(500) DEFAULT NULL,
         Date timestamp DEFAULT CURRENT_TIMESTAMP,
 
 	PRIMARY KEY (Id)
@@ -110,10 +110,34 @@ $success = $statement->execute();
 
 if($success)
 {
-    echo 'Comment table has been successfully created or it\'s been already made.<br />';
+    echo 'Comment table has been successfully created.<br />';
 }
 else 
 {
-    echo 'Creating Comment table failed.<br />'; 
+    echo 'Creating Comment table failed or it\'s been already made.<br />'; 
+}
+
+$query = 
+"CREATE TABLE image
+(
+	Id int(32) NOT NULL AUTO_INCREMENT,
+	UId int(11) NOT NULL,
+        Privacy int(1) NOT NULL,
+	URL varchar(1500) DEFAULT NULL,
+        Date timestamp DEFAULT CURRENT_TIMESTAMP,
+
+	PRIMARY KEY (Id)
+);";
+
+$statement = $db->prepare($query);
+$success = $statement->execute();
+
+if($success)
+{
+    echo 'Image table has been successfully created<br />';
+}
+else 
+{
+    echo 'Creating Status table failed or it\'s been already made.<br />'; 
 }
 ?>

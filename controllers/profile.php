@@ -26,7 +26,7 @@ class Profile extends Controller {
             switch ($action)
             {
                 case NULL:
-                    $result = $this->model->get_status($username);
+                    $result = $this->model->get_wall($username);
                     $this->view->data = $result;
                     $this->view->render('profile/profile');
                     break;

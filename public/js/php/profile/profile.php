@@ -67,47 +67,51 @@
                 $('#waiting-wheel').remove();
                 var data = JSON.parse(jsonData);
                 var url = <?php echo json_encode(URL); ?>;
-                $('<div class="mix" id="post-' + data.id + '"><div class="row">\n\
-                        <div class="large-2 columns small-3">\n\
-                            <img class="post-pic" src="' + data.profile_pic_medium + '"/>\n\
-                        </div>\n\
-                        <div class="large-10 columns">\n\
-                            <div>\n\
-                                <a href="' + url + data.Writer + '">\n\
-                                    <strong>' + data.Writer + '</strong> &nbsp\n\
-                                </a>\n\
+                var content="";
+                if (data.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns">' + data.Post + '</div>'
+                else if (data.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns"><img src="' + data.Post + '" alt="picture"></div>'
+                $('<div class="mix" id="post-' + data.id + '"><div class="row">\
+                        <div class="large-2 columns small-3">\
+                            <img class="post-pic" src="' + data.profile_pic_medium + '"/>\
+                        </div>\
+                        <div class="large-10 columns">\
+                            <div>\
+                                <a href="' + url + data.Writer + '">\
+                                    <strong>' + data.Writer + '</strong> &nbsp\
+                                </a>\
                                 <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ',\'' + data.Type + '\')"></i>\n\
                                 <p class="date">'
-                        + data.Date + ' &nbsp\n\
-                                    <i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\n\
+                                    + data.Date + ' &nbsp<i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\
                                     <div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>'
-                        + data.Privacy_description +
-                        '</div>\n\
-                                </p>\n\
-                                </div>\n\
-                            </div>\n\
-                            <div class="large-12 columns">\n\
-                                <p class="post">'
-                        + data.Post + '\
-                                </p>\n\
-                                <div class="comment-head">\n\
-                                    <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\n\
-                                    <a href="#"><i class="fi-comment"></i> 0</a>\n\
-                                </div><hr class="comment-hr"/>\n\
-                                <div class="comment">\n\
-                                    <div class="row comment-box" id="comment-' + data.id + '">\n\
-                                        <div class="large-2 columns small">\n\
-                                        <img class="comment-pic" src="' + data.profile_pic_small + '"/>\n\
-                                    </div>\n\
-                                    <div class="large-10 columns comment-type-area">\n\
-                                        <textarea id="comment-textarea" placeholder="Comment.."></textarea>\n\
-                                    </div>\n\
-                    </div>\n\
-                                </div>\n\
-                            </div>\n\
-                        \n\
-                        </div></div>\n\
-                        ').hide().fadeIn('slow').insertAfter("#end-of-postbox");
+                                        + data.Privacy_description +
+                                    '</div>\
+                                </p>\
+                            </div>\
+                        </div>\
+                        <div class="large-12 columns">\
+                            <p class="post">\
+                                <div class="row">'
+                                + content +
+                                '</div>\
+                            </p>\
+                            <div class="comment-head">\
+                                <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\
+                                <a href="#"><i class="fi-comment" id="comment-count"> 0</i></a>\
+                            </div>\
+                            <hr class="comment-hr"/>\
+                            <div class="comment">\
+                                <div class="row comment-box" id="' + data.id + '">\
+                                    <div class="large-2 columns small">\
+                                    <img class="comment-pic" src="' + data.profile_pic_small + '"/>\
+                                </div>\
+                                <form class="large-10 columns comment-type-area" id="post-comment-' + data.id + '" method="post">\
+                                    <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-' + data.id + '\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>\
+                                    <input type="hidden" id="contentId" name="contentId" value="' + data.id + '" />\
+                                    <input class="hide" type="submit" id="commnet-submit-' + data.id + '" value="post" onclick=postComment(' + data.id + ') />\
+                                </form>\
+                            </div>\
+                        </div>\
+                </div>').hide().fadeIn('slow').insertAfter("#end-of-postbox");
 
                 $(document).foundation({
                     Dropdown: {
@@ -130,8 +134,9 @@
      * @param {type} param
      */
     var comment_request;
-
-    $('#post-comment').submit(function(event) {
+    
+    var postComment = function(contentId) {
+        $('#post-comment-' + contentId).submit(function(event) {
         if (comment_request)
         {
             comment_request.abort();
@@ -147,6 +152,7 @@
             data: serializedData,
             success: function(html) {
                 var data = JSON.parse(html);
+                console.log(data);
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="row" id="post-' + data.CommentId + '">\
                         <div class="large-2 columns small-3"><img src="' + data.Profile_pic + '"/></div>\
@@ -157,7 +163,7 @@
                                 <div class="date comment-date">' + data.Date + '</div>\
                             </p>\
                         </div>\
-                    </div>').hide().fadeIn('slow').insertBefore($(".comment-box"));
+                    </div>').fadeIn('slow').insertBefore($("#" + contentId));
                 
                 var count = parseInt($('#comment-count').text())
                 count++
@@ -178,6 +184,10 @@
 
         event.preventDefault();
     });
+    }
+    
+
+    
 
     $('.date').hover(function() {
         $(this).stop();
