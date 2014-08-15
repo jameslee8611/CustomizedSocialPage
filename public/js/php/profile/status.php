@@ -295,6 +295,7 @@
         }
         else
         {
+            $("#crop-container").empty();
             $("#profile-pic-upload").css("display", "none");
         }
     });
@@ -324,7 +325,7 @@
                 success: function(data){
                     $("#crop-container").empty();
                     var pic_paths = data.split(',');
-                    set_image(pic_paths[0], pic_paths[1], pic_paths[2]);
+                    set_image(pic_paths[0], pic_paths[1], pic_paths[2], pic_paths[3]);
                     $('#myModal').foundation('reveal', 'close');
                 },
                 error: function(){
@@ -337,7 +338,7 @@
         }
     });
 
-    function set_image(large, medium, small){
+    function set_image(large, medium, small, xsmall){
         var profile = document.getElementById("profile-pic");
         profile.setAttribute("src", large);
 
@@ -352,6 +353,9 @@
         {
             comment[j].setAttribute("src", small);
         }
+        
+        var profile_header = document.getElementById("header-profile-pic");
+        profile_header.setAttribute("src", xsmall);
     }
     
 </script>

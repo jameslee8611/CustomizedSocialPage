@@ -11,8 +11,12 @@
         <div class="large-3 columns ">
             <div class="panel-media">
                 <!-- Profile image -->
-                <a href="#"><img id="profile-pic" src="http://placehold.it/300x240&text=[img]"></a>
-                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h5>
+                <div id="profile-pic-container">
+                    <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo (file_exists(Session::get('profile_pic').'_large.jpg') ? URL.Session::get('profile_pic').'_large.jpg' : DEFAULT_PROFILE_PIC_LARGE); ?>"></a>
+                    <div id="change-profile-pic-background"></div>
+                    <a class="change-profile-pic" data-reveal-id="myModal">Change Profile</a>
+                </div>
+                <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h4>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
                         <hr class="nav-divider">
                         <section class="section">
@@ -47,7 +51,7 @@
                         <div class="large-12 columns">
                             <div class="row container" id="Container">
                                 <div class="large-4 small-6 columns mix category-1" data-myorder="1">
-                                    <img src="http://placehold.it/1000x1000&text=Thumbnail">
+                                    <img src="http://placehold.it/500x500&text=Thumbnail">
 
                                     <div class="panel-media">
                                         <h5>Title</h5>
@@ -142,3 +146,13 @@
     </div>
 </div>
 
+<div id="myModal" class="reveal-modal" data-reveal>
+    <h2>Change your profile picture.</h2>
+    <form enctype="multipart/form-data">
+        <input type="file" name="profile-pic-uploading" id="profile-pic-uploading" accept="image" hidden/>
+        <div class="button tiny radius" id="profile-pic-select">Select Image</div>
+        <div class="button tiny radius" id="profile-pic-upload">Upload Image</div>
+    </form>
+
+    <div id="crop-container"></div>
+</div>

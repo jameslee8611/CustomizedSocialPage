@@ -15,7 +15,6 @@ class Profile extends Controller {
     {   
         Data::setUsername($username);
         $this->view->username = $username;
-        $this->view->profile_pic = $this->model->get_profile_url($username);
         
         if (!$this->model->check_user($username))
         {

@@ -52,7 +52,7 @@ class Profile_Model extends Model {
             $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
             $statement2 = $this->db->insert("wall", array("whereId", "ContentId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
             $wallId = $this->db->lastInsertId();
-            return json_encode($this->formatter($wallId, Session::get('username'), Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy'], '[]'));
+            return json_encode($this->formatter($wallId, Session::get('username'), URL.Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy'], '[]'));
         }
         elseif($type == COMMENT)
         {
@@ -60,28 +60,8 @@ class Profile_Model extends Model {
             $statement2 = $this->db->insert("wall", array("ContentId", "Type", "PId"), array($this->db->lastInsertId(), $type, $_POST['contentId']));
             $wallId = $this->db->lastInsertId();
             
-            return json_encode(json_decode($this->commentFormatter(Session::get('username'), $_POST['comment-post'], $wallId, date("Y-m-d h:i:s"), Session::get('profile_pic')), true));
+            return json_encode(json_decode($this->commentFormatter(Session::get('username'), $_POST['comment-post'], $wallId, date("Y-m-d h:i:s"), URL.Session::get('profile_pic')), true));
             //return json_encode('{"Comment": ' . $this->get_comment($_POST['contentId']) . '}');
-        }
-    }
-    
-    public function get_profile_url($username) {
-        $query = $this->db->select(array('Profile_pic'), "users", array("login"), array($username));
-        if ($query) {
-            $row =$query->fetchAll();
-            $result = $row[0]['Profile_pic'];
-            
-            if (!isset($result) || empty($result) || !file_exists(substr($result, 43) . '_large.jpg')) {
-                return DEFAULT_PROFILE_PIC_LARGE;
-            }
-            else {
-                $result .= '_large.jpg';
-                return $result;
-            }
-        }
-        else{
-            echo 'network error!';
-            exit;
         }
     }
     
@@ -161,6 +141,7 @@ class Profile_Model extends Model {
                                                     On table1.Id = wall.whereId
                                                 Inner join status
                                                     On wall.ContentId = status.Id
+                                                Where wall.Type = 'status'
                                             ) table2
                                         Inner join users
                                             On users.Id = table2.UId
@@ -234,8 +215,8 @@ class Profile_Model extends Model {
     
     private function commentFormatter($commentor, $comment, $commentId, $Date, $profile_pic)
     {
-        if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr($profile_pic, 43) . "_original.jpg") == true) {
-            $profile_pic .= "_small.jpg";
+        if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr(URL . $profile_pic, 43) . "_original.jpg") == true) {
+            $profile_pic = URL . $profile_pic . "_small.jpg";
         }
         else {
             $profile_pic = DEFAULT_PROFILE_PIC_SMALL;
@@ -280,10 +261,9 @@ class Profile_Model extends Model {
             $post .= "_large.jpg";
         }
         
-        if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr($profile_pic, 43) . "_original.jpg") == true) {
-            $profile_pic_large = $profile_pic . "_large.jpg";
-            $profile_pic_medium = $profile_pic . "_medium.jpg";
-            $profile_pic_small = $profile_pic . "_small.jpg";
+        if (isset($profile_pic) && !empty($profile_pic) && file_exists(substr(URL . $profile_pic, 43) . "_original.jpg") == true) {
+            $profile_pic_medium = URL . $profile_pic . "_medium.jpg";
+            $profile_pic_small = URL . $profile_pic . "_small.jpg";
         }
         else {
             $profile_pic_medium = DEFAULT_PROFILE_PIC_MEDIUM;
@@ -352,34 +332,34 @@ class Profile_Model extends Model {
             $large = imagecreatetruecolor(300, 300);
             $medium = imagecreatetruecolor(80, 80);
             $small = imagecreatetruecolor(50, 50);
+            $xsmall = imagecreatetruecolor(40, 40);
 
             imagecopyresampled($large, $src, 0, 0, $x_val, $y_val, 300, 300, $width_val, $height_val);
             imagecopyresampled($medium, $src, 0, 0, $x_val, $y_val, 80, 80, $width_val, $height_val);
             imagecopyresampled($small, $src, 0, 0, $x_val, $y_val, 50, 50, $width_val, $height_val);
+            imagecopyresampled($xsmall, $src, 0, 0, $x_val, $y_val, 40, 40, $width_val, $height_val);
             
             imagejpeg($src, $img_path . "_original.jpg", 100);
             imagejpeg($large, $img_path . "_large.jpg", 100);
             imagejpeg($medium, $img_path . "_medium.jpg", 100);
             imagejpeg($small, $img_path . "_small.jpg", 100);
+            imagejpeg($xsmall, $img_path . "_xsmall.jpg", 100);
 
             imagedestroy($src);
             imagedestroy($large);
             imagedestroy($medium);
             imagedestroy($small);
+            imagedestroy($xsmall);
 
-            Session::set('profile_pic', URL . $img_path);
+            Session::set('profile_pic', $img_path);
 
-            $statement1 = $this->db->update('users', array('Profile_pic'), array(URL . "public/images/image/" . $date . "_" . $username), array('login'), array($username));
-            $success1 = $statement1->execute();
-            $statement2 = $this->db->insert('image', array('UId', 'URL', 'Privacy'), array(Session::get('userId'), URL . "public/images/image/" . $date . "_" . $username, PUBLIC_POST));
-            $success2 = $statement2->execute();
-            $contentId = $this->db->lastInsertId();
-            $statement3 = $this->db->insert('wall', array('WhereId', 'Type', 'ContentId'), array(Session::get('userId'), IMAGE, $contentId));
-            $success3 = $statement3->execute();
+            $this->db->update('users', array('Profile_pic'), array($img_path), array('login'), array($username));
+            $this->db->insert('image', array('UId', 'URL', 'Privacy'), array(Session::get('userId'), URL . "public/images/image/" . $date . "_" . $username, PUBLIC_POST));
+            $success = $this->db->insert('wall', array('WhereId', 'Type', 'ContentId'), array(Session::get('userId'), IMAGE, $this->db->lastInsertId()));
             
-            if ($success1 && $success2 && $success3) {
+            if ($success) {
                 $full_path = URL . $img_path;
-                return $full_path . "_large.jpg" . "," . $full_path . "_medium.jpg" . "," . $full_path . "_small.jpg";
+                return $full_path . "_large.jpg" . "," . $full_path . "_medium.jpg" . "," . $full_path . "_small.jpg," . $full_path . "_xsmall.jpg";
             }
         } else {
             return "Error occurred while inserting image URL into the db!";

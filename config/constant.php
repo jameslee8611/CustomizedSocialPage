@@ -22,6 +22,7 @@ define('IMAGE', 'image');
 define('DEFAULT_PROFILE_PIC_LARGE', URL . 'public/images/profile_large.jpg');
 define('DEFAULT_PROFILE_PIC_MEDIUM', URL . 'public/images/profile_medium.jpg');
 define('DEFAULT_PROFILE_PIC_SMALL', URL . 'public/images/profile_small.jpg');
+define('DEFAULT_PROFILE_PIC_XSMALL', URL .'public/images/profile_xsmall.jpg' );
 
 // setting menu
 define('SETTING', 'setting');

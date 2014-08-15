@@ -60,7 +60,7 @@ class Index_Model extends Model {
             Session::set('loggedIn', true);
             Session::set('username', $login);
             Session::set('userId', $whereId);
-            Session::set('profile_pic', null);
+            Session::set('profile_pic', $this->get_profile_url($login));
             
             if (!empty($_POST['keep_loggedIn']) || isset($_POST['keep_loggedIn']))
             {
@@ -76,6 +76,25 @@ class Index_Model extends Model {
         {
             #header('location: '.URL);
             return false;
+        }
+    }
+    
+    private function get_profile_url($username) {
+        $query = $this->db->select(array('Profile_pic'), "users", array("login"), array($username));
+        if ($query) {
+            $row =$query->fetchAll();
+            $result = $row[0]['Profile_pic'];
+            
+            if (!isset($result) || empty($result) || !file_exists($result . '_large.jpg')) {
+                return DEFAULT_PROFILE_PIC_LARGE;
+            }
+            else {
+                return $result;
+            }
+        }
+        else{
+            echo 'network error!';
+            exit;
         }
     }
     
