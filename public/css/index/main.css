@@ -1,0 +1,83 @@
+/* 
+    Created on : Aug 15, 2014, 12:43:13 AM
+    Author     : Seungchul
+*/
+
+.container{
+    -webkit-backface-visibility: hidden;
+}
+
+.container:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+.container .mix,
+.container .gap{
+    width: 100%;
+    display: inline-block;
+}
+
+.container .mix{
+    text-align: left;
+    display: none;
+}
+
+.container .mix:after{
+    content: attr(data-myorder);
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.container .mix:before{
+    content: '';
+    display: inline-block;
+}
+
+.mix {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: black;
+    background: white;
+    border-width:0.1px;	
+    border-style:outset; 
+}
+
+@media all and (min-width: 420px){
+    .container .mix,
+    .container .gap{
+        width: 100%;
+    }
+}
+
+@media all and (min-width: 640px){
+    .container .mix,
+    .container .gap{
+        width: 100%;
+    }
+}
+
+#comment-textarea {
+    margin-top: 4px;
+    min-height: 30px;
+    display: block;
+    height: 30px;
+} 
+
+.comment-box {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 4px;
+}
+
+.profile-large-box:after {
+    display: block;
+    clear: both;
+/*    visibility: hidden;*/
+    line-height: 0;
+    height: 0; 
+}

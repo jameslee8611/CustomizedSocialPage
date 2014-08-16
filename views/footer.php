@@ -9,8 +9,8 @@
             </div>
             <div class="large-7 columns">
                 <ul class="inline-list right">
-                    <li><a href="<?php echo URL; ?>about">About</a></li>
-                    <li><a href="#">Developers</a></li>
+                    <li><a href="<?php echo URL.'about';?>">About</a></li>
+                    <li><a href="<?php echo URL.'developer';?>">Developers</a></li>
                 </ul>
             </div>
         </div>

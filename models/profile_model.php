@@ -22,6 +22,25 @@ class Profile_Model extends Model {
 
         return false;
     }
+    
+    public function get_profile_url($username) {
+        $query = $this->db->select(array('Profile_pic'), "users", array("login"), array($username));
+        if ($query) {
+            $row =$query->fetchAll();
+            $result = $row[0]['Profile_pic'];
+            
+            if (!isset($result) || empty($result) || !file_exists($result . '_large.jpg')) {
+                return 'public/images/profile';
+            }
+            else {
+                return $result;
+            }
+        }
+        else{
+            echo 'network error!';
+            exit;
+        }
+    }
 
     public function delete_ajax($wall_Id, $type) {
         $statement = $this->db->prepare("Delete wall, $type
@@ -52,7 +71,7 @@ class Profile_Model extends Model {
             $this->db->insert("status", array("UId", "Status", "Privacy"), array(Session::get('userId'), $_POST['post-text'], $_POST['privacy']));
             $statement2 = $this->db->insert("wall", array("whereId", "ContentId", "Type"), array($whereId, $this->db->lastInsertId(), $type));
             $wallId = $this->db->lastInsertId();
-            return json_encode($this->formatter($wallId, Session::get('username'), URL.Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy'], '[]'));
+            return json_encode($this->formatter($wallId, Session::get('username'), Session::get('profile_pic'), $_POST['post-text'], $type, date("Y-m-d h:i:s"), $_POST['privacy'], '[]'));
         }
         elseif($type == COMMENT)
         {
@@ -60,7 +79,7 @@ class Profile_Model extends Model {
             $statement2 = $this->db->insert("wall", array("ContentId", "Type", "PId"), array($this->db->lastInsertId(), $type, $_POST['contentId']));
             $wallId = $this->db->lastInsertId();
             
-            return json_encode(json_decode($this->commentFormatter(Session::get('username'), $_POST['comment-post'], $wallId, date("Y-m-d h:i:s"), URL.Session::get('profile_pic')), true));
+            return json_encode(json_decode($this->commentFormatter(Session::get('username'), $_POST['comment-post'], $wallId, date("Y-m-d h:i:s"), Session::get('profile_pic')), true));
             //return json_encode('{"Comment": ' . $this->get_comment($_POST['contentId']) . '}');
         }
     }

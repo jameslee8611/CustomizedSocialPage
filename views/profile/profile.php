@@ -12,7 +12,7 @@
             <div class="panel-media">
                 <!-- Profile image -->
                 <div id="profile-pic-container">
-                    <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo (file_exists(Session::get('profile_pic').'_large.jpg') ? URL.Session::get('profile_pic').'_large.jpg' : DEFAULT_PROFILE_PIC_LARGE); ?>"></a>
+                    <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo URL.$this->profile_pic.'_large.jpg'; ?>"></a>
                     <div id="change-profile-pic-background"></div>
                     <a class="change-profile-pic" data-reveal-id="myModal">Change Profile</a>
                 </div>

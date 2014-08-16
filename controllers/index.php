@@ -12,9 +12,14 @@ class Index extends Controller {
     }
 
     public function index() 
-    {
+    {                
         if ($this->model->checkReturnUser() || Session::get('loggedIn') == true)
         {
+            $profile = $this->model->get_profile_url(Session::get('username'));
+            $this->view->profile_pic = URL . $profile . '_large.jpg';
+        
+            $result = $this->model->get_wall();
+            $this->view->data = $result;
             $this->view->render('index/main');
             exit;
         }
