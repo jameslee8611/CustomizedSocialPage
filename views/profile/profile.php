@@ -13,8 +13,7 @@
                 <!-- Profile image -->
                 <div id="profile-pic-container">
                     <a href="" class="profile-large-box"><img id="profile-pic" src="<?php echo URL.$this->profile_pic.'_large.jpg'; ?>"></a>
-                    <div id="change-profile-pic-background"></div>
-                    <a class="change-profile-pic" data-reveal-id="myModal">Change Profile</a>
+                    <?php if(Session::get('username') == $this->username) echo '<div id="change-profile-pic-background"></div><a class="change-profile-pic" data-reveal-id="myModal">Change Profile</a>'; ?>
                 </div>
                 <h4><a href="<?php echo URL . $this->username; ?>"><?php echo $this->username; ?></a></h4>
                     <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
