@@ -4,6 +4,23 @@
      * @date    July 24, 2014
      * @last modification   Ausgust 14, 2014
      */
+    
+    function get_post_data(type)
+    {
+        alert(type);
+        
+        $.ajax({
+            url: <?php echo json_encode(URL . 'profile/get_status_ajax/') ?>,
+            type: 'post',
+            data: 'json',
+            success: function(jsonData) {
+                console.log(jsonData);
+                data = JSON.parse(jsonData);
+                console.log(data);
+                
+            }
+        });
+    }
 
     var delete_request;
     function delete_post(writer, id, type)

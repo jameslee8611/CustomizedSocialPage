@@ -25,7 +25,7 @@
                             <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>">All</a></h6>
                         </section>
                         <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . $this->username . '/' . STATUS; ?>">Status</a></h6>
+                            <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo STATUS?>')">Status</a></h6>
                         </section>
                         <section class="title">
                             <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL . $this->username . '/' . IMAGE; ?>">Pictures</a></h6>

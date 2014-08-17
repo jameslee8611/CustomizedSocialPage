@@ -94,11 +94,24 @@ class Profile extends Controller {
         }
     }
 
-     public function picture_ajax($username)
+    public function picture_ajax($username)
     {
         if(Session::get('loggedIn') && $username == Session::get('username'))
         {
             echo $this->model->profile_image($username);
+        }
+        else
+        {
+            $this->redirect_error();
+        }
+    }
+    
+    public function get_status_ajax()
+    {
+        if(Session::get('loggedIn'))
+        {
+            //echo $this->model->get_status_ajax($type);
+            print_r($this->model->get_status_ajax());
         }
         else
         {

@@ -27,13 +27,19 @@ class Profile_Model extends Model {
         $query = $this->db->select(array('Profile_pic'), "users", array("login"), array($username));
         if ($query) {
             $row =$query->fetchAll();
-            $result = $row[0]['Profile_pic'];
-            
-            if (!isset($result) || empty($result) || !file_exists($result . '_large.jpg')) {
-                return 'public/images/profile';
+            if(count($row) > 0) {
+                $result = $row[0]['Profile_pic'];
+
+                if (!isset($result) || empty($result) || !file_exists($result . '_large.jpg')) {
+                    return 'public/images/profile';
+                }
+                else {
+                    return $result;
+                }
             }
-            else {
-                return $result;
+            else
+            {
+                return 'public/images/profile';
             }
         }
         else{
@@ -184,6 +190,46 @@ class Profile_Model extends Model {
         }
 
         return $result;
+    }
+    
+    public function get_status_ajax() {
+        $result = '[';
+        $statement = $this->db->prepare("Select users.login, table2.status, table2.date, table2.privacy, table2.id, users.Profile_pic, table2.type
+                                        From (
+                                                Select status.status, status.UId, status.date, status.privacy, wall.id, wall.type
+                                                From wall
+                                                Inner join status
+                                                    On wall.ContentId = status.Id
+                                                Where wall.Type = 'status'
+                                            ) table2
+                                        Inner join users
+                                            On users.Id = table2.UId
+                                        ORDER BY table2.date DESC
+                                                ");
+
+        $success = $statement->execute();
+        
+        if ($success) {
+            $query = $statement->fetchAll();
+
+            $last = count($query) - 1;
+            $count = 0;
+            foreach ($query as $row) {
+                $comments = $this->get_comment($row['id']);
+                $result .= json_encode($this->formatter(
+                        $row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy'], $comments
+                        ));
+                if (end($query) != $row)
+                {
+                    $result .= ', ';
+                }
+            }
+        } else {
+            echo 'Error occurred while getting status ajax from db';
+            exit;
+        }
+
+        return $result . ']';
     }
     
     public function get_comment($PId) 
