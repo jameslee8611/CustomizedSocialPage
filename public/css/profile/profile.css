@@ -68,10 +68,22 @@
     height: 30px;
 } 
 
+.comment-type-area{
+    margin-bottom: 0 !important;
+}
+
+.comment-type-area textarea{
+    margin: 0 !important;
+}
+
 .comment-box {
-    padding-top: 5px;
+    /*padding-top: 5px;
     padding-right: 10px;
-    padding-left: 4px;
+    padding-left: 4px;*/
+}
+
+.comment-head a{
+    padding-right: 7.5px;
 }
 
 .profile-large-box:after {

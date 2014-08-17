@@ -60,3 +60,15 @@
         width: 100%;
     }
 }
+
+.comment-type-area{
+    margin-bottom: 0 !important;
+}
+
+.comment-type-area textarea{
+    margin: 0 !important;
+}
+
+.comment-head a{
+    padding-right: 7.5px;
+}

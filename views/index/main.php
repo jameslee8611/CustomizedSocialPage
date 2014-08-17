@@ -92,7 +92,6 @@
                 echo '  </div>
                         <div class="comment-head">';
                         echo '<a href="#comment-' . $info['id'] . '">comments</a>
-                            &nbsp&nbsp&nbsp&nbsp&nbsp
                             <a href="#"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
                         </div>
                         <hr class="comment-hr"/>
@@ -122,7 +121,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div></div>';
                     }
                 }
