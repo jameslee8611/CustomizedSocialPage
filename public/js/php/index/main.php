@@ -6,16 +6,28 @@
      */
     
     function get_post_data(type)
-    {        
+    {
+        var url = <?php echo json_encode(URL); ?>;
+        var post_url = "";
+        switch (type) {
+            case 'status':
+                post_url = url + 'profile/get_status_ajax/';
+                break;
+            case 'image':
+                post_url = url + 'profile/get_image_ajax/';
+                break;
+            default:
+                alert(type + ' is invalid type!!');
+        }
         $.ajax({
-            url: <?php echo json_encode(URL . 'profile/get_status_ajax/') ?>,
+            url: post_url,
             type: 'post',
             data: 'json',
             success: function(jsonData) {
                 data = JSON.parse(jsonData);
                 var content="";
                 var val = '';
-                var url = <?php echo json_encode(URL); ?>;
+                
                 //$('#data-box').empty();
                 data.forEach(function(element, index, array) {
                     if (element.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns">' + element.Post + '</div>';

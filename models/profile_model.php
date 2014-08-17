@@ -232,6 +232,46 @@ class Profile_Model extends Model {
         return $result . ']';
     }
     
+    public function get_image_ajax() {
+        $result = '[';
+        $statement = $this->db->prepare("Select users.login, table2.URL, table2.date, table2.privacy, table2.id, users.Profile_pic, table2.type
+                                        From (
+                                                Select image.URL, image.UId, image.Date, image.privacy, wall.Id, wall.Type
+                                                From wall
+                                                Inner join image
+                                                    On wall.ContentId = image.Id
+                                                Where wall.Type = 'image'
+                                            ) table2
+                                        Inner join users
+                                            On users.Id = table2.UId
+                                        ORDER BY table2.date DESC
+                                                ");
+
+        $success = $statement->execute();
+        
+        if ($success) {
+            $query = $statement->fetchAll();
+
+            $last = count($query) - 1;
+            $count = 0;
+            foreach ($query as $row) {
+                $comments = $this->get_comment($row['id']);
+                $result .= json_encode($this->formatter(
+                        $row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy'], $comments
+                        ));
+                if (end($query) != $row)
+                {
+                    $result .= ', ';
+                }
+            }
+        } else {
+            echo 'Error occurred while getting status ajax from db';
+            exit;
+        }
+
+        return $result . ']';
+    }
+    
     public function get_comment($PId) 
     {
         $statement = $this->db->prepare("Select users.login, table1.Comment, table1.Date, table1.Id, users.Profile_pic

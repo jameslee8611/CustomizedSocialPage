@@ -118,4 +118,17 @@ class Profile extends Controller {
             $this->redirect_error();
         }
     }
+    
+    public function get_image_ajax()
+    {
+        if(Session::get('loggedIn'))
+        {
+            //echo $this->model->get_status_ajax($type);
+            print_r($this->model->get_image_ajax());
+        }
+        else
+        {
+            $this->redirect_error();
+        }
+    }
 }
