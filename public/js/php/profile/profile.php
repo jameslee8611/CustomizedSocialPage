@@ -81,20 +81,18 @@
                                     <strong>' + data.Writer + '</strong> &nbsp\
                                 </a>\
                                 <i id="tooltip-delete-box-' + data.id + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Writer + '\',' + data.id + ',\'' + data.Type + '\')"></i>\n\
-                                <p class="date">'
+                                <div class="date">'
                                     + data.Date + ' &nbsp<i class="' + data.Privacy + '" data-dropdown="drop2-' + data.id + '" data-options="is_hover: true"></i>\
                                     <div class="f-dropdown content popover-box" id="drop2-' + data.id + '" data-dropdown-content>'
                                         + data.Privacy_description +
                                     '</div>\
-                                </p>\
+                                </div>\
                             </div>\
                         </div>\
                         <div class="large-12 columns">\
-                            <p class="post">\
-                                <div class="row">'
+                            <div class="row">'
                                 + content +
-                                '</div>\
-                            </p>\
+                           '</div>\
                             <div class="comment-head">\
                                 <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\
                                 <a href="#"><i class="fi-comment" id="comment-count"> 0</i></a>\

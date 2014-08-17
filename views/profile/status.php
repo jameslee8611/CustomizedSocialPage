@@ -82,21 +82,19 @@
                     <div>
                         <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
                         <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
-                        <p class="date">
+                        <div class="date">
                             ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
                             <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
                                 ' . $info['Privacy_description'] . '
                             </div>
-                        </p>
+                        </div>
                     </div>
                 </div>
                 <div class="large-12 columns">
-                    <p class="post">
                         <div class="row">';
                        if ($info['Type'] == STATUS) echo '<div class="large-12 columns">' . $info['Post'] . '</div>';
                        else if($info['Type'] == IMAGE) echo '<div class="large-12 columns"><img src="' . $info['Post'] . '" alt="picture"></div>';
                 echo '  </div>
-                    </p>
                     <div class="comment-head">';
                     echo '<a href="#comment-' . $info['id'] . '">comments</a>
                         &nbsp&nbsp&nbsp&nbsp&nbsp

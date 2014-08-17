@@ -36,7 +36,6 @@
                     </div>
             </div>
         </div>
-
         <div class="large-6 columns container" id="Container">
             <div class="row" id="post-box">
                 <div class="large-12 columns">
@@ -69,67 +68,65 @@
                     </form>
                 </div>
             </div><br id="end-of-postbox">
-            <?php
-            if (isset($this->data) || !empty($this->data)) {
-                foreach ($this->data as $info) {
-                    echo '<div class="mix" id="post-' . $info['id'] . '"><div class="row">
-                <div class="large-2 columns small-3"><img class="post-pic" src="'. $info['profile_pic_medium'] .'"/></div>
-                <div class="large-10 columns">
-                    <div>
-                        <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
-                        <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
-                        <p class="date">
-                            ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
-                            <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
-                                ' . $info['Privacy_description'] . '
+                <?php
+                if (isset($this->data) || !empty($this->data)) {
+                    foreach ($this->data as $info) {
+                        echo '<div class="mix" id="post-' . $info['id'] . '"><div class="row">
+                    <div class="large-2 columns small-3"><img class="post-pic" src="'. $info['profile_pic_medium'] .'"/></div>
+                    <div class="large-10 columns">
+                        <div>
+                            <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
+                            <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
+                            <div class="date">
+                                ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
+                                <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
+                                    ' . $info['Privacy_description'] . '
+                                </div>
                             </div>
-                        </p>
-                    </div>
-                </div>
-                <div class="large-12 columns">
-                    <p class="post">
-                        <div class="row">';
-                       if ($info['Type'] == STATUS) echo '<div class="large-12 columns">' . $info['Post'] . '</div>';
-                       else if($info['Type'] == IMAGE) echo '<div class="large-12 columns"><img src="' . $info['Post'] . '" alt="picture"></div>';
-                echo '  </div>
-                    </p>
-                    <div class="comment-head">';
-                    echo '<a href="#comment-' . $info['id'] . '">comments</a>
-                        &nbsp&nbsp&nbsp&nbsp&nbsp
-                        <a href="#"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
-                    </div>
-                    <hr class="comment-hr"/>
-                    <div class="comment">';
-                    foreach ($info['Comments'] as $comment) {
-                   echo '<div class="row" id="post-' . $comment['CommentId'] . '">
-                            <div class="large-2 columns small-3"><img class="comment-pic" src="'. $comment['Profile_pic'] .'"/></div>
-                            <div class="large-10 columns">
-                                <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
-                                <p>';
-                                echo '<a href="'. URL . $comment['Commentor'] .'"><strong>' . $comment['Commentor'] . '</strong></a> &nbsp' . $comment['Comment'] . '
-                                     <div class="date comment-date">' . $comment['Date'] . '</div>
-                                </p>
-                            </div>
-                        </div>';
-                    }
-                    echo '   
-                        <div class="row comment-box" id="'. $info['id'] .'">
-                            <div class="large-2 columns small">
-                                <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
-                            </div>
-                            <form class="large-10 columns comment-type-area" id="post-comment-'.$info['id'].'" method="post">
-                                <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-'.$info['id'].'\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
-                                <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
-                                <input class="hide" type="submit" id="commnet-submit-'. $info['id'] .'" value="post" onclick=postComment('. $info['id'] .') />
-                            </form>
                         </div>
                     </div>
-                </div>
-            
-            </div></div>';
+                    <div class="large-12 columns">
+                        <div class="row">';
+                           if ($info['Type'] == STATUS) echo '<div class="large-12 columns">' . $info['Post'] . '</div>';
+                           else if($info['Type'] == IMAGE) echo '<div class="large-12 columns"><img src="' . $info['Post'] . '" alt="picture"></div>';
+                echo '  </div>
+                        <div class="comment-head">';
+                        echo '<a href="#comment-' . $info['id'] . '">comments</a>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp
+                            <a href="#"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
+                        </div>
+                        <hr class="comment-hr"/>
+                        <div class="comment">';
+                        foreach ($info['Comments'] as $comment) {
+                       echo '<div class="row" id="post-' . $comment['CommentId'] . '">
+                                <div class="large-2 columns small-3"><img class="comment-pic" src="'. $comment['Profile_pic'] .'"/></div>
+                                <div class="large-10 columns">
+                                    <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
+                                    <p>';
+                                    echo '<a href="'. URL . $comment['Commentor'] .'"><strong>' . $comment['Commentor'] . '</strong></a> &nbsp' . $comment['Comment'] . '
+                                         <div class="date comment-date">' . $comment['Date'] . '</div>
+                                    </p>
+                                </div>
+                            </div>';
+                        }
+                        echo '   
+                            <div class="row comment-box" id="'. $info['id'] .'">
+                                <div class="large-2 columns small">
+                                    <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
+                                </div>
+                                <form class="large-10 columns comment-type-area" id="post-comment-'.$info['id'].'" method="post">
+                                    <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-'.$info['id'].'\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
+                                    <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
+                                    <input class="hide" type="submit" id="commnet-submit-'. $info['id'] .'" value="post" onclick=postComment('. $info['id'] .') />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div></div>';
+                    }
                 }
-            }
-            ?>
+                ?>
         </div>
         <aside class="large-3 columns hide-for-small">
             <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
