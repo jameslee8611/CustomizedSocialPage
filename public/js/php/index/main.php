@@ -17,7 +17,7 @@
                 post_url = url + 'profile/get_image_ajax/';
                 break;
             default:
-                alert(type + ' is invalid type!!');
+                alert(type + ' is invalid type or has not implemented yet!!');
         }
         $.ajax({
             url: post_url,

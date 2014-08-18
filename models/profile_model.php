@@ -257,7 +257,7 @@ class Profile_Model extends Model {
             foreach ($query as $row) {
                 $comments = $this->get_comment($row['id']);
                 $result .= json_encode($this->formatter(
-                        $row['id'], $row['login'], $row['Profile_pic'], $row['status'], $row['type'], $row['date'], $row['privacy'], $comments
+                        $row['id'], $row['login'], $row['Profile_pic'], $row['URL'], $row['type'], $row['date'], $row['privacy'], $comments
                         ));
                 if (end($query) != $row)
                 {
