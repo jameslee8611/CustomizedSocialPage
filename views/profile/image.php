@@ -39,11 +39,17 @@
         </div>
 
         <div class="large-6 columns">
-            <div class="controls">
+            <!--<div class="controls">
                 <button class="filter secondary round label" data-filter="all">All</button>
                 <button class="filter secondary round label" data-filter=".category-1">Category 1</button>
                 <button class="filter secondary round label" data-filter=".category-2">Category 2</button>
-            </div>
+            </div>-->
+            <a href="" data-dropdown="img-control" id="img-ctrl-button" data-options="align:right">All</a><br>
+            <ui id="img-control" class="f-dropdown" data-dropdown-content>
+                <li><a href="#" class="filter img-category" data-filter="all">All</a></li>
+                <li><a href="#" class="filter img-category" data-filter=".category-1">Category 1</a></li>
+                <li><a href="#" class="filter img-category" data-filter=".category-2">Category 2</a></li>
+            </ui>
             <div class="row">
                 <div class="large-12 columns">
                     <div class="row">

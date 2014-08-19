@@ -5,6 +5,13 @@
      * @last modification   Ausgust 14, 2014
      */
 
+    $(".img-category").click(function(){
+        var text = $(this).html();
+        $("#img-ctrl-button").html(text);
+        $("#img-control").removeClass("open");
+        $("#img-control").css("left", "-99999px");
+    });
+
     $('.change-profile-pic, #change-profile-pic-background').hide();
 
     $('#profile-pic-container').mouseenter(function(){
