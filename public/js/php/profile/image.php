@@ -10,6 +10,9 @@
         $("#img-ctrl-button").html(text);
         $("#img-control").removeClass("open");
         $("#img-control").css("left", "-99999px");
+
+        $(".img-ctrl-check").removeClass("fi-check");
+        $(this).find("i").addClass("fi-check");
     });
 
     $('.change-profile-pic, #change-profile-pic-background').hide();

@@ -46,9 +46,9 @@
             </div>-->
             <a href="" data-dropdown="img-control" id="img-ctrl-button" data-options="align:right">All</a><br>
             <ui id="img-control" class="f-dropdown" data-dropdown-content>
-                <li><a href="#" class="filter img-category" data-filter="all">All</a></li>
-                <li><a href="#" class="filter img-category" data-filter=".category-1">Category 1</a></li>
-                <li><a href="#" class="filter img-category" data-filter=".category-2">Category 2</a></li>
+                <li><a href="#" class="filter img-category" data-filter="all">All<i class="img-ctrl-check fi-check"></i></a></li>
+                <li><a href="#" class="filter img-category" data-filter=".category-1">Category 1<i class="img-ctrl-check"></i></a></li>
+                <li><a href="#" class="filter img-category" data-filter=".category-2">Category 2<i class="img-ctrl-check"></i></a></li>
             </ui>
             <div class="row">
                 <div class="large-12 columns">
@@ -127,7 +127,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="large-4 small-6 columns mix category-2" data-myorder="8">
+                                <div class="large-4 small-6 columns mix category-2" data-myorder="9">
                                     <img src="http://placehold.it/500x500&text=Thumbnail">
 
                                     <div class="panel-media">

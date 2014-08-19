@@ -63,5 +63,9 @@
 }
 
 .img-category{
-    text-align: center;
+    /*text-align: center;*/
+}
+
+.img-ctrl-check{
+    float: right;
 }
