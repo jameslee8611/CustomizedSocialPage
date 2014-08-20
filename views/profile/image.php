@@ -55,9 +55,23 @@
                     <div class="row">
                         <div class="large-12 columns">
                             <div class="row container" id="Container">
-                                <div class="large-4 small-6 columns mix category-1" data-myorder="1">
-                                    <img src="http://placehold.it/500x500&text=Thumbnail">
-
+                                <?php
+                                    if(isset($this->data) || !empty($this->data)){
+                                        $image = $this->data;
+                                        $length = count($image);
+                                        for($i=0; $i<$length; $i++){
+                                            echo"<div class='large-4 small-6 columns mix category-" . ($i+1) . "' data-myorder='" . ($i+1) . "'>
+                                                    <img src='" . $image[$i] . "_large.jpg" . "'>
+                                                    <div class='panel-media'>
+                                                        <h5>Title</h5>
+                                                        <h6 class='subheader'>subtitle</h6>
+                                                    </div>
+                                                </div>";
+                                        }
+                                    }
+                                ?>
+                                <!--<div class="large-4 small-6 columns mix category-1" data-myorder="1">
+                                    <img src="http://localhost:8888/CustomizedSocialPage/public/images/image/20140820043759000000_test_original.jpg">
                                     <div class="panel-media">
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
@@ -134,7 +148,7 @@
                                         <h5>Title</h5>
                                         <h6 class="subheader">subtitle</h6>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="gap"></div>
                                 <div class="gap"></div>

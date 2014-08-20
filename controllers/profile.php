@@ -37,6 +37,8 @@ class Profile extends Controller {
                     break;
                 
                 case IMAGE:
+                    $result = $this->model->get_image($username);
+                    $this->view->data = $result;
                     $this->view->render('profile/image');
                     break;
                 

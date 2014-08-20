@@ -232,6 +232,22 @@ class Profile_Model extends Model {
         return $result . ']';
     }
     
+    public function get_image($username){
+        $result = array();
+        $statement = $this->db->prepare("Select URL FROM image INNER JOIN(Select users.id From users Where users.login = '$username') table1 ON image.Uid = table1.id");
+        $success = $statement->execute();
+        if($success){
+            $query = $statement->fetchAll();
+            foreach($query as $url){
+                array_push($result, $url[0]);
+            }
+        } else {
+            echo 'Error occurred whilte getting image from db';
+            exit;
+        }
+        return $result;
+    }
+
     public function get_image_ajax() {
         $result = '[';
         $statement = $this->db->prepare("Select users.login, table2.URL, table2.date, table2.privacy, table2.id, users.Profile_pic, table2.type
