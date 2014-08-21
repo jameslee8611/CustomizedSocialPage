@@ -92,6 +92,12 @@ class Profile_Model extends Model {
     
     public function get_wall($username = null, $id = PHP_INT_MAX)
     {
+        $get_minId_statement = $this->db->prepare("SELECT MIN(Id) AS min FROM wall");
+        $get_minId_statement->execute();
+        $query_minId = $get_minId_statement->fetchAll();
+        $lastId = $query_minId[0]['min'];
+        Session::set('lastId', $lastId);
+        
         if ($username != null)
         {
             $add_query_line =  "Inner join (

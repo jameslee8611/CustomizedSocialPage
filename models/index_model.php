@@ -115,6 +115,12 @@ class Index_Model extends Model {
     
     public function get_wall()
     {
+        $get_minId_statement = $this->db->prepare("SELECT MIN(id) AS min FROM wall");
+        $get_minId_statement->execute();
+        $query_minId = $get_minId_statement->fetchAll();
+        $lastId = $query_minId[0]['min'];
+        Session::set('lastId', $lastId);
+        
         $result = array();
         $statement = $this->db->prepare("Select users.login, users.Profile_pic, table2.UId, table2.Date, table2.Id, table2.Content, table2.Type, table2.Privacy
                                         From (

@@ -6,9 +6,9 @@
      */
     
     $(window).scroll(function() {
-        var lastId = $('.mix').last().attr('id').split("-")[1]
+        var lastId = $('.mix').last().attr('id').split("-")[1];
         
-        if ($(window).scrollTop() + $(window).height() == $(document).height() && parseInt(lastId) > 3)
+        if ($(window).scrollTop() + $(window).height() == $(document).height() && parseInt(lastId) != <?php echo json_encode(Session::get('lastId')); ?>)
         {
             var url = <?php echo json_encode(URL); ?>;
             var post_url = url + 'profile/loadmore/' + lastId;
@@ -82,7 +82,6 @@
         </div>\n\
     </div></div>\n';
                     });
-                    console.log($('.mix').last().attr('id'))
                     $(val).hide().fadeIn('slow').insertAfter("#" + $('.mix').last().attr('id'));
                 }
             })
@@ -317,7 +316,6 @@
             data: serializedData,
             success: function(html) {
                 var data = JSON.parse(html);
-                console.log(data);
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="row" id="post-' + data.CommentId + '">\
                         <div class="large-2 columns small-3"><img src="' + data.Profile_pic + '"/></div>\
