@@ -5,7 +5,6 @@
 -->
 
 <div class="content">
-
     <!-- Nav Side bar -->
     <div class="row">
         <div class="large-3 columns ">
@@ -34,6 +33,7 @@
                             <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo VIDEO?>')">Videos</a></h6>
                         </section>
                     </div>
+                    <?php echo null . 'haha';?>
             </div>
         </div>
         <div class="large-6 columns container" id="Container">

@@ -144,8 +144,8 @@ class Index_Model extends Model {
                                             ) table2
                                         Inner join users
                                             On users.Id = table2.UId
-                                        
                                         ORDER BY table2.Date DESC
+                                        LIMIT 4
                                                 ");
 
         $success = $statement->execute();

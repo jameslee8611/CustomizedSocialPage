@@ -90,8 +90,21 @@ class Profile_Model extends Model {
         }
     }
     
-    public function get_wall($username)
+    public function get_wall($username = null, $id = PHP_INT_MAX)
     {
+        if ($username != null)
+        {
+            $add_query_line =  "Inner join (
+                                            Select users.Id
+                                            From users
+                                            Where users.login = '$username'
+                                            ) table1
+                                On table1.Id = wall.whereId";
+        }
+        else
+        {
+            $add_query_line = '';
+        }
         $result = array();
         $statement = $this->db->prepare("Select users.login, users.Profile_pic, table2.UId, table2.Date, table2.Id, table2.Content, table2.Type, table2.Privacy
                                         From (
@@ -114,13 +127,7 @@ class Profile_Model extends Model {
                                                         when 'image' then image.Privacy
                                                     end as Privacy
                                                 From wall
-                                                Inner join (
-                                                                Select users.Id
-                                                                From users
-                                                                Where users.login = '$username'
-                                                            ) table1
-                                                    On table1.Id = wall.whereId
-
+                                                $add_query_line
                                                 left outer join status
                                                     On  wall.ContentId = status.Id
                                                 left outer join  image
@@ -128,8 +135,9 @@ class Profile_Model extends Model {
                                             ) table2
                                         Inner join users
                                             On users.Id = table2.UId
-                                        
+                                        WHERE table2.Id < $id
                                         ORDER BY table2.Date DESC
+                                        LIMIT 3
                                                 ");
 
         $success = $statement->execute();

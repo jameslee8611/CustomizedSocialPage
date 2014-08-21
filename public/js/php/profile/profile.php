@@ -4,6 +4,13 @@
      * @date    July 24, 2014
      * @last modification   Ausgust 14, 2014
      */
+    
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() == $(document).height())
+        {
+            console.log('hit the bottom!');
+        }
+    });
 
     $('.change-profile-pic, #change-profile-pic-background').hide();
 

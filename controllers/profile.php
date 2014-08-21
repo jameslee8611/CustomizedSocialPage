@@ -133,4 +133,10 @@ class Profile extends Controller {
             $this->redirect_error();
         }
     }
+    
+    public function loadmore($lastId)
+    {
+        $result = $this->model->get_wall(null, $lastId);
+        echo json_encode($result, true);
+    }
 }
