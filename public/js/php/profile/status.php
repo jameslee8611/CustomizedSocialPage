@@ -4,6 +4,89 @@
      * @date    July 24, 2014
      * @last modification   August 14, 2014
      */
+    
+    $(window).scroll(function() {
+        var lastId = $('.mix').last().attr('id').split("-")[1];
+        
+        if ($(window).scrollTop() + $(window).height() == $(document).height() && parseInt(lastId) != <?php echo json_encode(Session::get('lastStatusId')); ?>)
+        {
+            var url = <?php echo json_encode(URL); ?>;
+            var post_url = url + 'profile/loadmore_status/' + lastId + '/' + <?php echo json_encode(Session::get('username'))?>;
+            
+            $.ajax({
+                url: post_url,
+                type: 'post',
+                data: 'json',
+                success: function(jsonData) {
+                    var data = JSON.parse(jsonData);
+                    var content="";
+                    var val = '';
+                    data.forEach(function(element, index, array) {
+                        if (element.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns">' + element.Post + '</div>';
+                        else if (element.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns"><img src="' + element.Post + '" alt="picture"></div>';
+                        val +=  '<div class="mix" id="post-' + element.id + '"><div class="row">\n\
+        <div class="large-2 columns small-3">\n\
+            <img class="post-pic" src="' + element.profile_pic_medium + '"/>\n\
+        </div>\n\
+        <div class="large-10 columns">\n\
+            <div>\n\
+                <a href="' + url + element.Writer + '">\n\
+                    <strong>' + element.Writer + '</strong> &nbsp\n\
+                </a>\n\
+                <i id="tooltip-delete-box-' + element.id + '" class="' + element.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + element.Writer + '\',' + element.id + ',\'' + element.Type + '\')"></i>\n\
+                <div class="date">'
+                    + element.Date + ' &nbsp<i class="' + element.Privacy + '" data-dropdown="drop2-' + element.id + '" data-options="is_hover: true"></i>\n\
+                    <div class="f-dropdown content popover-box" id="drop2-' + element.id + '" data-dropdown-content>'
+                        + element.Privacy_description +
+                    '</div>\n\
+                </div>\n\
+            </div>\n\
+        </div>\n\
+        <div class="large-12 columns">\n\
+            <div class="row">'
+                + content +
+            '</div>\n\
+            <div class="comment-head">\n\
+                <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\n\
+                <a href="#"><i class="fi-comment" id="comment-count"> ' + element.Comments.length + '</i></a>\n\
+            </div>\n\
+            <hr class="comment-hr"/>\n\
+            <div class="comment">\n';
+                        var comments = '';
+                        element.Comments.forEach(function(comment, Cindex, Carray) {
+                            comments +=    '\
+                <div class="row" id="post-' + comment.CommentId + '">\n\
+                    <div class="large-2 columns small-3"><img class="comment-pic" src="' + comment.Profile_pic + '"/></div>\n\
+                    <div class="large-10 columns">\n\
+                        <i id="tooltip-delete-box-' + comment.CommentId + '" class="' + comment.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + comment.Commentor + '\',' + comment.CommentId + ',\'' + <?php echo json_encode(COMMENT); ?> + '\')"></i>\n\
+                        <p>\n\
+                                <a href="' + <?php echo json_encode(URL); ?> + comment.Commentor +'"><strong>' + comment.Commentor + '</strong></a> &nbsp' + comment.Comment + '\n\
+                                <div class="date comment-date">' + comment.Date + '</div>\n\
+                        </p>\n\
+                    </div>\n\
+                </div>\n';
+                        });
+                        val += comments;
+                        val +=          '\
+                <div class="row comment-box" id="' + element.id + '">\n\
+                    <div class="large-2 columns small">\n\
+                        <img class="comment-pic" src="' + element.profile_pic_small + '"/>\n\
+                    </div>\n\
+                    <form class="large-10 columns comment-type-area" id="post-comment-' + element.id + '" method="post">\n\
+                        <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-' + element.id + '\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>\n\
+                        <input type="hidden" id="contentId" name="contentId" value="' + element.id + '" />\n\
+                        <input class="hide" type="submit" id="commnet-submit-' + element.id + '" value="post" onclick=postComment(' + element.id + ') />\n\
+                    </form>\n\
+                </div>\n\
+            </div>\n\
+        </div>\n\
+    </div></div>\n';
+                    });
+                    $(val).hide().fadeIn('slow').insertAfter("#" + $('.mix').last().attr('id'));
+                }
+            })
+        }
+    });
 
     $('.change-profile-pic, #change-profile-pic-background').hide();
 

@@ -4,8 +4,8 @@
     @Last Modification  : August 24, 2014
 -->
 
+<input class="wall-type" value="wall" type="hidden" />
 <div class="content">
-
     <!-- Nav Side bar -->
     <div class="row">
         <div class="large-3 columns ">
