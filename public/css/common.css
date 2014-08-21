@@ -44,17 +44,26 @@ and open the template in the editor.
 .comment-head {
     background-color: #F5F5F5;
     font-size: 15px;
-    margin-bottom: 3px;
+    /*margin-bottom: 3px;*/
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .comment {
     background-color: #F5F5F5;
     font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .comment-hr {
-    margin-top: -2px;
-    margin-bottom: -1.5px;
+    /*margin-top: -2px;
+    margin-bottom: -1.5px;*/
+    margin: 0;
+    padding-bottom: 15px;
+    background-color: #F5F5F5;
+    border-color: white;
 }
 
 .nav-divider {
