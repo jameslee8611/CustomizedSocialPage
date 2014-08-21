@@ -7,11 +7,36 @@
     
     $(window).scroll(function() {
         var lastId = $('.mix').last().attr('id').split("-")[1];
+        var type = $('.wall-type').val();
+        var lastPostId;
+        switch (type) {
+            case 'wall':
+                lastPostId = <?php echo json_encode(Session::get('lastId')); ?>;
+                break;
+            case 'status':
+                lastPostId = <?php echo json_encode(Session::get('lastStatusId')); ?>;
+                break;
+            default:
+                alert(type + ' is invalid type or has not implemented yet!!');
+        }
         
-        if ($(window).scrollTop() + $(window).height() == $(document).height() && parseInt(lastId) != <?php echo json_encode(Session::get('lastId')); ?>)
+        if ($(window).scrollTop() + $(window).height() == $(document).height() && parseInt(lastId) != lastPostId)
         {
             var url = <?php echo json_encode(URL); ?>;
-            var post_url = url + 'profile/loadmore/' + lastId;
+            var post_url = '';
+            switch (type) {
+                case 'wall':
+                    post_url = url + 'profile/loadmore/' + lastId;
+                    break;
+                case 'status':
+                    post_url = url + 'profile/loadmore_status/' + lastId;
+                    break;
+                case 'image':
+                    post_url = url + 'profile/get_image_ajax/' + lastId;
+                    break;
+                default:
+                    alert(type + ' is invalid type or has not implemented yet!!');
+            }
             
             $.ajax({
                 url: post_url,
@@ -94,9 +119,11 @@
         var post_url = "";
         switch (type) {
             case 'status':
+                $('.wall-type').val('status');
                 post_url = url + 'profile/get_status_ajax/';
                 break;
             case 'image':
+                $('.wall-type').val('image');
                 post_url = url + 'profile/get_image_ajax/';
                 break;
             default:
@@ -107,10 +134,11 @@
             type: 'post',
             data: 'json',
             success: function(jsonData) {
-                var data = JSON.parse(jsonData);
+                data = JSON.parse(jsonData);
                 var content="";
                 var val = '';
                 
+                //$('#data-box').empty();
                 data.forEach(function(element, index, array) {
                     if (element.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns">' + element.Post + '</div>';
                     else if (element.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns"><img src="' + element.Post + '" alt="picture"></div>';
@@ -172,6 +200,7 @@
     </div>\n\
 </div></div>\n';
                 });
+                console.log(val);
                 $('.mix').remove();
                 $(val).hide().fadeIn('slow').insertAfter("#end-of-postbox");
             }
@@ -316,6 +345,7 @@
             data: serializedData,
             success: function(html) {
                 var data = JSON.parse(html);
+                console.log(data);
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="row" id="post-' + data.CommentId + '">\
                         <div class="large-2 columns small-3"><img src="' + data.Profile_pic + '"/></div>\

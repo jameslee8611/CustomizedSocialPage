@@ -134,9 +134,15 @@ class Profile extends Controller {
         }
     }
     
-    public function loadmore($lastId)
+    public function loadmore($lastId, $username = null)
     {
-        $result = $this->model->get_wall(null, $lastId);
+        $result = $this->model->get_wall($username, $lastId);
+        echo json_encode($result, true);
+    }
+    
+    public function loadmore_status($lastId, $username = null)
+    {
+        $result = $this->model->get_status($username, $lastId);
         echo json_encode($result, true);
     }
 }

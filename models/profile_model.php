@@ -143,7 +143,7 @@ class Profile_Model extends Model {
                                             On users.Id = table2.UId
                                         WHERE table2.Id < $id
                                         ORDER BY table2.Date DESC
-                                        LIMIT 3
+                                        LIMIT 4
                                                 ");
 
         $success = $statement->execute();
@@ -166,25 +166,42 @@ class Profile_Model extends Model {
         return $result;
     }
 
-    public function get_status($username) {
+    public function get_status($username = null, $id = PHP_INT_MAX) {
+        $get_minId_statement = $this->db->prepare("SELECT MIN(Id) AS min FROM status");
+        $get_minId_statement->execute();
+        $query_minId = $get_minId_statement->fetchAll();
+        $lastId = $query_minId[0]['min'];
+        Session::set('lastStatusId', $lastId);
+        
+        if ($username != null)
+        {
+            $add_query_line =  "Inner join (
+                                            Select users.Id
+                                            From users
+                                            Where users.login = '$username'
+                                            ) table1
+                                On table1.Id = wall.whereId";
+        }
+        else
+        {
+            $add_query_line = '';
+        }
+        
         $result = array();
         $statement = $this->db->prepare("Select users.login, table2.status, table2.date, table2.privacy, table2.id, users.Profile_pic, table2.type
                                         From (
                                                 Select status.status, status.UId, status.date, status.privacy, wall.id, wall.type
                                                 From wall
-                                                Inner join (
-                                                                Select users.Id
-                                                                From users
-                                                                Where users.login = '$username'
-                                                            ) table1
-                                                    On table1.Id = wall.whereId
+                                                $add_query_line
                                                 Inner join status
                                                     On wall.ContentId = status.Id
                                                 Where wall.Type = 'status'
                                             ) table2
                                         Inner join users
                                             On users.Id = table2.UId
-                                        ORDER BY table2.date DESC
+                                        WHERE table2.Id < $id
+                                        ORDER BY table2.Date DESC
+                                        LIMIT 4
                                                 ");
 
         $success = $statement->execute();
@@ -219,6 +236,7 @@ class Profile_Model extends Model {
                                         Inner join users
                                             On users.Id = table2.UId
                                         ORDER BY table2.date DESC
+                                        LIMIT 4
                                                 ");
 
         $success = $statement->execute();
