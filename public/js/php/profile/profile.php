@@ -22,14 +22,14 @@
                     var content="";
                     var val = '';
                     data.forEach(function(element, index, array) {
-                        if (element.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns">' + element.Post + '</div>';
-                        else if (element.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns"><img src="' + element.Post + '" alt="picture"></div>';
+                        if (element.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns post-content">' + element.Post + '</div>';
+                        else if (element.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns post-content"><img src="' + element.Post + '" alt="picture"></div>';
                         val +=  '<div class="mix" id="post-' + element.id + '"><div class="row">\n\
-        <div class="large-2 columns small-3">\n\
+        <div class="large-2 columns small-3 custom">\n\
             <img class="post-pic" src="' + element.profile_pic_medium + '"/>\n\
         </div>\n\
-        <div class="large-10 columns">\n\
-            <div>\n\
+        <div class="large-10 columns custom">\n\
+            <div class="post-nd">\n\
                 <a href="' + url + element.Writer + '">\n\
                     <strong>' + element.Writer + '</strong> &nbsp\n\
                 </a>\n\
@@ -47,7 +47,7 @@
                 + content +
             '</div>\n\
             <div class="comment-head">\n\
-                <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\n\
+                <a href="#">comments</a>\n\
                 <a href="#"><i class="fi-comment" id="comment-count"> ' + element.Comments.length + '</i></a>\n\
             </div>\n\
             <hr class="comment-hr"/>\n\
@@ -57,7 +57,7 @@
                             comments +=    '\
                 <div class="row" id="post-' + comment.CommentId + '">\n\
                     <div class="large-2 columns small-3"><img class="comment-pic" src="' + comment.Profile_pic + '"/></div>\n\
-                    <div class="large-10 columns">\n\
+                    <div class="large-10 columns custom comment-content">\n\
                         <i id="tooltip-delete-box-' + comment.CommentId + '" class="' + comment.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + comment.Commentor + '\',' + comment.CommentId + ',\'' + <?php echo json_encode(COMMENT); ?> + '\')"></i>\n\
                         <p>\n\
                                 <a href="' + <?php echo json_encode(URL); ?> + comment.Commentor +'"><strong>' + comment.Commentor + '</strong></a> &nbsp' + comment.Comment + '\n\
@@ -72,7 +72,7 @@
                     <div class="large-2 columns small">\n\
                         <img class="comment-pic" src="' + element.profile_pic_small + '"/>\n\
                     </div>\n\
-                    <form class="large-10 columns comment-type-area" id="post-comment-' + element.id + '" method="post">\n\
+                    <form class="large-10 columns custom comment-type-area" id="post-comment-' + element.id + '" method="post">\n\
                         <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-' + element.id + '\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>\n\
                         <input type="hidden" id="contentId" name="contentId" value="' + element.id + '" />\n\
                         <input class="hide" type="submit" id="commnet-submit-' + element.id + '" value="post" onclick=postComment(' + element.id + ') />\n\
@@ -152,14 +152,14 @@
                 var data = JSON.parse(jsonData);
                 var url = <?php echo json_encode(URL); ?>;
                 var content="";
-                if (data.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns">' + data.Post + '</div>'
-                else if (data.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns"><img src="' + data.Post + '" alt="picture"></div>'
+                if (data.Type == <?php echo json_encode(STATUS)?>) content = '<div class="large-12 columns post-content">' + data.Post + '</div>'
+                else if (data.Type == <?php echo json_encode(IMAGE)?>) content = '<div class="large-12 columns post-content"><img src="' + data.Post + '" alt="picture"></div>'
                 $('<div class="mix" id="post-' + data.id + '"><div class="row">\
-                        <div class="large-2 columns small-3">\
+                        <div class="large-2 columns small-3 custom">\
                             <img class="post-pic" src="' + data.profile_pic_medium + '"/>\
                         </div>\
-                        <div class="large-10 columns">\
-                            <div>\
+                        <div class="large-10 columns custom">\
+                            <div class="post-nd">\
                                 <a href="' + url + data.Writer + '">\
                                     <strong>' + data.Writer + '</strong> &nbsp\
                                 </a>\
@@ -177,7 +177,7 @@
                                 + content +
                            '</div>\
                             <div class="comment-head">\
-                                <a href="#">comments </a>&nbsp&nbsp&nbsp&nbsp&nbsp\
+                                <a href="#">comments</a>\
                                 <a href="#"><i class="fi-comment" id="comment-count"> 0</i></a>\
                             </div>\
                             <hr class="comment-hr"/>\
@@ -186,7 +186,7 @@
                                     <div class="large-2 columns small">\
                                     <img class="comment-pic" src="' + data.profile_pic_small + '"/>\
                                 </div>\
-                                <form class="large-10 columns comment-type-area" id="post-comment-' + data.id + '" method="post">\
+                                <form class="large-10 columns custom comment-type-area" id="post-comment-' + data.id + '" method="post">\
                                     <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-' + data.id + '\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>\
                                     <input type="hidden" id="contentId" name="contentId" value="' + data.id + '" />\
                                     <input class="hide" type="submit" id="commnet-submit-' + data.id + '" value="post" onclick=postComment(' + data.id + ') />\
@@ -238,7 +238,7 @@
                 var url = <?php echo json_encode(URL); ?>;
                 $('<div class="row" id="post-' + data.CommentId + '">\
                         <div class="large-2 columns small-3"><img src="' + data.Profile_pic + '"/></div>\
-                        <div class="large-10 columns">\
+                        <div class="large-10 columns custom comment-content">\
                             <i id="tooltip-delete-box-' + data.CommentId + '" class="' + data.Delete + ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' + data.Commentor + '\',' + data.CommentId + ',\'' + <?php echo json_encode(COMMENT); ?>+ '\')"></i>\
                             <p>\
                                 <a href="' + <?php echo json_encode(URL); ?> + data.Commentor + '"><strong>' + data.Commentor + '</strong></a> &nbsp' + data.Comment + '\
