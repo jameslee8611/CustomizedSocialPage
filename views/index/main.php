@@ -12,28 +12,28 @@
             <div class="panel-media">
                 <!-- Profile image -->
                 <div id="profile-pic-container">
-                    <a href="<?php echo URL.Session::get('username'); ?>" class="profile-large-box"><img id="profile-pic" src="<?php echo $this->profile_pic; ?>"></a>
+                    <a href="<?php echo URL . Session::get('username'); ?>" class="profile-large-box"><img id="profile-pic" src="<?php echo $this->profile_pic; ?>"></a>
                 </div>
                 <h4><a href="<?php echo URL . Session::get('username'); ?>"><?php echo Session::get('username'); ?></a></h4>
-                    <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
-                        <hr class="nav-divider">
-                        <section class="section">
-                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
-                        </section>
-                        <hr class="nav-divider">
-                        <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>">All</a></h6>
-                        </section>
-                        <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo STATUS?>')">Status</a></h6>
-                        </section>
-                        <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo IMAGE?>')">Pictures</a></h6>
-                        </section>
-                        <section class="title">
-                            <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo VIDEO?>')">Videos</a></h6>
-                        </section>
-                    </div>
+                <div class="section-container side-nav" data-section data-options="deep_linking: false; one_up: true">
+                    <hr class="nav-divider">
+                    <section class="section">
+                        <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>setting">Setting</a></h6>
+                    </section>
+                    <hr class="nav-divider">
+                    <section class="title">
+                        <h6 style="font-size: 15px;" class="title"><a href="<?php echo URL; ?>">All</a></h6>
+                    </section>
+                    <section class="title">
+                        <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo STATUS ?>')">Status</a></h6>
+                    </section>
+                    <section class="title">
+                        <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo IMAGE ?>')">Pictures</a></h6>
+                    </section>
+                    <section class="title">
+                        <h6 style="font-size: 15px;" class="title"><a onclick="get_post_data('<?php echo VIDEO ?>')">Videos</a></h6>
+                    </section>
+                </div>
             </div>
         </div>
         <div class="large-6 columns container" id="Container">
@@ -68,63 +68,66 @@
                     </form>
                 </div>
             </div><br id="end-of-postbox">
-                <?php
-                if (isset($this->data) || !empty($this->data)) {
-                    foreach ($this->data as $info) {
-                        echo '<div class="mix" id="post-' . $info['id'] . '"><div class="row">
-                    <div class="large-2 columns small-3 custom"><img class="post-pic" src="'. $info['profile_pic_medium'] .'"/></div>
-                    <div class="large-10 columns custom">
-                        <div class="post-nd">
-                            <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
-                            <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
-                            <div class="date">
-                                ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
-                                <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
-                                    ' . $info['Privacy_description'] . '
+            <?php
+            if (isset($this->data) || !empty($this->data)) {
+                foreach ($this->data as $info) {
+                    echo '<div class="mix" id="post-' . $info['id'] . '">
+                    <div class="row">
+                        <div class="large-2 columns small-3 custom"><img class="post-pic" src="' . $info['profile_pic_medium'] . '"/></div>
+                        <div class="large-10 columns custom">
+                            <div class="post-nd">
+                                <a href="' . URL . $info['Writer'] . '"><strong>' . $info['Writer'] . '</strong> &nbsp</a>
+                                <i id="tooltip-delete-box-' . $info['id'] . '" class="' . $info['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $info['Writer'] . '\',' . $info['id'] . ',\'' . $info['Type'] . '\')"></i>
+                                <div class="date">
+                                    ' . $info['Date'] . ' &nbsp<i class="' . $info['Privacy'] . '" data-dropdown="drop2-' . $info['id'] . '" data-options="is_hover: true"></i>
+                                    <div class="f-dropdown content popover-box" id="drop2-' . $info['id'] . '" data-dropdown-content>
+                                        ' . $info['Privacy_description'] . '
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="large-12 columns">
-                        <div class="row">';
-                           if ($info['Type'] == STATUS) echo '<div class="large-12 columns post-content">' . $info['Post'] . '</div>';
-                           else if($info['Type'] == IMAGE) echo '<div class="large-12 columns post-content"><img src="' . $info['Post'] . '" alt="picture"></div>';
-                echo '  </div>
+                        <div class="large-12 columns">
+                            <div class="row">';
+                    if ($info['Type'] == STATUS)
+                        echo    '<div class="large-12 columns post-content">' . $info['Post'] . '</div>';
+                    else if ($info['Type'] == IMAGE)
+                        echo    '<div class="large-12 columns post-content"><img src="' . $info['Post'] . '" alt="picture"></div>';
+                    echo '  </div>
                         <div class="comment-head">';
-                        echo '<a href="#comment-' . $info['id'] . '">comments</a>
-                            <a href="#"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
+                    echo '<a class="comment-open" href="#comment-' . $info['id'] . '">comments</a>
+                            <a class="comment-open" data-reveal-id="commentModal"><i class="fi-comment" id="comment-count"> ' . count($info['Comments']) . '</i></a>
                         </div>
                         <hr class="comment-hr"/>
                         <div class="comment">';
-                        foreach ($info['Comments'] as $comment) {
-                       echo '<div class="row" id="post-' . $comment['CommentId'] . '">
-                                <div class="large-2 columns small-3"><img class="comment-pic" src="'. $comment['Profile_pic'] .'"/></div>
+                    foreach ($info['Comments'] as $comment) {
+                        echo '<div class="row" id="post-' . $comment['CommentId'] . '">
+                                <div class="large-2 columns small-3"><img class="comment-pic" src="' . $comment['Profile_pic'] . '"/></div>
                                 <div class="large-10 columns custom comment-content">
                                     <i id="tooltip-delete-box-' . $comment['CommentId'] . '" class="' . $comment['Delete'] . ' right has-tip delete-box" data-tooltip title="delete" onclick="delete_post(\'' . $comment['Commentor'] . '\',' . $comment['CommentId'] . ',\'' . COMMENT . '\')"></i>
                                     <p>';
-                                    echo '<a href="'. URL . $comment['Commentor'] .'"><strong>' . $comment['Commentor'] . '</strong></a> &nbsp' . $comment['Comment'] . '
+                        echo '<a href="' . URL . $comment['Commentor'] . '"><strong>' . $comment['Commentor'] . '</strong></a> &nbsp' . $comment['Comment'] . '
                                          <div class="date comment-date">' . $comment['Date'] . '</div>
                                     </p>
                                 </div>
                             </div>';
-                        }
-                        echo '   
-                            <div class="row comment-box" id="'. $info['id'] .'">
+                    }
+                    echo '   
+                            <div class="row comment-box" id="' . $info['id'] . '">
                                 <div class="large-2 columns small">
-                                    <img class="comment-pic" src="'. $info['profile_pic_small'] .'"/>
+                                    <img class="comment-pic" src="' . $info['profile_pic_small'] . '"/>
                                 </div>
-                                <form class="large-10 columns custom comment-type-area" id="post-comment-'.$info['id'].'" method="post">
-                                    <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-'.$info['id'].'\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
+                                <form class="large-10 columns custom comment-type-area" id="post-comment-' . $info['id'] . '" method="post">
+                                    <textarea onkeydown="if (event.keyCode == 13) $(\'#commnet-submit-' . $info['id'] . '\').trigger(\'click\');" id="comment-post" name="comment-post" placeholder="Comment.."></textarea>
                                     <input type="hidden" id="contentId" name="contentId" value="' . $info['id'] . '" />
-                                    <input class="hide" type="submit" id="commnet-submit-'. $info['id'] .'" value="post" onclick=postComment('. $info['id'] .') />
+                                    <input class="hide" type="submit" id="commnet-submit-' . $info['id'] . '" value="post" onclick=postComment(' . $info['id'] . ') />
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div></div>';
-                    }
                 }
-                ?>
+            }
+            ?>
         </div>
         <aside class="large-3 columns hide-for-small">
             <p><img src="http://placehold.it/300x440&text=[ad]"/></p>
@@ -133,13 +136,46 @@
     </div>
 </div>
 
-<div id="myModal" class="reveal-modal" data-reveal>
-    <h2>Change your profile picture.</h2>
-    <form enctype="multipart/form-data">
-        <input type="file" name="profile-pic-uploading" id="profile-pic-uploading" accept="image" hidden/>
-        <div class="button tiny radius" id="profile-pic-select">Select Image</div>
-        <div class="button tiny radius" id="profile-pic-upload">Upload Image</div>
-    </form>
+<div id="commentModal" class="reveal-modal" data-reveal>
+    <h4>Post details</h4>
+    <div class="row">
 
-    <div id="crop-container"></div>
+
+        <div class="large-3 columns "></div>
+
+        <div class="large-6 columns">
+            <div class="row">
+                <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
+                <div class="large-10 columns">
+                    div class="row">
+                    <div class="large-2 columns small-3 custom"><img class="post-pic" src="' . $info['profile_pic_medium'] . '"/></div>
+                    <div class="large-10 columns custom">
+                        <div class="post-nd">
+                            <a href=""><strong>$info['Writer']</strong> &nbsp</a>
+                            <i id="" class="" data-tooltip title="delete" onclick=""></i>
+                            <div class="date">
+                                $info['Date']&nbsp<i class="" data-dropdown="" data-options=""></i>
+                                <div class="f-dropdown content popover-box" id="" data-dropdown-content>
+                                    $info['Privacy_description']
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h6>2 Comments</h6>
+                    <div class="row">
+                        <div class="large-2 columns small-3"><img src="http://placehold.it/50x50&text=[img]"/></div>
+                        <div class="large-10 columns"><p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <aside class="large-3 columns hide-for-small">
+        </aside>
+
+    </div>
 </div>

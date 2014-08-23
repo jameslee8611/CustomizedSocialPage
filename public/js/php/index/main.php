@@ -448,8 +448,18 @@
             return false;
         }
     });
+    
     $('#post-textarea').click(function() {
         $('#post-friends').show();
     });
+    
+    $(document).foundation('reveal', {animation: 'none'});
+    
+    $(document).ready(function() {
+        if (!$('#commentModal').is(':visible'))
+        {
+            alert('yay');
+        }
+    })
     
 </script>

@@ -117,3 +117,9 @@
 .comment-content i{
     padding-right: 15px;
 }
+
+#commentModal .modal-body 
+{
+    max-height: 500px;
+    overflow-y: scroll;
+}
