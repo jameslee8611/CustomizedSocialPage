@@ -117,3 +117,43 @@
 .comment-content i{
     padding-right: 15px;
 }
+
+#iv-tab{
+    margin-bottom: 5px !important;
+}
+
+#iv-tab a{
+    border-radius: 5px;
+}
+
+#image-category{
+    display: inline-block;
+    padding: 10px;
+    background-color: #008cba;
+    color: white;
+    border-radius: 5px;
+    min-width: 78px;
+    min-height: 16px;
+    text-align: center;
+}
+
+.img-ctrl-check{
+    float: right;
+}
+
+.image-modal-label{
+    font-size: 20px;
+}
+
+#image-sc-container{
+    float: right;
+}
+
+#image-submit{
+    margin-right: 5px;
+}
+
+/*#image-cancel{
+    margin-right: 5px;
+    margin-top: 20px;
+}*/

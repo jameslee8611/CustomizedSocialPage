@@ -439,4 +439,8 @@
         profile_header.setAttribute("src", xsmall);
     }
     
+    $("#image-select").click(function(){
+        $("input[name='image-uploading']").click();
+    });
+    
 </script>

@@ -42,14 +42,14 @@
             <div class="row" id="post-box">
                 <div class="large-12 columns">
                     <form id="post-data" method="post" class="post-form">
-                        <ul class="tabs" data-tab>
-                            <li class="tab-title"><a class="post-icon" href="#image"><i class="fi-photo"></i></a></li>
+                        <ul class="tabs" id="iv-tab">
+                            <li class="tab-title"><a class="post-icon" href="#image" data-reveal-id="insert-image-modal"><i class="fi-photo"></i></a></li>
                             <li class="tab-title"><a class="post-icon" href="#video"><i class="fi-video"></i></a></li>
                         </ul>
-                        <div class="tabs-content custom">
+                        <!--<div class="tabs-content custom">
                             <div class="content custom" id="image">Image<i class="fi-x"></i></div>
                             <div class="content custom" id="video">Video<i class="fi-x"></i></div>
-                        </div>
+                        </div>-->
                         <div class="post-container">
                             <textarea id="post-textarea" name="post-text" rows="3" placeholder="Type Content to Post"></textarea>
                             <div id="post-friends" class="row custom" hidden>
@@ -151,4 +151,36 @@
     </form>
 
     <div id="crop-container"></div>
+</div>
+
+<div id="insert-image-modal" class="reveal-modal" data-reveal>
+    <h2>Insert Image</h2>
+    <form enctype="multipart/form-data">
+        <input type="file" name="image-uploading" id="image-uploading" accept="image" hidden/>
+        <div class="button tiny radius" id="image-select">Select Image</div>
+    </form>
+
+    <div class="row" id="insert-image-content">
+        <div class="large-6 columns">
+            <div id="image-container"><img src="public/images/original.jpg"/></div>
+        </div>
+        <div class="large-6 columns">
+            <form>
+                <label class="image-modal-label" for="image-title">Insert Title</label>
+                <input type="text" id="image-title"/>
+                <label class="image-modal-label" for="image-text">Insert Text</label>
+                <textarea id="image-text" rows="3" placeholder="Type Text"></textarea>
+                <a href="#" data-dropdown="image-category-list" id="image-category" data-options="align:right">Select Category</a>
+                <ui id="image-category-list" class="f-dropdown" data-dropdown-content>
+                    <li><a href="#" class="filter image-category">All<i class="img-ctrl-check fi-check"></i></a></li>
+                    <li><a href="#" class="filter image-category">Category 1<i class="img-ctrl-check"></i></a></li>
+                    <li><a href="#" class="filter image-category">Category 2<i class="img-ctrl-check"></i></a></li>
+                </ui>
+            </form>
+            <div id="image-sc-container">
+                <div class="button tiny radius" id="image-submit">Submit</div>
+                <div class="button tiny radius" id="image-cancel">Cancel</div>
+            </div>
+        </div>
+    </div>
 </div>

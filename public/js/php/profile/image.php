@@ -30,6 +30,7 @@
             $("#profile-pic-upload").css("display", "none");
         }
     });
+
     $('a.change-profile-pic').trigger('click');
 
     $("#profile-pic-select").click(function(){
