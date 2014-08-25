@@ -161,13 +161,13 @@
     </form>
 
     <div class="row" id="insert-image-content">
-        <div class="large-6 columns">
-            <div id="image-container"><img src="public/images/original.jpg"/></div>
+        <div class="large-6 columns" id="image-preview">
+            <div id="image-container"></div>
         </div>
-        <div class="large-6 columns">
+        <div class="large-6 columns" id="image-text-container">
             <form>
                 <label class="image-modal-label" for="image-title">Insert Title</label>
-                <input type="text" id="image-title"/>
+                <input type="text" id="image-title" placeholder="Type Title"/>
                 <label class="image-modal-label" for="image-text">Insert Text</label>
                 <textarea id="image-text" rows="3" placeholder="Type Text"></textarea>
                 <a href="#" data-dropdown="image-category-list" id="image-category" data-options="align:right">Select Category</a>
@@ -179,7 +179,7 @@
             </form>
             <div id="image-sc-container">
                 <div class="button tiny radius" id="image-submit">Submit</div>
-                <div class="button tiny radius" id="image-cancel">Cancel</div>
+                <div class="button tiny radius close-reveal-modal" id="image-cancel">Cancel</div>
             </div>
         </div>
     </div>

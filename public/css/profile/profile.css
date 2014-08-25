@@ -153,6 +153,10 @@
     margin-right: 5px;
 }
 
+#image-preview{
+    padding: 0;
+}
+
 /*#image-cancel{
     margin-right: 5px;
     margin-top: 20px;

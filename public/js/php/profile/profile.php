@@ -348,6 +348,7 @@
             $("#profile-pic-upload").css("display", "none");
         }
     });
+
     $('a.change-profile-pic').trigger('click');
 
     $("#profile-pic-select").click(function(){
@@ -442,5 +443,58 @@
     $("#image-select").click(function(){
         $("input[name='image-uploading']").click();
     });
-    
+
+    $("#image-preview, #image-text-container").hide();
+
+    $("#image-cancel").click(function(){
+        $("#image-container").empty();
+        $("#image-title").val("");
+        $("#image-text").val("");
+        $("#image-preview, #image-text-container").hide();
+        $("input[name='image-uploading']").val(null);       
+    });
+
+    $("input[name='image-uploading']").on("change", function(evt){
+        var files = evt.target.files[0];
+        if(files != null){
+            $("#image-preview, #image-text-container").show();
+            var reader = new FileReader();
+            reader.onload = function(files){
+                var image = document.createElement("img");
+                image.setAttribute("id", "preview_image");
+                image.setAttribute("src", files.target.result);
+                var image_container = document.getElementById("image-container");
+                image_container.appendChild(image);
+            }
+            reader.readAsDataURL(files);
+            $("#image-container").empty();
+        }
+        else
+        {
+            //$("#image-container").empty();
+            //$("#image-preview, #image-text-container").hide();
+        }
+    });
+
+    $("#image-submit").click(function(){
+        var post_data = new FormData();
+        
+        post_data.append("file", document.getElementById("image-uploading").files[0]);
+
+        /*$.ajax({
+            type:"POST",
+            url: <?php echo json_encode(URL . 'profile/picture_ajax/' . $this->username); ?>,
+            data: post_data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+                $("#image-container").empty();
+                $('#insert-image-modal').foundation('reveal', 'close');
+            },
+            error: function(){
+                alert("Failed!");
+            }
+        });*/
+    });
+
 </script>
