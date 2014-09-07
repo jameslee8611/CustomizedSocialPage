@@ -20,7 +20,7 @@
         <div class="large-6 small-6 columns">
             <img src="http://placehold.it/400x300&amp;text=[img]">
             <h4>Jae Yun Song</h4>
-            <p>Here, I am taking front-end job. However, I am also taking a responsibility for about uploading & showing images on the page.</p>
+            <p>Here, I am taking care of the front-end jobs for this website. However, I am also taking a responsibility for uploading & showing images on the page.</p>
         </div>
     </div>
 </div>

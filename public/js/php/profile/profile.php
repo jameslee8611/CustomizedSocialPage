@@ -476,25 +476,40 @@
         }
     });
 
+    $(".image-category").click(function(){
+        var text = $(this).html();
+        $("#image-category").html(text);
+        $("#image-category-list").removeClass("open");
+        $("#image-category-list").css("left", "-99999px");
+
+        $(".img-ctrl-check").removeClass("fi-check");
+        $(this).find("i").addClass("fi-check");
+    });
+
     $("#image-submit").click(function(){
         var post_data = new FormData();
         
         post_data.append("file", document.getElementById("image-uploading").files[0]);
 
-        /*$.ajax({
+        $.ajax({
             type:"POST",
-            url: <?php echo json_encode(URL . 'profile/picture_ajax/' . $this->username); ?>,
+            url: <?php echo json_encode(URL . 'profile/upload_image_ajax/' . $this->username); ?>,
             data: post_data,
             processData: false,
             contentType: false,
             success: function(data){
+                alert(data);
                 $("#image-container").empty();
+                $("#image-title").val("");
+                $("#image-text").val("");
+                $("#image-preview, #image-text-container").hide();
+                $("input[name='image-uploading']").val(null); 
                 $('#insert-image-modal').foundation('reveal', 'close');
             },
             error: function(){
                 alert("Failed!");
             }
-        });*/
+        });
     });
 
 </script>

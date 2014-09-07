@@ -519,4 +519,21 @@ class Profile_Model extends Model {
         }
     }
 
+    public function upload_image($username) {
+        $image_info = getimagesize($_FILES["file"]["tmp_name"]);
+        if ($image_info[2] == IMAGETYPE_GIF || $image_info[2] == IMAGETYPE_JPEG || $image_info[2] == IMAGETYPE_PNG) {
+            $date = date("Ymdhisu");
+            $image_path = "public/images/image/" . $date . "_" . $username;
+
+            $image = imagecreatefromjpeg($_FILES["file"]["tmp_name"]);
+            
+            imagejpeg($image, $image_path . "_original.jpg", 100);
+            imagedestroy($image);
+            
+            return "Image Uploaded!";
+        } else {
+            return "Invalid Image Type!";
+        }
+    }
+
 }

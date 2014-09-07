@@ -108,6 +108,18 @@ class Profile extends Controller {
         }
     }
     
+    public function upload_image_ajax($username)
+    {
+        if(Session::get('loggedIn') && $username == Session::get('username'))
+        {
+            echo $this->model->upload_image($username);
+        }
+        else
+        {
+            $this->redirect_error();
+        }
+    }
+
     public function get_status_ajax()
     {
         if(Session::get('loggedIn'))
